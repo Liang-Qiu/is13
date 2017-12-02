@@ -6,57 +6,68 @@ import time
 
 import numpy as np
 import tensorflow as tf
+from google.protobuf import text_format
+from keras.utils.np_utils import to_categorical
 
 sys.path.append('../')
 from is13.data import load
 from is13.metrics.accuracy import conlleval
 from is13.utils.tools import shuffle
 
-def _LoadLM(gd_file, ckpt_file):
-    """Load the model from GraphDef and Checkpoint.
+flags = tf.app.flags
 
-    Args:
-      gd_file: GraphDef proto text file.
-      ckpt_file: TensorFlow Checkpoint file.
+flags.DEFINE_integer(
+    'batch_size', 1,  # TODO
+    'Training batch size.')
 
-    Returns:
-      TensorFlow session and tensors dict.
-    """
-    with tf.Graph().as_default():
-        sys.stderr.write('Recovering graph.\n')
-        with tf.gfile.FastGFile(gd_file, 'r') as f:
-            s = f.read()  # .decode()
-            gd = tf.GraphDef()
-            text_format.Merge(s, gd)
+flags.DEFINE_integer(
+    'embedding_size', 200,  # TODO
+    'Word embedding size.')
 
-        tf.logging.info('Recovering Graph %s', gd_file)
-        t = {}
-        [t['states_init'], t['lstm/lstm_0/control_dependency'],
-         t['lstm/lstm_1/control_dependency'], t['softmax_out'], t['class_ids_out'],
-         t['class_weights_out'], t['log_perplexity_out'], t['inputs_in'],
-         t['targets_in'], t['target_weights_in'], t['char_inputs_in'],
-         t['all_embs'], t['softmax_weights'], t['global_step']
-         ] = tf.import_graph_def(gd, {}, ['states_init',
-                                          'lstm/lstm_0/control_dependency:0',
-                                          'lstm/lstm_1/control_dependency:0',
-                                          'softmax_out:0',
-                                          'class_ids_out:0',
-                                          'class_weights_out:0',
-                                          'log_perplexity_out:0',
-                                          'inputs_in:0',
-                                          'targets_in:0',
-                                          'target_weights_in:0',
-                                          'char_inputs_in:0',
-                                          'all_embs_out:0',
-                                          'Reshape_3:0',
-                                          'global_step:0'], name='')
+flags.DEFINE_integer(
+    'hidden_size', 200,  # TODO
+    'RNN hidden size.')
 
-        # sys.stderr.write('Recovering checkpoint %s\n' % ckpt_file)
-        # sess = tf.Session(config=tf.ConfigProto(allow_soft_placement=True))
-        # sess.run('save/restore_all', {'save/Const:0': ckpt_file})
-        # sess.run(t['states_init'])
+flags.DEFINE_integer(
+    'num_layers', 2,  # TODO
+    'RNN layers.')
 
-    return t
+flags.DEFINE_float(
+    'keep_prob', 0.8,  # TODO
+    'Drop out keep probability.')
+
+tf.flags.DEFINE_string(
+    'pbtxt', 'data/graph-2016-09-10.pbtxt',
+    'GraphDef proto text file used to construct model structure.')
+
+tf.flags.DEFINE_string(
+    'ckpt', 'data/ckpt-*',
+    'Checkpoint directory used to fill model values.')
+
+tf.flags.DEFINE_string(
+    'vocab_file', 'data/vocab-2016-09-10.txt',
+    'Vocabulary file.')
+
+FLAGS = flags.FLAGS
+# def _LoadLM(gd_file, ckpt_file):
+#     """Load the model from GraphDef and Checkpoint.
+#
+#     Args:
+#       gd_file: GraphDef proto text file.
+#       ckpt_file: TensorFlow Checkpoint file.
+#
+#     Returns:
+#       TensorFlow session and tensors dict.
+#     """
+#     with tf.Graph().as_default():
+#
+#
+#         # sys.stderr.write('Recovering checkpoint %s\n' % ckpt_file)
+#         # sess = tf.Session(config=tf.ConfigProto(allow_soft_placement=True))
+#         # sess.run('save/restore_all', {'save/Const:0': ckpt_file})
+#         # sess.run(t['states_init'])
+#
+#     return t
 
 # def _rnn_model(is_training, lm_inputs, st_inputs, labels, lengths, batch_size=FLAGS.batch_size):
 #     # TODO
@@ -103,43 +114,77 @@ if __name__ == '__main__':
     random.seed(s['seed'])
 
     with tf.Graph().as_default(), tf.Session(config=tf.ConfigProto(allow_soft_placement=True)) as sess:
-        embeddings = tf.placeholder(tf.float32, shape=[1, None, 128])
-        zero_labels = tf.zeros([1, NUM_CLASSES], dtype=tf.int32)
+        # TODO
+        inputs = tf.placeholder(tf.int32, shape=[FLAGS.batch_size, None])  # TODO batch_size
+        labels = tf.placeholder(tf.int32, shape=[FLAGS.batch_size, None, nclasses])
 
         with tf.name_scope('Train'):
+            # with tf.name_scope('LM'):
+            #     # vocab = data_utils.CharsVocabulary(FLAGS.vocab_file, MAX_WORD_LEN)
+            #
+            #     sys.stderr.write('Recovering graph.\n')
+            #     with tf.gfile.FastGFile(FLAGS.pbtxt, 'r') as f:
+            #         s = f.read()  # .decode()
+            #         gd = tf.GraphDef()
+            #         text_format.Merge(s, gd)
+            #     tf.logging.info('Recovering Graph %s', FLAGS.pbtxt)
+            #     LM = {}
+            #     [LM['states_init'], LM['lstm/lstm_0/control_dependency'],
+            #      LM['lstm/lstm_1/control_dependency'], LM['softmax_out'], LM['class_ids_out'],
+            #      LM['class_weights_out'], LM['log_perplexity_out'], LM['inputs_in'],
+            #      LM['targets_in'], LM['target_weights_in'], LM['char_inputs_in'],
+            #      LM['all_embs'], LM['softmax_weights'], LM['global_step']
+            #      ] = tf.import_graph_def(gd, {}, ['states_init',
+            #                                       'lstm/lstm_0/control_dependency:0',
+            #                                       'lstm/lstm_1/control_dependency:0',
+            #                                       'softmax_out:0',
+            #                                       'class_ids_out:0',
+            #                                       'class_weights_out:0',
+            #                                       'log_perplexity_out:0',
+            #                                       'inputs_in:0',
+            #                                       'targets_in:0',
+            #                                       'target_weights_in:0',
+            #                                       'char_inputs_in:0',
+            #                                       'all_embs_out:0',
+            #                                       'Reshape_3:0',
+            #                                       'global_step:0'], name='')
+
             with tf.variable_scope('Model', reuse=None):
-                LM = _LoadLM()
-                st_embedding_char = CNN(one-hot(sentences))
-                st_embedding_word = GloVe(one-hot(sentences))
-                lm_embedding = LM['lstm/lstm_1/control_dependency']
-                embeddings = tf.concatenate(st_embedding_charm, st_embedding_word, lm_embedding)  # TODO
+                with tf.device("/cpu:0"):
+                    embedding = tf.get_variable("word_embedding", [vocsize, FLAGS.embedding_size], dtype=tf.float32)
+                word_embedding = tf.nn.embedding_lookup(embedding, inputs, name='word_embedding')
+
+                # TODO st_embedding_char = CNN(one-hot(sentences))
+                # TODO st_embedding_word = GloVe(one-hot(sentences))
+                # lm_embedding = LM['lstm/lstm_1/control_dependency']
+                # embeddings = tf.concat([word_embedding, lm_embedding], 2)  # TODO
 
                 with tf.variable_scope('RNN'):
-                # Add a gru_cell
-                gru_cell = tf.nn.rnn_cell.GRUCell(FLAGS.hidden_size)
-                if is_training and FLAGS.keep_prob < 1:
-                    gru_cell = tf.nn.rnn_cell.DropoutWrapper(gru_cell, output_keep_prob=FLAGS.keep_prob)
-                cell = tf.nn.rnn_cell.MultiRNNCell([gru_cell] * FLAGS.num_layers, state_is_tuple=True)
-                initial_state = cell.zero_state(batch_size, tf.float32)
+                    # Add a gru_cell
+                    gru_cell = tf.nn.rnn_cell.GRUCell(FLAGS.hidden_size)
+                    #if is_training and FLAGS.keep_prob < 1:
+                    #    gru_cell = tf.nn.rnn_cell.DropoutWrapper(gru_cell, output_keep_prob=FLAGS.keep_prob)
+                    cell = tf.nn.rnn_cell.MultiRNNCell([gru_cell] * FLAGS.num_layers, state_is_tuple=True)
+                    initial_state = cell.zero_state(FLAGS.batch_size, tf.float32)
 
-                # if is_training and FLAGS.keep_prob < 1:
-                embeddings = tf.nn.dropout(embeddings, FLAGS.keep_prob)
-                sequence_length = tf.reshape(lengths, [-1])
-                (outputs, final_state) = tf.nn.dynamic_rnn(cell, embeddings, sequence_length=sequence_length,
-                                                            initial_state = initial_state)
-                output = tf.reshape(outputs[:, -1, :], [-1, FLAGS.hidden_size])
-                weights = tf.get_variable("weights", [FLAGS.hidden_size, vggish_params.NUM_CLASSES], dtype=tf.float32)
-                biases = tf.get_variable("biases", [vggish_params.NUM_CLASSES], dtype=tf.float32)
-                logits = tf.add(tf.matmul(output, weights), biases, name="logits")
+                    # if is_training and FLAGS.keep_prob < 1:
+                    embeddings = tf.nn.dropout(word_embedding, FLAGS.keep_prob)
+                    # sequence_length = tf.reshape(lengths, [-1])
+                    (outputs, final_state) = tf.nn.dynamic_rnn(cell, embeddings, initial_state=initial_state)
+                    output = tf.reshape(outputs, [-1, FLAGS.hidden_size])
+                    weights = tf.get_variable("weights", [FLAGS.hidden_size, nclasses], dtype=tf.float32)
+                    biases = tf.get_variable("biases", [nclasses], dtype=tf.float32)
+                    logits = tf.add(tf.matmul(output, weights), biases, name="logits")
+                    logits = tf.reshape(logits, [FLAGS.batch_size, -1, nclasses])
 
-                prediction = tf.nn.softmax(logits, name='prediction')
-                #		correct_prediction = tf.equal(tf.argmax(prediction, 1), tf.argmax(labels, 1), name='result')
+                    # prediction = tf.nn.softmax(logits, name='prediction')
+                    #		correct_prediction = tf.equal(tf.argmax(prediction, 1), tf.argmax(labels, 1), name='result')
 
-                if is_training:
+                    #if is_training:
                     cross_entropy = tf.nn.softmax_cross_entropy_with_logits(logits=logits, labels=labels)
-                cost = tf.reduce_mean(cross_entropy, name='cost')
-                tf.summary.scalar('cost', cost)
-                optimizer = tf.train.RMSPropOptimizer(learning_rate=0.001).minimize(cost, name='train_op')
+                    cost = tf.reduce_mean(cross_entropy, name='cost')
+                    tf.summary.scalar('cost', cost)
+                    optimizer = tf.train.RMSPropOptimizer(learning_rate=0.001).minimize(cost, name='train_op')
 
 
         # with tf.name_scope('Test'):
@@ -148,18 +193,23 @@ if __name__ == '__main__':
 
         # Initialize all variables in the model
 
+        for n in tf.get_default_graph().as_graph_def().node:
+            print (n.name)
+        # word_embedding_tensor = sess.graph.get_tensor_by_name('Train/Model/word_embedding:0')
+        # print(word_embedding_tensor.get_shape())
+        # print(sess.run(tf.shape(word_embedding_tensor)))
         train_op = sess.graph.get_operation_by_name('Train/Model/RNN/train_op')
 
         # language model tensors
-        lm_init_op = sess.graph.get_operation_by_name('Train/Model/states_init')
-        char_inputs_in_tensor = sess.graph.get_tensor_by_name('Train/Model/char_inputs_in')
-        inputs_in_tensor = sess.graph.get_tensor_by_name('Train/Model/inputs_in')
-        targets_in_tensor = sess.graph.get_tensor_by_name('Train/Model/targets_in')
-        targets_weights_in_tensor = sess.graph.get_tensor_by_name('Train/Model/target_weights_in')
+        # lm_init_op = sess.graph.get_operation_by_name('Train/Model/states_init')
+        # char_inputs_in_tensor = sess.graph.get_tensor_by_name('Train/Model/char_inputs_in')
+        # inputs_in_tensor = sess.graph.get_tensor_by_name('Train/Model/inputs_in')
+        # targets_in_tensor = sess.graph.get_tensor_by_name('Train/Model/targets_in')
+        # targets_weights_in_tensor = sess.graph.get_tensor_by_name('Train/Model/target_weights_in')
 
         # init
-        sess.run('save/restore_all', {'save/Const:0': ckpt_file})
-        sess.run(lm_init_op)
+        # sess.run('save/restore_all', {'save/Const:0': ckpt_file})
+        # sess.run(lm_init_op)
         init_op = tf.group(tf.global_variables_initializer(), tf.local_variables_initializer())
         sess.run(init_op)
         coord = tf.train.Coordinator()
@@ -178,15 +228,16 @@ if __name__ == '__main__':
                 Y = to_categorical(np.asarray(train_y[i])[:, np.newaxis], nclasses)[np.newaxis, :, :]
                 if X.shape[1] == 1:
                     continue  # bug with X, Y of len 1
+                # print(X.shape)
+                # print(Y.shape)
 
-                [summary, _] = sess.run([merged, train_op], feed_dict = {embeddings: postprocessed_batch,
-                                                                    lengths: [postprocessed_batch.shape[1]]})
+                [_] = sess.run([train_op], feed_dict={inputs: X, labels: Y})
                 step += 1
-
-        if s['verbose']:
-            print('[learning] epoch %i >> %2.2f%%' % (e, (i + 1) * 100. / nsentences),
-                'completed in %.2f (sec) <<\r' % (time.time() - tic))
-            sys.stdout.flush()
+        #
+        # if s['verbose']:
+        #     print('[learning] epoch %i >> %2.2f%%' % (e, (i + 1) * 100. / nsentences),
+        #         'completed in %.2f (sec) <<\r' % (time.time() - tic))
+        #     sys.stdout.flush()
 
     #     # evaluation // back into the real world : idx -> words
     #         try:
