@@ -6,7 +6,6 @@ import time
 
 import numpy as np
 import tensorflow as tf
-from google.protobuf import text_format
 from keras.utils.np_utils import to_categorical
 
 sys.path.append('../')
@@ -91,7 +90,7 @@ if __name__ == '__main__':
          'nhidden': 100,  # number of hidden units
          'seed': 345,
          'emb_dimension': 100,  # dimension of word embedding
-         'nepochs': 50}
+         'nepochs': 5}
 
     folder = os.path.join('out/', os.path.basename(__file__).split('.')[0])  # folder = 'out/bilstm-lm'
     os.makedirs(folder, exist_ok=True)
@@ -114,8 +113,7 @@ if __name__ == '__main__':
     random.seed(s['seed'])
 
     with tf.Graph().as_default(), tf.Session(config=tf.ConfigProto(allow_soft_placement=True)) as sess:
-        # TODO
-        inputs = tf.placeholder(tf.int32, shape=[FLAGS.batch_size, None])  # TODO batch_size
+        inputs = tf.placeholder(tf.int32, shape=[FLAGS.batch_size, None])
         labels = tf.placeholder(tf.int32, shape=[FLAGS.batch_size, None, nclasses])
 
         with tf.name_scope('Train'):
@@ -162,7 +160,7 @@ if __name__ == '__main__':
                 with tf.variable_scope('RNN'):
                     # Add a gru_cell
                     gru_cell = tf.nn.rnn_cell.GRUCell(FLAGS.hidden_size)
-                    #if is_training and FLAGS.keep_prob < 1:
+                    # if is_training and FLAGS.keep_prob < 1:
                     #    gru_cell = tf.nn.rnn_cell.DropoutWrapper(gru_cell, output_keep_prob=FLAGS.keep_prob)
                     cell = tf.nn.rnn_cell.MultiRNNCell([gru_cell] * FLAGS.num_layers, state_is_tuple=True)
                     initial_state = cell.zero_state(FLAGS.batch_size, tf.float32)
@@ -177,15 +175,14 @@ if __name__ == '__main__':
                     logits = tf.add(tf.matmul(output, weights), biases, name="logits")
                     logits = tf.reshape(logits, [FLAGS.batch_size, -1, nclasses])
 
-                    # prediction = tf.nn.softmax(logits, name='prediction')
+                    prediction = tf.nn.softmax(logits, name='prediction')
                     #		correct_prediction = tf.equal(tf.argmax(prediction, 1), tf.argmax(labels, 1), name='result')
 
-                    #if is_training:
+                    # if is_training:
                     cross_entropy = tf.nn.softmax_cross_entropy_with_logits(logits=logits, labels=labels)
                     cost = tf.reduce_mean(cross_entropy, name='cost')
                     tf.summary.scalar('cost', cost)
                     optimizer = tf.train.RMSPropOptimizer(learning_rate=0.001).minimize(cost, name='train_op')
-
 
         # with tf.name_scope('Test'):
         #     with tf.variable_scope('Model', reuse=None):
@@ -196,9 +193,11 @@ if __name__ == '__main__':
         for n in tf.get_default_graph().as_graph_def().node:
             print (n.name)
         # word_embedding_tensor = sess.graph.get_tensor_by_name('Train/Model/word_embedding:0')
-        # print(word_embedding_tensor.get_shape())
+
         # print(sess.run(tf.shape(word_embedding_tensor)))
         train_op = sess.graph.get_operation_by_name('Train/Model/RNN/train_op')
+        prediction_tensor = sess.graph.get_tensor_by_name('Train/Model/RNN/prediction:0')
+        # print(prediction_tensor.get_shape())
 
         # language model tensors
         # lm_init_op = sess.graph.get_operation_by_name('Train/Model/states_init')
@@ -222,77 +221,57 @@ if __name__ == '__main__':
             shuffle([train_lex, train_ne, train_y], s['seed'])
             s['ce'] = e
             tic = time.time()
-            step = 0
             for i in range(nsentences):
                 X = np.asarray([train_lex[i]])
                 Y = to_categorical(np.asarray(train_y[i])[:, np.newaxis], nclasses)[np.newaxis, :, :]
-                if X.shape[1] == 1:
-                    continue  # bug with X, Y of len 1
-                # print(X.shape)
-                # print(Y.shape)
+                [_] = sess.run([train_op], feed_dict={inputs: X, labels: Y})  # TODO print loss
 
-                [_] = sess.run([train_op], feed_dict={inputs: X, labels: Y})
-                step += 1
-        #
-        # if s['verbose']:
-        #     print('[learning] epoch %i >> %2.2f%%' % (e, (i + 1) * 100. / nsentences),
-        #         'completed in %.2f (sec) <<\r' % (time.time() - tic))
-        #     sys.stdout.flush()
+                if s['verbose']:
+                    print('[learning] epoch %i >> %2.2f%%' % (e, (i + 1) * 100. / nsentences),
+                          'completed in %.2f (sec) <<\r' % (time.time() - tic))
+                    sys.stdout.flush()
 
-    #     # evaluation // back into the real world : idx -> words
-    #         try:
-    #             step = 0
-    #             total_case_num = 0
-    #             right_num = 0
-    #             while not coord.should_stop():
-    #                 [predict_y, test_y] = sess.run([test_pred_tensor, test_label_tensor])
-    #                 #					total_case_num += FLAGS.batch_size
-    #                 #					right_num += np.sum(result)
-    #                 if step == 0:
-    #                     predict_Y = np.argmax(predict_y, axis=1)
-    #                     test_Y = np.argmax(test_y, axis=1)
-    #                 else:
-    #                     predict_Y = np.concatenate((predict_Y, np.argmax(predict_y, axis=1)), axis=0)
-    #                     test_Y = np.concatenate((test_Y, np.argmax(test_y, axis=1)), axis=0)
-    #                 # print('step:', step)
-    #                 #					print('predict_y', predict_y)
-    #                 #					print('test_y', test_y)
-    #                 #					for i in test_y:
-    #                 #						if np.sum(i) != 1:
-    #                 #							print('test_y', i)
-    #                 #					print('result:', result)
-    #                 step += 1
-    #
-    #
-    #
-    #     predictions_test = [map(lambda x: idx2label[x],
-    #                             model.predict_on_batch(np.asarray([x])).argmax(2)[0])
-    #                         for x in test_lex]
-    #     groundtruth_test = [map(lambda x: idx2label[x], y) for y in test_y]
-    #     words_test = [map(lambda x: idx2word[x], w) for w in test_lex]
-    #
-    #     predictions_valid = [map(lambda x: idx2label[x],
-    #                              model.predict_on_batch(np.asarray([x])).argmax(2)[0])
-    #                          for x in valid_lex]
-    #     groundtruth_valid = [map(lambda x: idx2label[x], y) for y in valid_y]
-    #     words_valid = [map(lambda x: idx2word[x], w) for w in valid_lex]
-    #
-    #     # evaluation // compute the accuracy using conlleval.pl
-    #     res_test = conlleval(predictions_test, groundtruth_test, words_test, folder + '/current.test.txt')
-    #     res_valid = conlleval(predictions_valid, groundtruth_valid, words_valid, folder + '/current.valid.txt')
-    #
-    #     if res_valid['f1'] > best_f1:  # TODO best valid-f1?
-    #         os.makedirs('weights/', exist_ok=True)
-    #         model.save_weights('weights/best_model.h5', overwrite=True)
-    #         best_f1 = res_valid['f1']
-    #         # if s['verbose']:
-    #         print('NEW BEST: epoch', e, 'valid F1', res_valid['f1'], 'best test F1', res_test['f1'], ' ' * 20)
-    #         s['vf1'], s['vp'], s['vr'] = res_valid['f1'], res_valid['p'], res_valid['r']
-    #         s['tf1'], s['tp'], s['tr'] = res_test['f1'], res_test['p'], res_test['r']
-    #         s['be'] = e
-    #         subprocess.call(['mv', folder + '/current.test.txt', folder + '/best.test.txt'])
-    #         subprocess.call(['mv', folder + '/current.valid.txt', folder + '/best.valid.txt'])
-    #     else:
-    #         print('')
-    #
-    # print('BEST RESULT: epoch', e, 'valid F1', s['vf1'], 'best test F1', s['tf1'], 'with the model', folder)
+            # evaluation // back into the real world : idx -> words
+            predictions_valid = []
+            for i in range(len(valid_lex)):
+                X = np.asarray([valid_lex[i]])
+                zero_labels = np.zeros([1, X.shape[1], nclasses], dtype=np.int32)
+
+                [predict_y] = sess.run([prediction_tensor], feed_dict={inputs: X, labels: zero_labels})
+                predict_labels = map(lambda x: idx2label[x], predict_y.argmax(2)[0])
+                predictions_valid.append(predict_labels)
+            groundtruth_valid = [map(lambda x: idx2label[x], y) for y in valid_y]
+            words_valid = [map(lambda x: idx2word[x], w) for w in valid_lex]
+
+            # test // back into the real world : idx -> words
+            predictions_test = []
+            for i in range(len(test_lex)):
+                X = np.asarray([test_lex[i]])
+                zero_labels = np.zeros([1, X.shape[1], nclasses], dtype=np.int32)
+
+                [predict_y] = sess.run([prediction_tensor], feed_dict={inputs: X, labels: zero_labels})
+                predict_labels = map(lambda x: idx2label[x], predict_y.argmax(2)[0])
+                predictions_test.append(predict_labels)
+
+            groundtruth_test = [map(lambda x: idx2label[x], y) for y in test_y]
+            words_test = [map(lambda x: idx2word[x], w) for w in test_lex]
+
+            # evaluation // compute the accuracy using conlleval.pl
+            res_test = conlleval(predictions_test, groundtruth_test, words_test, folder + '/current.test.txt')
+            res_valid = conlleval(predictions_valid, groundtruth_valid, words_valid, folder + '/current.valid.txt')
+
+            if res_valid['f1'] > best_f1:  # TODO best valid-f1?
+                # os.makedirs('weights/', exist_ok=True)
+                # model.save_weights('weights/best_model.h5', overwrite=True) TODO
+                best_f1 = res_valid['f1']
+                # if s['verbose']:
+                print('NEW BEST: epoch', e, 'best valid F1', res_valid['f1'], 'test F1', res_test['f1'], ' ' * 20)
+                s['vf1'], s['vp'], s['vr'] = res_valid['f1'], res_valid['p'], res_valid['r']
+                s['tf1'], s['tp'], s['tr'] = res_test['f1'], res_test['p'], res_test['r']
+                s['be'] = e
+                subprocess.call(['mv', folder + '/current.test.txt', folder + '/best.test.txt'])
+                subprocess.call(['mv', folder + '/current.valid.txt', folder + '/best.valid.txt'])
+            else:
+                print('')
+
+    print('BEST RESULT: epoch', s['be'], 'best valid F1', s['vf1'], 'test F1', s['tf1'], 'with the model', folder)

@@ -77,6 +77,7 @@ if __name__ == '__main__':
         predictions_test = [map(lambda x: idx2label[x],
                                 model.predict_on_batch(np.asarray([x])).argmax(2)[0])
                             for x in test_lex]
+        print(len(predictions_test))
         groundtruth_test = [map(lambda x: idx2label[x], y) for y in test_y]
         words_test = [map(lambda x: idx2word[x], w) for w in test_lex]
 
