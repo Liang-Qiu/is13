@@ -18,6 +18,7 @@
 import os
 import sys
 
+sys.path.append('../')
 from is13.lm_1b import data_utils
 import numpy as np
 import tensorflow as tf
@@ -265,12 +266,15 @@ def _DumpSentenceEmbedding(sentence, vocab):
     word_ids = [vocab.word_to_id(w) for w in sentence.split()]
     char_ids = [vocab.word_to_char_ids(w) for w in sentence.split()]
 
-    inputs = np.zeros([BATCH_SIZE, NUM_TIMESTEPS], np.int32)
-    char_ids_inputs = np.zeros(
-        [BATCH_SIZE, NUM_TIMESTEPS, vocab.max_word_length], np.int32)
+    # inputs = np.zeros([BATCH_SIZE, NUM_TIMESTEPS], np.int32)
+    # char_ids_inputs = np.zeros(
+    #     [BATCH_SIZE, NUM_TIMESTEPS, vocab.max_word_length], np.int32)
     for i in xrange(len(word_ids)):
-        inputs[0, 0] = word_ids[i]
-        char_ids_inputs[0, 0, :] = char_ids[i]
+        inputs = np.zeros([BATCH_SIZE, i+1], np.int32)
+        char_ids_inputs = np.zeros(
+            [BATCH_SIZE, i+1, vocab.max_word_length], np.int32)
+        inputs[0, :] = word_ids[0:i]
+        char_ids_inputs[0, :, :] = char_ids[0:i]
 
         # Add 'lstm/lstm_0/control_dependency' if you want to dump previous layer
         # LSTM.
@@ -295,7 +299,7 @@ def SentenceEmbedding(sentences, filepath):
 
     embeddings = []
     step = 0
-    print(len(sentences))
+    print('@', len(sentences))
     for sentence in sentences:
         if sentence.find('<S>') != 0:
             sentence = '<S> ' + sentence
@@ -321,14 +325,15 @@ def SentenceEmbedding(sentences, filepath):
                                            t['target_weights_in']: weights})
             embedding.append(lstm_emb[0, :])
         # embedding = np.reshape(np.asarray(embedding), [1, -1, 1024])[:, 0:-1, :]  # TODO
-        # print(np.asarray(embedding).shape)
+        print('#', np.asarray(embedding).shape)
         embeddings.append(embedding)
         # print(np.asarray(embeddings).shape)
         print('[embedding] step %i >> %2.2f%%' % (step, (step + 1) * 100. / len(sentences)))
         step += 1
+    print('#', np.asarray(embeddings).shape)
+    # embeddings = np.reshape(np.asarray(embeddings), [len(sentences), -1, 1024])
+    np.save(filepath, np.asarray(embeddings))
 
-    embeddings = np.reshape(np.asarray(embeddings), [len(sentences), -1, 1024])
-    np.save(filepath, embeddings)
 
 def main(unused_argv):
     vocab = data_utils.CharsVocabulary(FLAGS.vocab_file, MAX_WORD_LEN)

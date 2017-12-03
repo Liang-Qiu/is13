@@ -93,7 +93,7 @@ if __name__ == '__main__':
 
     s = {'fold': 0,  # 5 folds 0,1,2,3,4
          'lr': 0.1,
-         'verbose': 0,
+         'verbose': 1,
          'nhidden': 100,  # number of hidden units
          'seed': 345,
          'emb_dimension': 100,  # dimension of word embedding
@@ -115,24 +115,29 @@ if __name__ == '__main__':
     nclasses = len(dic['labels2idx'])
     nsentences = len(train_lex)
 
-    words_train = [' '.join(list(map(lambda x: idx2word[x], w))) for w in train_lex]
-    words_valid = [' '.join(list(map(lambda x: idx2word[x], w))) for w in valid_lex]
-    words_test = [' '.join(list(map(lambda x: idx2word[x], w))) for w in test_lex]
+    sentences_train = [' '.join(list(map(lambda x: idx2word[x], w))) for w in train_lex]
+    sentences_valid = [' '.join(list(map(lambda x: idx2word[x], w))) for w in valid_lex]
+    sentences_test = [' '.join(list(map(lambda x: idx2word[x], w))) for w in test_lex]
 
+    words_valid = [map(lambda x: idx2word[x], w) for w in valid_lex]
+    words_test = [map(lambda x: idx2word[x], w) for w in test_lex]
     groundtruth_valid = [map(lambda x: idx2label[x], y) for y in valid_y]
     groundtruth_test = [map(lambda x: idx2label[x], y) for y in test_y]
 
-    train_lm_file = 'data/train_language_embedding'
+    # sentences = (['I wwant to fly to Boston.', 'I want to fly to USA bla bla bla bla.'])
+    # SentenceEmbedding(sentences, 'data/test_embed')
+
+    train_lm_file = 'data/train_language_embedding.npy'
     if not isfile(train_lm_file):
-        SentenceEmbedding(words_train, train_lm_file)
+        SentenceEmbedding(sentences_train, train_lm_file)
 
-    valid_lm_file = 'data/valid_language_embedding'
+    valid_lm_file = 'data/valid_language_embedding.npy'
     if not isfile(valid_lm_file):
-        SentenceEmbedding(words_valid, valid_lm_file)
+        SentenceEmbedding(sentences_valid, valid_lm_file)
 
-    test_lm_file = 'data/test_language_embedding'
+    test_lm_file = 'data/test_language_embedding.npy'
     if not isfile(test_lm_file):
-        SentenceEmbedding(words_test, test_lm_file)
+        SentenceEmbedding(sentences_test, test_lm_file)
 
     train_lm = np.load(train_lm_file)
     valid_lm = np.load(valid_lm_file)
@@ -233,8 +238,8 @@ if __name__ == '__main__':
         for e in range(s['nepochs']):
             # shuffle
             shuffle([train_lex, train_ne, train_y, train_lm], s['seed'])
-            print(nsentences, '@')
-            print(len(words_train), '@')
+            # print(nsentences, '@')
+            # print(len(words_train), '@')
             # LM_embedding = SentenceEmbedding(words_train)
             s['ce'] = e
             tic = time.time()
@@ -248,7 +253,7 @@ if __name__ == '__main__':
                 if FLAGS.with_lm:
                     # LM_embedding = SentenceEmbedding(words_train[i])
                     # print(LM_embedding.shape)
-                    [_] = sess.run([train_op], feed_dict={inputs: X, labels: Y, lm_embedding: train_lm[i]})
+                    [_] = sess.run([train_op], feed_dict={inputs: X, labels: Y, lm_embedding: [train_lm[i][:-1]]})
                 else:
                     [_] = sess.run([train_op], feed_dict={inputs: X, labels: Y})  # TODO print loss
 
@@ -267,7 +272,7 @@ if __name__ == '__main__':
                     # LM_embedding = SentenceEmbedding(words_valid[i])
                     [predict_y] = sess.run([prediction_tensor], feed_dict={inputs: X,
                                                                            labels: zero_labels,
-                                                                           lm_embedding: valid_lm[i]})
+                                                                           lm_embedding: [valid_lm[i][:-1]]})
                 else:
                     [predict_y] = sess.run([prediction_tensor], feed_dict={inputs: X,
                                                                            labels: zero_labels})
@@ -281,15 +286,18 @@ if __name__ == '__main__':
                 zero_labels = np.zeros([1, X.shape[1], nclasses], dtype=np.int32)
 
                 if FLAGS.with_lm:
-                    LM_embedding = SentenceEmbedding(words_valid[i])
                     [predict_y] = sess.run([prediction_tensor], feed_dict={inputs: X,
                                                                            labels: zero_labels,
-                                                                           lm_embedding: test_lm[i]})
+                                                                           lm_embedding: [test_lm[i][:-1]]})
                 else:
                     [predict_y] = sess.run([prediction_tensor], feed_dict={inputs: X,
                                                                            labels: zero_labels})
                 predict_labels = map(lambda x: idx2label[x], predict_y.argmax(2)[0])
                 predictions_test.append(predict_labels)
+
+            # print('?', len(list(predictions_test[0])))
+            # print('?', len(list(groundtruth_test[0])))
+            # print('?', list(words_test[0]))
 
             # evaluation // compute the accuracy using conlleval.pl
             res_test = conlleval(predictions_test, groundtruth_test, words_test, folder + '/current.test.txt')
