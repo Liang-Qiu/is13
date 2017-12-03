@@ -57,21 +57,21 @@ if __name__ == '__main__':
     # train with early stopping on validation set
     best_f1 = -np.inf
     for e in range(s['nepochs']):
-        # # shuffle
-        # shuffle([train_lex, train_ne, train_y], s['seed'])
-        # s['ce'] = e
-        # tic = time.time()
-        # for i in range(nsentences):
-        #     X = np.asarray([train_lex[i]])
-        #     Y = to_categorical(np.asarray(train_y[i])[:, np.newaxis], nclasses)[np.newaxis, :, :]
-        #     if X.shape[1] == 1:
-        #         continue  # bug with X, Y of len 1
-        #     model.train_on_batch(X, Y)
-        #
-        #     if s['verbose']:
-        #         print('[learning] epoch %i >> %2.2f%%' % (e, (i + 1) * 100. / nsentences),
-        #               'completed in %.2f (sec) <<\r' % (time.time() - tic))
-        #         sys.stdout.flush()
+        # shuffle
+        shuffle([train_lex, train_ne, train_y], s['seed'])
+        s['ce'] = e
+        tic = time.time()
+        for i in range(nsentences):
+            X = np.asarray([train_lex[i]])
+            Y = to_categorical(np.asarray(train_y[i])[:, np.newaxis], nclasses)[np.newaxis, :, :]
+            if X.shape[1] == 1:
+                continue  # bug with X, Y of len 1
+            model.train_on_batch(X, Y)
+
+            if s['verbose']:
+                print('[learning] epoch %i >> %2.2f%%' % (e, (i + 1) * 100. / nsentences),
+                      'completed in %.2f (sec) <<\r' % (time.time() - tic))
+                sys.stdout.flush()
 
         # evaluation // back into the real world : idx -> words
         predictions_test = [map(lambda x: idx2label[x],

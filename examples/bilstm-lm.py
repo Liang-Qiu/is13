@@ -8,7 +8,6 @@ from os.path import isfile
 import numpy as np
 import tensorflow as tf
 from keras.utils.np_utils import to_categorical
-from google.protobuf import text_format
 
 sys.path.append('../')
 from is13.data import load
@@ -38,6 +37,10 @@ flags.DEFINE_float(
     'keep_prob', 0.8,  # TODO
     'Drop out keep probability.')
 
+tf.flags.DEFINE_boolean(
+    'with_lm', True,
+    'with pre-trained language model or not.')
+
 # tf.flags.DEFINE_string(
 #     'pbtxt', 'data/graph-2016-09-10.pbtxt',
 #     'GraphDef proto text file used to construct model structure.')
@@ -49,10 +52,6 @@ flags.DEFINE_float(
 # tf.flags.DEFINE_string(
 #     'vocab_file', 'data/vocab-2016-09-10.txt',
 #     'Vocabulary file.')
-
-tf.flags.DEFINE_boolean(
-    'with_lm', True,
-    'with pre-trained language model or not.')
 
 FLAGS = flags.FLAGS
 # def _LoadLM(gd_file, ckpt_file):
@@ -93,7 +92,7 @@ if __name__ == '__main__':
 
     s = {'fold': 0,  # 5 folds 0,1,2,3,4
          'lr': 0.1,
-         'verbose': 1,
+         'verbose': 0,
          'nhidden': 100,  # number of hidden units
          'seed': 345,
          'emb_dimension': 100,  # dimension of word embedding
@@ -119,11 +118,6 @@ if __name__ == '__main__':
     sentences_valid = [' '.join(list(map(lambda x: idx2word[x], w))) for w in valid_lex]
     sentences_test = [' '.join(list(map(lambda x: idx2word[x], w))) for w in test_lex]
 
-    words_valid = [map(lambda x: idx2word[x], w) for w in valid_lex]
-    words_test = [map(lambda x: idx2word[x], w) for w in test_lex]
-    groundtruth_valid = [map(lambda x: idx2label[x], y) for y in valid_y]
-    groundtruth_test = [map(lambda x: idx2label[x], y) for y in test_y]
-
     # sentences = (['I wwant to fly to Boston.', 'I want to fly to USA bla bla bla bla.'])
     # SentenceEmbedding(sentences, 'data/test_embed')
 
@@ -143,7 +137,6 @@ if __name__ == '__main__':
     valid_lm = np.load(valid_lm_file)
     test_lm = np.load(test_lm_file)
 
-
     # vocab of LM
     # vocab = data_utils.CharsVocabulary(FLAGS.vocab_file, MAX_WORD_LEN)
 
@@ -157,7 +150,8 @@ if __name__ == '__main__':
                 inputs = tf.placeholder(tf.int32, shape=[FLAGS.batch_size, None])
                 labels = tf.placeholder(tf.int32, shape=[FLAGS.batch_size, None, nclasses])
                 with tf.device("/cpu:0"):
-                    word_embedding = tf.get_variable("word_embedding", [vocsize, FLAGS.embedding_size], dtype=tf.float32)
+                    word_embedding = tf.get_variable("word_embedding", [vocsize, FLAGS.embedding_size],
+                                                     dtype=tf.float32)
                 embeddings = tf.nn.embedding_lookup(word_embedding, inputs, name='embeddings')
 
                 # TODO st_embedding_char = CNN(one-hot(sentences))
@@ -183,7 +177,6 @@ if __name__ == '__main__':
                     embeddings = tf.nn.dropout(embeddings, FLAGS.keep_prob)
                     # sequence_length = tf.reshape(lengths, [-1])
                     (outputs, final_state) = tf.nn.dynamic_rnn(cell, embeddings, initial_state=initial_state)
-                    # z = tf.identity(outputs, 'z')
                     output = tf.reshape(outputs, [-1, hidden_size])
                     weights = tf.get_variable("weights", [hidden_size, nclasses], dtype=tf.float32)
                     biases = tf.get_variable("biases", [nclasses], dtype=tf.float32)
@@ -191,7 +184,6 @@ if __name__ == '__main__':
                     logits = tf.reshape(logits, [FLAGS.batch_size, -1, nclasses])
 
                     prediction = tf.nn.softmax(logits, name='prediction')
-                    # correct_prediction = tf.equal(tf.argmax(prediction, 1), tf.argmax(labels, 1), name='result')
 
                     # if is_training:
                     cross_entropy = tf.nn.softmax_cross_entropy_with_logits(logits=logits, labels=labels)
@@ -263,6 +255,8 @@ if __name__ == '__main__':
                     sys.stdout.flush()
 
             # evaluation
+            words_valid = [map(lambda x: idx2word[x], w) for w in valid_lex]
+            groundtruth_valid = [map(lambda x: idx2label[x], y) for y in valid_y]
             predictions_valid = []
             for i in range(len(valid_lex)):
                 X = np.asarray([valid_lex[i]])
@@ -280,6 +274,8 @@ if __name__ == '__main__':
                 predictions_valid.append(predict_labels)
 
             # test
+            words_test = [map(lambda x: idx2word[x], w) for w in test_lex]
+            groundtruth_test = [map(lambda x: idx2label[x], y) for y in test_y]
             predictions_test = []
             for i in range(len(test_lex)):
                 X = np.asarray([test_lex[i]])
@@ -295,13 +291,15 @@ if __name__ == '__main__':
                 predict_labels = map(lambda x: idx2label[x], predict_y.argmax(2)[0])
                 predictions_test.append(predict_labels)
 
-            # print('?', len(list(predictions_test[0])))
-            # print('?', len(list(groundtruth_test[0])))
+            # print('?', list(predictions_test[0]))
+            # print('?', list(groundtruth_test[0]))
             # print('?', list(words_test[0]))
 
             # evaluation // compute the accuracy using conlleval.pl
             res_test = conlleval(predictions_test, groundtruth_test, words_test, folder + '/current.test.txt')
             res_valid = conlleval(predictions_valid, groundtruth_valid, words_valid, folder + '/current.valid.txt')
+            print(res_test)
+            print('epoch', e, 'valid F1', res_valid['f1'], 'test F1', res_test['f1'], ' ' * 20)
 
             if res_valid['f1'] > best_f1:  # TODO best valid-f1?
                 # os.makedirs('weights/', exist_ok=True)
