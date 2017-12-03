@@ -7,11 +7,13 @@ import time
 import numpy as np
 import tensorflow as tf
 from keras.utils.np_utils import to_categorical
+from google.protobuf import text_format
 
 sys.path.append('../')
 from is13.data import load
 from is13.metrics.accuracy import conlleval
 from is13.utils.tools import shuffle
+from is13.lm_1b.lm_1b_eval import SentenceEmbedding
 
 flags = tf.app.flags
 
@@ -23,9 +25,9 @@ flags.DEFINE_integer(
     'embedding_size', 200,  # TODO
     'Word embedding size.')
 
-flags.DEFINE_integer(
-    'hidden_size', 200,  # TODO
-    'RNN hidden size.')
+# flags.DEFINE_integer(
+#     'hidden_size', 200,  # TODO
+#     'RNN hidden size.')
 
 flags.DEFINE_integer(
     'num_layers', 2,  # TODO
@@ -35,17 +37,21 @@ flags.DEFINE_float(
     'keep_prob', 0.8,  # TODO
     'Drop out keep probability.')
 
-tf.flags.DEFINE_string(
-    'pbtxt', 'data/graph-2016-09-10.pbtxt',
-    'GraphDef proto text file used to construct model structure.')
+# tf.flags.DEFINE_string(
+#     'pbtxt', 'data/graph-2016-09-10.pbtxt',
+#     'GraphDef proto text file used to construct model structure.')
+#
+# tf.flags.DEFINE_string(
+#     'ckpt', 'data/ckpt-*',
+#     'Checkpoint directory used to fill model values.')
+#
+# tf.flags.DEFINE_string(
+#     'vocab_file', 'data/vocab-2016-09-10.txt',
+#     'Vocabulary file.')
 
-tf.flags.DEFINE_string(
-    'ckpt', 'data/ckpt-*',
-    'Checkpoint directory used to fill model values.')
-
-tf.flags.DEFINE_string(
-    'vocab_file', 'data/vocab-2016-09-10.txt',
-    'Vocabulary file.')
+tf.flags.DEFINE_boolean(
+    'with_lm', True,
+    'with pre-trained language model or not.')
 
 FLAGS = flags.FLAGS
 # def _LoadLM(gd_file, ckpt_file):
@@ -108,75 +114,54 @@ if __name__ == '__main__':
     nclasses = len(dic['labels2idx'])
     nsentences = len(train_lex)
 
+    # vocab of LM
+    # vocab = data_utils.CharsVocabulary(FLAGS.vocab_file, MAX_WORD_LEN)
+
     # instantiate the model
     np.random.seed(s['seed'])
     random.seed(s['seed'])
 
     with tf.Graph().as_default(), tf.Session(config=tf.ConfigProto(allow_soft_placement=True)) as sess:
-        inputs = tf.placeholder(tf.int32, shape=[FLAGS.batch_size, None])
-        labels = tf.placeholder(tf.int32, shape=[FLAGS.batch_size, None, nclasses])
-
         with tf.name_scope('Train'):
-            # with tf.name_scope('LM'):
-            #     # vocab = data_utils.CharsVocabulary(FLAGS.vocab_file, MAX_WORD_LEN)
-            #
-            #     sys.stderr.write('Recovering graph.\n')
-            #     with tf.gfile.FastGFile(FLAGS.pbtxt, 'r') as f:
-            #         s = f.read()  # .decode()
-            #         gd = tf.GraphDef()
-            #         text_format.Merge(s, gd)
-            #     tf.logging.info('Recovering Graph %s', FLAGS.pbtxt)
-            #     LM = {}
-            #     [LM['states_init'], LM['lstm/lstm_0/control_dependency'],
-            #      LM['lstm/lstm_1/control_dependency'], LM['softmax_out'], LM['class_ids_out'],
-            #      LM['class_weights_out'], LM['log_perplexity_out'], LM['inputs_in'],
-            #      LM['targets_in'], LM['target_weights_in'], LM['char_inputs_in'],
-            #      LM['all_embs'], LM['softmax_weights'], LM['global_step']
-            #      ] = tf.import_graph_def(gd, {}, ['states_init',
-            #                                       'lstm/lstm_0/control_dependency:0',
-            #                                       'lstm/lstm_1/control_dependency:0',
-            #                                       'softmax_out:0',
-            #                                       'class_ids_out:0',
-            #                                       'class_weights_out:0',
-            #                                       'log_perplexity_out:0',
-            #                                       'inputs_in:0',
-            #                                       'targets_in:0',
-            #                                       'target_weights_in:0',
-            #                                       'char_inputs_in:0',
-            #                                       'all_embs_out:0',
-            #                                       'Reshape_3:0',
-            #                                       'global_step:0'], name='')
-
             with tf.variable_scope('Model', reuse=None):
+                inputs = tf.placeholder(tf.int32, shape=[FLAGS.batch_size, None])
+                labels = tf.placeholder(tf.int32, shape=[FLAGS.batch_size, None, nclasses])
                 with tf.device("/cpu:0"):
-                    embedding = tf.get_variable("word_embedding", [vocsize, FLAGS.embedding_size], dtype=tf.float32)
-                word_embedding = tf.nn.embedding_lookup(embedding, inputs, name='word_embedding')
+                    word_embedding = tf.get_variable("word_embedding", [vocsize, FLAGS.embedding_size], dtype=tf.float32)
+                embeddings = tf.nn.embedding_lookup(word_embedding, inputs, name='embeddings')
 
                 # TODO st_embedding_char = CNN(one-hot(sentences))
                 # TODO st_embedding_word = GloVe(one-hot(sentences))
                 # lm_embedding = LM['lstm/lstm_1/control_dependency']
-                # embeddings = tf.concat([word_embedding, lm_embedding], 2)  # TODO
+                if FLAGS.with_lm:
+                    lm_embedding = tf.placeholder(tf.float32, shape=[FLAGS.batch_size, None, 1024])
+                    embeddings = tf.concat([embeddings, lm_embedding], axis=2)
 
                 with tf.variable_scope('RNN'):
                     # Add a gru_cell
-                    gru_cell = tf.nn.rnn_cell.GRUCell(FLAGS.hidden_size)
+                    if FLAGS.with_lm:
+                        hidden_size = FLAGS.embedding_size + 1024
+                    else:
+                        hidden_size = FLAGS.embedding_size
+                    gru_cell = tf.nn.rnn_cell.GRUCell(hidden_size)
                     # if is_training and FLAGS.keep_prob < 1:
                     #    gru_cell = tf.nn.rnn_cell.DropoutWrapper(gru_cell, output_keep_prob=FLAGS.keep_prob)
                     cell = tf.nn.rnn_cell.MultiRNNCell([gru_cell] * FLAGS.num_layers, state_is_tuple=True)
                     initial_state = cell.zero_state(FLAGS.batch_size, tf.float32)
 
                     # if is_training and FLAGS.keep_prob < 1:
-                    embeddings = tf.nn.dropout(word_embedding, FLAGS.keep_prob)
+                    embeddings = tf.nn.dropout(embeddings, FLAGS.keep_prob)
                     # sequence_length = tf.reshape(lengths, [-1])
                     (outputs, final_state) = tf.nn.dynamic_rnn(cell, embeddings, initial_state=initial_state)
-                    output = tf.reshape(outputs, [-1, FLAGS.hidden_size])
-                    weights = tf.get_variable("weights", [FLAGS.hidden_size, nclasses], dtype=tf.float32)
+                    # z = tf.identity(outputs, 'z')
+                    output = tf.reshape(outputs, [-1, hidden_size])
+                    weights = tf.get_variable("weights", [hidden_size, nclasses], dtype=tf.float32)
                     biases = tf.get_variable("biases", [nclasses], dtype=tf.float32)
                     logits = tf.add(tf.matmul(output, weights), biases, name="logits")
                     logits = tf.reshape(logits, [FLAGS.batch_size, -1, nclasses])
 
                     prediction = tf.nn.softmax(logits, name='prediction')
-                    #		correct_prediction = tf.equal(tf.argmax(prediction, 1), tf.argmax(labels, 1), name='result')
+                    # correct_prediction = tf.equal(tf.argmax(prediction, 1), tf.argmax(labels, 1), name='result')
 
                     # if is_training:
                     cross_entropy = tf.nn.softmax_cross_entropy_with_logits(logits=logits, labels=labels)
@@ -189,11 +174,15 @@ if __name__ == '__main__':
         #         _rnn_model(is_training=True, embeddings=train_embeddings, labels=train_labels, lengths=train_lengths)
 
         # Initialize all variables in the model
-
-        for n in tf.get_default_graph().as_graph_def().node:
-            print (n.name)
-        # word_embedding_tensor = sess.graph.get_tensor_by_name('Train/Model/word_embedding:0')
-
+        # print(z.get_shape)
+        # print(final_state.get_shape)
+        # for n in tf.get_default_graph().get_operations():
+        #     try:
+        #         tmp_tensor = sess.graph.get_tensor_by_name(n.name + ':0')
+        #         #print (tmp_tensor.get_shape)
+        #     except KeyError:
+        #         continue
+        # word_embedding_tensor = sess.graph.get_tensor_by_name('Train/Model/embedding:0')
         # print(sess.run(tf.shape(word_embedding_tensor)))
         train_op = sess.graph.get_operation_by_name('Train/Model/RNN/train_op')
         prediction_tensor = sess.graph.get_tensor_by_name('Train/Model/RNN/prediction:0')
@@ -216,15 +205,26 @@ if __name__ == '__main__':
 
         # train with early stopping on validation set
         best_f1 = -np.inf
+
         for e in range(s['nepochs']):
             # shuffle
             shuffle([train_lex, train_ne, train_y], s['seed'])
+            words_train = [' '.join(list(map(lambda x: idx2word[x], w))) for w in train_lex]
             s['ce'] = e
             tic = time.time()
             for i in range(nsentences):
                 X = np.asarray([train_lex[i]])
+                print(train_lex[i])
+                print(X.shape)
+                print(words_train[i])
                 Y = to_categorical(np.asarray(train_y[i])[:, np.newaxis], nclasses)[np.newaxis, :, :]
-                [_] = sess.run([train_op], feed_dict={inputs: X, labels: Y})  # TODO print loss
+
+                if FLAGS.with_lm:
+                    LM_embedding = SentenceEmbedding(words_train[i])
+                    print(LM_embedding.shape)
+                    [_] = sess.run([train_op], feed_dict={inputs: X, labels: Y, lm_embedding: LM_embedding})
+                else:
+                    [_] = sess.run([train_op], feed_dict={inputs: X, labels: Y})  # TODO print loss
 
                 if s['verbose']:
                     print('[learning] epoch %i >> %2.2f%%' % (e, (i + 1) * 100. / nsentences),
@@ -232,29 +232,42 @@ if __name__ == '__main__':
                     sys.stdout.flush()
 
             # evaluation // back into the real world : idx -> words
+            words_valid = [map(lambda x: idx2word[x], w) for w in valid_lex]
+            groundtruth_valid = [map(lambda x: idx2label[x], y) for y in valid_y]
             predictions_valid = []
             for i in range(len(valid_lex)):
                 X = np.asarray([valid_lex[i]])
                 zero_labels = np.zeros([1, X.shape[1], nclasses], dtype=np.int32)
 
-                [predict_y] = sess.run([prediction_tensor], feed_dict={inputs: X, labels: zero_labels})
+                if FLAGS.with_lm:
+                    LM_embedding = SentenceEmbedding(words_valid[i])
+                    [predict_y] = sess.run([prediction_tensor], feed_dict={inputs: X,
+                                                                           labels: zero_labels,
+                                                                           lm_embedding: LM_embedding})
+                else:
+                    [predict_y] = sess.run([prediction_tensor], feed_dict={inputs: X,
+                                                                           labels: zero_labels})
                 predict_labels = map(lambda x: idx2label[x], predict_y.argmax(2)[0])
                 predictions_valid.append(predict_labels)
-            groundtruth_valid = [map(lambda x: idx2label[x], y) for y in valid_y]
-            words_valid = [map(lambda x: idx2word[x], w) for w in valid_lex]
 
             # test // back into the real world : idx -> words
+            words_test = [map(lambda x: idx2word[x], w) for w in test_lex]
+            groundtruth_test = [map(lambda x: idx2label[x], y) for y in test_y]
             predictions_test = []
+
             for i in range(len(test_lex)):
                 X = np.asarray([test_lex[i]])
                 zero_labels = np.zeros([1, X.shape[1], nclasses], dtype=np.int32)
-
-                [predict_y] = sess.run([prediction_tensor], feed_dict={inputs: X, labels: zero_labels})
+                if FLAGS.with_lm:
+                    LM_embedding = SentenceEmbedding(words_valid[i])
+                    [predict_y] = sess.run([prediction_tensor], feed_dict={inputs: X,
+                                                                           labels: zero_labels,
+                                                                           lm_embedding: LM_embedding})
+                else:
+                    [predict_y] = sess.run([prediction_tensor], feed_dict={inputs: X,
+                                                                           labels: zero_labels})
                 predict_labels = map(lambda x: idx2label[x], predict_y.argmax(2)[0])
                 predictions_test.append(predict_labels)
-
-            groundtruth_test = [map(lambda x: idx2label[x], y) for y in test_y]
-            words_test = [map(lambda x: idx2word[x], w) for w in test_lex]
 
             # evaluation // compute the accuracy using conlleval.pl
             res_test = conlleval(predictions_test, groundtruth_test, words_test, folder + '/current.test.txt')

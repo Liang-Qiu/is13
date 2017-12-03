@@ -18,7 +18,7 @@
 import os
 import sys
 
-import data_utils
+from is13.lm_1b import data_utils
 import numpy as np
 import tensorflow as tf
 from google.protobuf import text_format
@@ -38,12 +38,12 @@ tf.flags.DEFINE_string('mode', 'eval',
                        'are dumped.'
                        'dump_lstm_emb dumps lstm embeddings of FLAGS.sentence '
                        'to FLAGS.save_dir.')
-tf.flags.DEFINE_string('pbtxt', '',
+tf.flags.DEFINE_string('pbtxt', 'data/graph-2016-09-10.pbtxt',
                        'GraphDef proto text file used to construct model '
                        'structure.')
-tf.flags.DEFINE_string('ckpt', '',
+tf.flags.DEFINE_string('ckpt', 'data/ckpt-*',
                        'Checkpoint directory used to fill model values.')
-tf.flags.DEFINE_string('vocab_file', '', 'Vocabulary file.')
+tf.flags.DEFINE_string('vocab_file', 'data/vocab-2016-09-10.txt', 'Vocabulary file.')
 tf.flags.DEFINE_string('save_dir', '',
                        'Used for "dump_emb" mode to save word embeddings.')
 # sample mode flags.
@@ -285,6 +285,44 @@ def _DumpSentenceEmbedding(sentence, vocab):
             np.save(f, lstm_emb)
         sys.stderr.write('LSTM embedding step %d file saved\n' % i)
 
+
+def SentenceEmbedding(sentence):
+    vocab = data_utils.CharsVocabulary(FLAGS.vocab_file, MAX_WORD_LEN)
+    targets = np.zeros([BATCH_SIZE, NUM_TIMESTEPS], np.int32)
+    weights = np.ones([BATCH_SIZE, NUM_TIMESTEPS], np.float32)
+
+    sess, t = _LoadModel(FLAGS.pbtxt, FLAGS.ckpt)
+
+    if sentence.find('<S>') != 0:
+        sentence = '<S> ' + sentence
+
+    word_ids = [vocab.word_to_id(w) for w in sentence.split()]
+    char_ids = [vocab.word_to_char_ids(w) for w in sentence.split()]
+
+    inputs = np.zeros([BATCH_SIZE, NUM_TIMESTEPS], np.int32)
+    char_ids_inputs = np.zeros(
+        [BATCH_SIZE, NUM_TIMESTEPS, vocab.max_word_length], np.int32)
+
+    embedding = []
+    for i in xrange(len(word_ids)):
+        inputs[0, 0] = word_ids[i]
+        char_ids_inputs[0, 0, :] = char_ids[i]
+
+        # Add 'lstm/lstm_0/control_dependency' if you want to dump previous layer
+        # LSTM.
+        lstm_emb = sess.run(t['lstm/lstm_1/control_dependency'],  # TODO control dependency?
+                            feed_dict={t['char_inputs_in']: char_ids_inputs,
+                                       t['inputs_in']: inputs,
+                                       t['targets_in']: targets,
+                                       t['target_weights_in']: weights})
+        embedding.append(lstm_emb)
+
+        # fname = os.path.join(FLAGS.save_dir, 'lstm_emb_step_%d.npy' % i)
+        # with tf.gfile.Open(fname, mode='w') as f:
+        #     np.save(f, lstm_emb)
+        # sys.stderr.write('LSTM embedding step %d file saved\n' % i)
+    embedding = np.reshape(np.asarray(embedding), [1, -1, 1024])[:, 0:-1, :]
+    return embedding
 
 def main(unused_argv):
     vocab = data_utils.CharsVocabulary(FLAGS.vocab_file, MAX_WORD_LEN)
