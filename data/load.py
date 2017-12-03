@@ -74,7 +74,7 @@ if __name__ == '__main__':
     train_x, train_ne, train_label = train
     wlength = 35
 
-    for e in ['train', 'test']:
+    for e in ['train', 'test']:  # Train: 3983, Test: 893
         nsentence = 0
         for sw, se, sl in zip(eval(e + '_x'), eval(e + '_ne'), eval(e + '_label')):  # one sentence
             nsentence += 1

@@ -3,6 +3,7 @@ import random
 import subprocess
 import sys
 import time
+from os.path import isfile
 
 import numpy as np
 import tensorflow as tf
@@ -90,7 +91,7 @@ FLAGS = flags.FLAGS
 
 if __name__ == '__main__':
 
-    s = {'fold': 3,  # 5 folds 0,1,2,3,4
+    s = {'fold': 0,  # 5 folds 0,1,2,3,4
          'lr': 0.1,
          'verbose': 0,
          'nhidden': 100,  # number of hidden units
@@ -113,6 +114,30 @@ if __name__ == '__main__':
     vocsize = len(dic['words2idx'])
     nclasses = len(dic['labels2idx'])
     nsentences = len(train_lex)
+
+    words_train = [' '.join(list(map(lambda x: idx2word[x], w))) for w in train_lex]
+    words_valid = [' '.join(list(map(lambda x: idx2word[x], w))) for w in valid_lex]
+    words_test = [' '.join(list(map(lambda x: idx2word[x], w))) for w in test_lex]
+
+    groundtruth_valid = [map(lambda x: idx2label[x], y) for y in valid_y]
+    groundtruth_test = [map(lambda x: idx2label[x], y) for y in test_y]
+
+    train_lm_file = 'data/train_language_embedding'
+    if not isfile(train_lm_file):
+        SentenceEmbedding(words_train, train_lm_file)
+
+    valid_lm_file = 'data/valid_language_embedding'
+    if not isfile(valid_lm_file):
+        SentenceEmbedding(words_valid, valid_lm_file)
+
+    test_lm_file = 'data/test_language_embedding'
+    if not isfile(test_lm_file):
+        SentenceEmbedding(words_test, test_lm_file)
+
+    train_lm = np.load(train_lm_file)
+    valid_lm = np.load(valid_lm_file)
+    test_lm = np.load(test_lm_file)
+
 
     # vocab of LM
     # vocab = data_utils.CharsVocabulary(FLAGS.vocab_file, MAX_WORD_LEN)
@@ -205,24 +230,25 @@ if __name__ == '__main__':
 
         # train with early stopping on validation set
         best_f1 = -np.inf
-
         for e in range(s['nepochs']):
             # shuffle
-            shuffle([train_lex, train_ne, train_y], s['seed'])
-            words_train = [' '.join(list(map(lambda x: idx2word[x], w))) for w in train_lex]
+            shuffle([train_lex, train_ne, train_y, train_lm], s['seed'])
+            print(nsentences, '@')
+            print(len(words_train), '@')
+            # LM_embedding = SentenceEmbedding(words_train)
             s['ce'] = e
             tic = time.time()
             for i in range(nsentences):
                 X = np.asarray([train_lex[i]])
-                print(train_lex[i])
-                print(X.shape)
-                print(words_train[i])
+                # print(train_lex[i])
+                # print(X.shape)
+                # print(words_train[i])
                 Y = to_categorical(np.asarray(train_y[i])[:, np.newaxis], nclasses)[np.newaxis, :, :]
 
                 if FLAGS.with_lm:
-                    LM_embedding = SentenceEmbedding(words_train[i])
-                    print(LM_embedding.shape)
-                    [_] = sess.run([train_op], feed_dict={inputs: X, labels: Y, lm_embedding: LM_embedding})
+                    # LM_embedding = SentenceEmbedding(words_train[i])
+                    # print(LM_embedding.shape)
+                    [_] = sess.run([train_op], feed_dict={inputs: X, labels: Y, lm_embedding: train_lm[i]})
                 else:
                     [_] = sess.run([train_op], feed_dict={inputs: X, labels: Y})  # TODO print loss
 
@@ -231,38 +257,34 @@ if __name__ == '__main__':
                           'completed in %.2f (sec) <<\r' % (time.time() - tic))
                     sys.stdout.flush()
 
-            # evaluation // back into the real world : idx -> words
-            words_valid = [map(lambda x: idx2word[x], w) for w in valid_lex]
-            groundtruth_valid = [map(lambda x: idx2label[x], y) for y in valid_y]
+            # evaluation
             predictions_valid = []
             for i in range(len(valid_lex)):
                 X = np.asarray([valid_lex[i]])
                 zero_labels = np.zeros([1, X.shape[1], nclasses], dtype=np.int32)
 
                 if FLAGS.with_lm:
-                    LM_embedding = SentenceEmbedding(words_valid[i])
+                    # LM_embedding = SentenceEmbedding(words_valid[i])
                     [predict_y] = sess.run([prediction_tensor], feed_dict={inputs: X,
                                                                            labels: zero_labels,
-                                                                           lm_embedding: LM_embedding})
+                                                                           lm_embedding: valid_lm[i]})
                 else:
                     [predict_y] = sess.run([prediction_tensor], feed_dict={inputs: X,
                                                                            labels: zero_labels})
                 predict_labels = map(lambda x: idx2label[x], predict_y.argmax(2)[0])
                 predictions_valid.append(predict_labels)
 
-            # test // back into the real world : idx -> words
-            words_test = [map(lambda x: idx2word[x], w) for w in test_lex]
-            groundtruth_test = [map(lambda x: idx2label[x], y) for y in test_y]
+            # test
             predictions_test = []
-
             for i in range(len(test_lex)):
                 X = np.asarray([test_lex[i]])
                 zero_labels = np.zeros([1, X.shape[1], nclasses], dtype=np.int32)
+
                 if FLAGS.with_lm:
                     LM_embedding = SentenceEmbedding(words_valid[i])
                     [predict_y] = sess.run([prediction_tensor], feed_dict={inputs: X,
                                                                            labels: zero_labels,
-                                                                           lm_embedding: LM_embedding})
+                                                                           lm_embedding: test_lm[i]})
                 else:
                     [predict_y] = sess.run([prediction_tensor], feed_dict={inputs: X,
                                                                            labels: zero_labels})
