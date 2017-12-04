@@ -6,4 +6,5 @@ venv/
 .idea/
 out/
 data/
+output/
 weights/

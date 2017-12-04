@@ -38,7 +38,7 @@ flags.DEFINE_float(
     'Drop out keep probability.')
 
 tf.flags.DEFINE_boolean(
-    'with_lm', True,
+    'with_lm', False,
     'with pre-trained language model or not.')
 
 # tf.flags.DEFINE_string(
@@ -117,9 +117,6 @@ if __name__ == '__main__':
     sentences_train = [' '.join(list(map(lambda x: idx2word[x], w))) for w in train_lex]
     sentences_valid = [' '.join(list(map(lambda x: idx2word[x], w))) for w in valid_lex]
     sentences_test = [' '.join(list(map(lambda x: idx2word[x], w))) for w in test_lex]
-
-    # sentences = (['I wwant to fly to Boston.', 'I want to fly to USA bla bla bla bla.'])
-    # SentenceEmbedding(sentences, 'data/test_embed')
 
     train_lm_file = 'data/train_language_embedding.npy'
     if not isfile(train_lm_file):
@@ -245,7 +242,7 @@ if __name__ == '__main__':
                 if FLAGS.with_lm:
                     # LM_embedding = SentenceEmbedding(words_train[i])
                     # print(LM_embedding.shape)
-                    [_] = sess.run([train_op], feed_dict={inputs: X, labels: Y, lm_embedding: [train_lm[i][:-1]]})
+                    [_] = sess.run([train_op], feed_dict={inputs: X, labels: Y, lm_embedding: [train_lm[i][1:]]})
                 else:
                     [_] = sess.run([train_op], feed_dict={inputs: X, labels: Y})  # TODO print loss
 
@@ -266,7 +263,7 @@ if __name__ == '__main__':
                     # LM_embedding = SentenceEmbedding(words_valid[i])
                     [predict_y] = sess.run([prediction_tensor], feed_dict={inputs: X,
                                                                            labels: zero_labels,
-                                                                           lm_embedding: [valid_lm[i][:-1]]})
+                                                                           lm_embedding: [valid_lm[i][1:]]})
                 else:
                     [predict_y] = sess.run([prediction_tensor], feed_dict={inputs: X,
                                                                            labels: zero_labels})
@@ -284,7 +281,7 @@ if __name__ == '__main__':
                 if FLAGS.with_lm:
                     [predict_y] = sess.run([prediction_tensor], feed_dict={inputs: X,
                                                                            labels: zero_labels,
-                                                                           lm_embedding: [test_lm[i][:-1]]})
+                                                                           lm_embedding: [test_lm[i][1:]]})
                 else:
                     [predict_y] = sess.run([prediction_tensor], feed_dict={inputs: X,
                                                                            labels: zero_labels})

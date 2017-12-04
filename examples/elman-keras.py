@@ -87,9 +87,6 @@ if __name__ == '__main__':
         groundtruth_valid = [map(lambda x: idx2label[x], y) for y in valid_y]
         words_valid = [map(lambda x: idx2word[x], w) for w in valid_lex]
 
-        # print('?', len(list(predictions_test[0])))
-        # print('?', len(list(groundtruth_test[0])))
-        # print('?', list(words_test[0]))
         # evaluation // compute the accuracy using conlleval.pl
         res_test = conlleval(predictions_test, groundtruth_test, words_test, folder + '/current.test.txt')
         res_valid = conlleval(predictions_valid, groundtruth_valid, words_valid, folder + '/current.valid.txt')
