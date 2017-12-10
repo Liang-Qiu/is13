@@ -25,16 +25,41 @@ Run the following commands:
 ```
 git clone https://github.com/Liang-Qiu/is13.git
 cd is13
+mkdir data
+```
+
+Download the following files to data folder:
+* Download glove.6B.300d.txt from https://nlp.stanford.edu/projects/glove/
+* Download ATIS [split 0](http://lisaweb.iro.umontreal.ca/transfert/lisa/users/mesnilgr/atis/atis.fold0.pkl.gz) [split 1](http://lisaweb.iro.umontreal.ca/transfert/lisa/users/mesnilgr/atis/atis.fold1.pkl.gz) [split 2](http://lisaweb.iro.umontreal.ca/transfert/lisa/users/mesnilgr/atis/atis.fold2.pkl.gz) [split 3](http://lisaweb.iro.umontreal.ca/transfert/lisa/users/mesnilgr/atis/atis.fold3.pkl.gz) [split 4](http://lisaweb.iro.umontreal.ca/transfert/lisa/users/mesnilgr/atis/atis.fold4.pkl.gz)
+* Download the language model data files:
+  * Model GraphDef file:
+  [link](http://download.tensorflow.org/models/LM_LSTM_CNN/graph-2016-09-10.pbtxt)
+  * Model Checkpoint sharded file:
+  [1](http://download.tensorflow.org/models/LM_LSTM_CNN/all_shards-2016-09-10/ckpt-base)
+  [2](http://download.tensorflow.org/models/LM_LSTM_CNN/all_shards-2016-09-10/ckpt-char-embedding)
+  [3](http://download.tensorflow.org/models/LM_LSTM_CNN/all_shards-2016-09-10/ckpt-lstm)
+  [4](http://download.tensorflow.org/models/LM_LSTM_CNN/all_shards-2016-09-10/ckpt-softmax0)
+  [5](http://download.tensorflow.org/models/LM_LSTM_CNN/all_shards-2016-09-10/ckpt-softmax1)
+  [6](http://download.tensorflow.org/models/LM_LSTM_CNN/all_shards-2016-09-10/ckpt-softmax2)
+  [7](http://download.tensorflow.org/models/LM_LSTM_CNN/all_shards-2016-09-10/ckpt-softmax3)
+  [8](http://download.tensorflow.org/models/LM_LSTM_CNN/all_shards-2016-09-10/ckpt-softmax4)
+  [9](http://download.tensorflow.org/models/LM_LSTM_CNN/all_shards-2016-09-10/ckpt-softmax5)
+  [10](http://download.tensorflow.org/models/LM_LSTM_CNN/all_shards-2016-09-10/ckpt-softmax6)
+  [11](http://download.tensorflow.org/models/LM_LSTM_CNN/all_shards-2016-09-10/ckpt-softmax7)
+  [12](http://download.tensorflow.org/models/LM_LSTM_CNN/all_shards-2016-09-10/ckpt-softmax8)
+  * Vocabulary file:
+  [link](http://download.tensorflow.org/models/LM_LSTM_CNN/vocab-2016-09-10.txt)
+  * test dataset: link
+  [link](http://download.tensorflow.org/models/LM_LSTM_CNN/test/news.en.heldout-00000-of-00050)
+
+```
 virtualenv venv -p python3
 source venv/bin/activate
-pip3 install -r requirements-gpu.txt
-python examples/elman-keras.py
+pip3 install -r requirements-gpu.txt (requirements.txt for CPU)
+python examples/bilstm-lm.py
 ```
 
 ## ATIS Data
-
-Download ATIS Dataset here! [split 0](http://lisaweb.iro.umontreal.ca/transfert/lisa/users/mesnilgr/atis/atis.fold0.pkl.gz) [split 1](http://lisaweb.iro.umontreal.ca/transfert/lisa/users/mesnilgr/atis/atis.fold1.pkl.gz) [split 2](http://lisaweb.iro.umontreal.ca/transfert/lisa/users/mesnilgr/atis/atis.fold2.pkl.gz) [split 3](http://lisaweb.iro.umontreal.ca/transfert/lisa/users/mesnilgr/atis/atis.fold3.pkl.gz) [split 4](http://lisaweb.iro.umontreal.ca/transfert/lisa/users/mesnilgr/atis/atis.fold4.pkl.gz)
-
 ```
 import _pickle as cPickle
 train, valid, test, dicts = cPickle.load(gzip.open('atis.fold0.pkl.gz', 'rb'), encoding='latin1')
