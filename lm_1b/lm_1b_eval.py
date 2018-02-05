@@ -25,8 +25,9 @@ import tensorflow as tf
 from google.protobuf import text_format
 from six.moves import xrange
 
-FLAGS = tf.flags.FLAGS
-# General flags.
+# -------------------------------------------------------parameters-----------------------------------------------------
+flags = tf.app.flags
+# general flags
 tf.flags.DEFINE_string('mode', 'eval',
                        'One of [sample, eval, dump_emb, dump_lstm_emb]. '
                        '"sample" mode samples future word predictions, using '
@@ -39,31 +40,43 @@ tf.flags.DEFINE_string('mode', 'eval',
                        'are dumped.'
                        'dump_lstm_emb dumps lstm embeddings of FLAGS.sentence '
                        'to FLAGS.save_dir.')
+
 tf.flags.DEFINE_string('pbtxt', 'data/graph-2016-09-10.pbtxt',
                        'GraphDef proto text file used to construct model '
                        'structure.')
+
 tf.flags.DEFINE_string('ckpt', 'data/ckpt-*',
                        'Checkpoint directory used to fill model values.')
+
 tf.flags.DEFINE_string('vocab_file', 'data/vocab-2016-09-10.txt', 'Vocabulary file.')
+
 tf.flags.DEFINE_string('save_dir', '',
                        'Used for "dump_emb" mode to save word embeddings.')
+
 # sample mode flags.
 tf.flags.DEFINE_string('prefix', '',
                        'Used for "sample" mode to predict next words.')
+
 tf.flags.DEFINE_integer('max_sample_words', 100,
                         'Sampling stops either when </S> is met or this number '
                         'of steps has passed.')
+
 tf.flags.DEFINE_integer('num_samples', 3,
                         'Number of samples to generate for the prefix.')
+
 # dump_lstm_emb mode flags.
 tf.flags.DEFINE_string('sentence', '',
                        'Used as input for "dump_lstm_emb" mode.')
+
 # eval mode flags.
 tf.flags.DEFINE_string('input_data', '',
                        'Input data files for eval model.')
+
 tf.flags.DEFINE_integer('max_eval_steps', 1000000,
                         'Maximum mumber of steps to run "eval" mode.')
 
+FLAGS = tf.flags.FLAGS
+# ----------------------------------------------------------------------------------------------------------------------
 # For saving demo resources, use batch size 1 and step 1.
 BATCH_SIZE = 1
 NUM_TIMESTEPS = 1
@@ -270,12 +283,12 @@ def _DumpSentenceEmbedding(sentence, vocab):
     char_ids_inputs = np.zeros(
         [BATCH_SIZE, NUM_TIMESTEPS, vocab.max_word_length], np.int32)
     for i in xrange(len(word_ids)):
-        inputs[0, 0] = word_ids[i]
+        inputs[0, 0] = word_ids[i]  # Input one word id and its char ids a time
         char_ids_inputs[0, 0, :] = char_ids[i]
 
         # Add 'lstm/lstm_0/control_dependency' if you want to dump previous layer
         # LSTM.
-        lstm_emb = sess.run(t['lstm/lstm_1/control_dependency'],  # TODO control dependency?
+        lstm_emb = sess.run(t['lstm/lstm_1/control_dependency'],
                             feed_dict={t['char_inputs_in']: char_ids_inputs,
                                        t['inputs_in']: inputs,
                                        t['targets_in']: targets,
@@ -288,15 +301,19 @@ def _DumpSentenceEmbedding(sentence, vocab):
 
 
 def SentenceEmbedding(sentences, filepath):
+    """Run the CNN-BIG-LSTM on the ATIS dataset and save the LM embedding matrix
+    Author: Liang Qiu, 2017
+
+    """
     vocab = data_utils.CharsVocabulary(FLAGS.vocab_file, MAX_WORD_LEN)
     targets = np.zeros([BATCH_SIZE, NUM_TIMESTEPS], np.int32)
     weights = np.ones([BATCH_SIZE, NUM_TIMESTEPS], np.float32)
 
-    sess, t = _LoadModel(FLAGS.pbtxt, FLAGS.ckpt)
+    sess, t = _LoadModel(FLAGS.pbtxt, FLAGS.ckpt)  # session and graph
 
     embeddings = []
     step = 0
-    print('@', len(sentences))
+    print('Number of sentences to calculate embeddings:', len(sentences))
     for sentence in sentences:
         if sentence.find('<S>') != 0:
             sentence = '<S> ' + sentence
@@ -314,21 +331,17 @@ def SentenceEmbedding(sentences, filepath):
             char_ids_inputs[0, 0, :] = char_ids[i]
 
             # Add 'lstm/lstm_0/control_dependency' if you want to dump previous layer
-            # LSTM.
-            lstm_emb = sess.run(t['lstm/lstm_1/control_dependency'],  # TODO control dependency?
+            lstm_emb = sess.run(t['lstm/lstm_1/control_dependency'],
                                 feed_dict={t['char_inputs_in']: char_ids_inputs,
                                            t['inputs_in']: inputs,
                                            t['targets_in']: targets,
                                            t['target_weights_in']: weights})
             embedding.append(lstm_emb[0, :])
-        # embedding = np.reshape(np.asarray(embedding), [1, -1, 1024])[:, 0:-1, :]  # TODO
-        print('#', np.asarray(embedding).shape)
+        print('LM embedding shape:', np.asarray(embedding).shape)  # 1024
         embeddings.append(embedding)
-        # print(np.asarray(embeddings).shape)
         print('[embedding] step %i >> %2.2f%%' % (step, (step + 1) * 100. / len(sentences)))
         step += 1
-    print('#', np.asarray(embeddings).shape)
-    # embeddings = np.reshape(np.asarray(embeddings), [len(sentences), -1, 1024])
+    print('LM embedding matrix shape:', np.asarray(embeddings).shape)
     np.save(filepath, np.asarray(embeddings))
 
 

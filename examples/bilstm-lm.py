@@ -16,160 +16,136 @@ from is13.utils.tools import shuffle
 from is13.lm_1b.lm_1b_eval import SentenceEmbedding
 import is13.pysts.embedding as emb
 
+# --------------------------------------------model hyperparameters-----------------------------------------------------
 flags = tf.app.flags
 
+tf.flags.DEFINE_boolean(
+    'with_lm', True,
+    'With pre-trained language model or not.')
+
+flags.DEFINE_boolean(
+    'with_glove', True,
+    'Use Glove Embedding or not.')
+
+flags.DEFINE_boolean(
+    'bi_lstm', True,
+    'Use bidirectional LSTM or forward LSTM.')
+
+# s = {'fold': 3,  # 5 folds 0,1,2,3,4
+#      'lr': 0.1,
+#      'verbose': 0,
+#      'nhidden': 100,  # number of hidden units
+#      'seed': 345,
+#      'emb_dimension': 100,  # dimension of word embedding
+#      'nepochs': 40}
+
 flags.DEFINE_integer(
-    'batch_size', 1,  # TODO
+    'fold', 3,  # TODO
+    'ATIS dataset fold.')
+
+flags.DEFINE_integer(
+    'nsentences', 1000,
+    'Partition used for training.')
+
+flags.DEFINE_integer(
+    'lr', 0.001,  # TODO
+    'Training learning rate.')
+
+flags.DEFINE_integer(
+    'verbose', False,
+    'Verbose when training.')
+
+flags.DEFINE_integer(
+    'batch_size', 1,
     'Training batch size.')
 
 flags.DEFINE_integer(
-    'embedding_size', 300,  # TODO
-    'Word embedding size.')
-
-# flags.DEFINE_integer(
-#     'hidden_size', 200,  # TODO
-#     'RNN hidden size.')
+    'emb_size', 300,
+    'Word embedding size which is the same as the number of hidden units.')
 
 flags.DEFINE_integer(
-    'num_layers', 2,  # TODO
-    'RNN layers.')
+    'nlayers', 2,
+    'RNN hidden layer number.')
 
 flags.DEFINE_float(
-    'keep_prob', 0.8,  # TODO
+    'nepochs', 5,
+    'Training epochs.')
+
+flags.DEFINE_float(
+    'keep_prob', 0.8,
     'Drop out keep probability.')
 
-tf.flags.DEFINE_boolean(
-    'with_lm', False,
-    'with pre-trained language model or not.')
-
-flags.DEFINE_boolean(
-    'with_glove', False,
-    'Use Glove Embedding'
-)
-
-flags.DEFINE_boolean(
-    'bi_lstm', False,
-    'Use bidirectional lstm'
-)
-
-# tf.flags.DEFINE_string(
-#     'pbtxt', 'data/graph-2016-09-10.pbtxt',
-#     'GraphDef proto text file used to construct model structure.')
-#
-# tf.flags.DEFINE_string(
-#     'ckpt', 'data/ckpt-*',
-#     'Checkpoint directory used to fill model values.')
-#
-# tf.flags.DEFINE_string(
-#     'vocab_file', 'data/vocab-2016-09-10.txt',
-#     'Vocabulary file.')
+flags.DEFINE_integer(
+    'seed', 345,
+    'Random number generation seed.')
 
 FLAGS = flags.FLAGS
-# def _LoadLM(gd_file, ckpt_file):
-#     """Load the model from GraphDef and Checkpoint.
-#
-#     Args:
-#       gd_file: GraphDef proto text file.
-#       ckpt_file: TensorFlow Checkpoint file.
-#
-#     Returns:
-#       TensorFlow session and tensors dict.
-#     """
-#     with tf.Graph().as_default():
-#
-#
-#         # sys.stderr.write('Recovering checkpoint %s\n' % ckpt_file)
-#         # sess = tf.Session(config=tf.ConfigProto(allow_soft_placement=True))
-#         # sess.run('save/restore_all', {'save/Const:0': ckpt_file})
-#         # sess.run(t['states_init'])
-#
-#     return t
-
-# def _rnn_model(is_training, lm_inputs, st_inputs, labels, lengths, batch_size=FLAGS.batch_size):
-#     # TODO
-#
-#
-#             #		learning_rate = tf.Variable(0.0, trainable=False)
-#             #		tvars = tf.trainable_variables()
-#             #		grads, _ = tf.clip_by_global_norm(tf.gradient(cost, tvars),
-#             #										max_grad_norm)
-#             #		optimizer = tf.train.GradientDescentOptimizer(learning_rate)
-#             #		train_op = optimizaer.apply_gradients(
-#             #			zip(grads, tvars),
-#             #			global_step=tf.contrib.framework.get_or_create_global_step())
-#             ##TODO new learning rate
+# ----------------------------------------------------------------------------------------------------------------------
 
 if __name__ == '__main__':
-
-    s = {'fold': 3,  # 5 folds 0,1,2,3,4
-         'lr': 0.1,
-         'verbose': 0,
-         'nhidden': 100,  # number of hidden units
-         'seed': 345,
-         'emb_dimension': 100,  # dimension of word embedding
-         'nepochs': 40}
-
     folder = os.path.join('out/', os.path.basename(__file__).split('.')[0])  # folder = 'out/bilstm-lm'
     os.makedirs(folder, exist_ok=True)
 
+    print('ATIS fold:', FLAGS.fold)
     print('with language model:', FLAGS.with_lm)
     print('with GloVe:', FLAGS.with_glove)
     print('with bi-LSTM:', FLAGS.bi_lstm)
-    print('ATIS fold:', s['fold'])
-    print('epochs:', s['nepochs'])
-
+    print('Training epochs:', FLAGS.nepochs)
+    print('Training data size:', FLAGS.nsentences)
 
     # load the dataset
-    train_set, valid_set, test_set, dic = load.atisfold(s['fold'])
-    idx2label = dict((k, v) for v, k in dic['labels2idx'].items())
+    train_set, valid_set, test_set, dic = load.atisfold(FLAGS.fold)  # size: 3983, 893, 893
     idx2word = dict((k, v) for v, k in dic['words2idx'].items())
+    idx2label = dict((k, v) for v, k in dic['labels2idx'].items())
 
-    train_lex, train_ne, train_y = train_set
-    valid_lex, valid_ne, valid_y = valid_set
-    test_lex, test_ne, test_y = test_set
+    # id, named entity, label
+    train_x, train_ne, train_y = train_set
+    valid_x, valid_ne, valid_y = valid_set
+    test_x, test_ne, test_y = test_set
 
     vocsize = len(dic['words2idx'])
     nclasses = len(dic['labels2idx'])
-    nsentences = len(train_lex)
-    print('full', nsentences)
-    nsentences = 500
-    print('used for training', nsentences)
+    nsentences = len(train_x)
+    assert FLAGS.nsentences <= nsentences, 'Training data size needs to be less than 3983.'
 
-    sentences_train = [' '.join(list(map(lambda x: idx2word[x], w))) for w in train_lex]
-    sentences_valid = [' '.join(list(map(lambda x: idx2word[x], w))) for w in valid_lex]
-    sentences_test = [' '.join(list(map(lambda x: idx2word[x], w))) for w in test_lex]
+    sentences_train = [' '.join(list(map(lambda x: idx2word[x], s))) for s in train_x]
+    sentences_valid = [' '.join(list(map(lambda x: idx2word[x], s))) for s in valid_x]
+    sentences_test = [' '.join(list(map(lambda x: idx2word[x], s))) for s in test_x]
 
-    train_lm_file = 'data/train_language_embedding.npy'
+    # run and save the embedding matrix if it doesn't exist
+    train_lm_file = 'data/train_language_embedding_' + str(FLAGS.fold) + '.npy'
+    print(train_lm_file)
     if not isfile(train_lm_file):
         SentenceEmbedding(sentences_train, train_lm_file)
 
-    valid_lm_file = 'data/valid_language_embedding.npy'
+    valid_lm_file = 'data/valid_language_embedding_' + str(FLAGS.fold) + '.npy'
     if not isfile(valid_lm_file):
         SentenceEmbedding(sentences_valid, valid_lm_file)
 
-    test_lm_file = 'data/test_language_embedding.npy'
+    test_lm_file = 'data/test_language_embedding_' + str(FLAGS.fold) + '.npy'
     if not isfile(test_lm_file):
         SentenceEmbedding(sentences_test, test_lm_file)
 
+    # load pre-trained language model embedding matrix
     train_lm = np.load(train_lm_file)
     valid_lm = np.load(valid_lm_file)
     test_lm = np.load(test_lm_file)
 
-    # Glove embedding
-    glove = emb.GloVe(N=300)
-    sd = 1 / np.sqrt(FLAGS.embedding_size)
-    glove_embedding = np.random.normal(0, scale=sd, size=[vocsize, FLAGS.embedding_size])
+    # GloVe embedding
+    glove = emb.GloVe(N=FLAGS.emb_size)
+    sd = 1 / np.sqrt(FLAGS.emb_size)
+    glove_embedding = np.random.normal(0, scale=sd, size=[vocsize, FLAGS.emb_size])  # words not in GloVe dict
     glove_embedding = glove_embedding.astype(np.float32)
     for k, v in idx2word.items():
         if v in glove.w.keys():
             glove_embedding[k] = glove.g[glove.w[v]]
 
-    # vocab of LM
-    # vocab = data_utils.CharsVocabulary(FLAGS.vocab_file, MAX_WORD_LEN)
-
     # instantiate the model
-    np.random.seed(s['seed'])
-    random.seed(s['seed'])
+    np.random.seed(FLAGS.seed)
+    random.seed(FLAGS.seed)
+
+    # record training result
+    record = {}
 
     with tf.Graph().as_default(), tf.Session(config=tf.ConfigProto(allow_soft_placement=True)) as sess:
         with tf.name_scope('Train'):
@@ -177,55 +153,52 @@ if __name__ == '__main__':
                 inputs = tf.placeholder(tf.int32, shape=[FLAGS.batch_size, None])
                 labels = tf.placeholder(tf.int32, shape=[FLAGS.batch_size, None, nclasses])
 
-                # TODO st_embedding_char = CNN(one-hot(sentences))
                 if FLAGS.with_glove:
                     embeddings = tf.nn.embedding_lookup(glove_embedding, inputs, name='embeddings')
                 else:
                     with tf.device("/cpu:0"):
-                        word_embedding = tf.get_variable("word_embedding", [vocsize, FLAGS.embedding_size],
+                        word_embedding = tf.get_variable("word_embedding", [vocsize, FLAGS.emb_size],
                                                          dtype=tf.float32)
                     embeddings = tf.nn.embedding_lookup(word_embedding, inputs, name='embeddings')
 
                 if FLAGS.with_lm:
-                    lm_embedding = tf.placeholder(tf.float32, shape=[FLAGS.batch_size, None, 1024])
+                    lm_embedding = tf.placeholder(tf.float32, shape=[FLAGS.batch_size, None, 1024])  # TODO
                     embeddings = tf.concat([embeddings, lm_embedding], axis=2)
 
                 with tf.variable_scope('RNN'):
                     # Add a gru_cell
                     if FLAGS.with_lm:
-                        hidden_size = FLAGS.embedding_size + 1024
+                        hidden_size = FLAGS.emb_size + 1024
                     else:
-                        hidden_size = FLAGS.embedding_size
+                        hidden_size = FLAGS.emb_size
                     lstm_cell = tf.nn.rnn_cell.LSTMCell(hidden_size)
-                    # if is_training and FLAGS.keep_prob < 1:
+
+                    # TODO if is_training and FLAGS.keep_prob < 1:
                     #    gru_cell = tf.nn.rnn_cell.DropoutWrapper(gru_cell, output_keep_prob=FLAGS.keep_prob)
-                    cell = tf.nn.rnn_cell.MultiRNNCell([lstm_cell] * FLAGS.num_layers, state_is_tuple=True)
+
+                    cell = tf.nn.rnn_cell.MultiRNNCell([lstm_cell] * FLAGS.nlayers, state_is_tuple=True)
                     initial_state = cell.zero_state(FLAGS.batch_size, tf.float32)
 
-                    # if is_training and FLAGS.keep_prob < 1:
+                    # TODO if is_training and FLAGS.keep_prob < 1:
                     embeddings = tf.nn.dropout(embeddings, FLAGS.keep_prob)
 
                     if FLAGS.bi_lstm:
-                        (outputs, output_state) = tf.nn.bidirectional_dynamic_rnn(cell_fw=cell, cell_bw=cell,
-                                                                                  inputs=embeddings,
-                                                                                  initial_state_fw=initial_state,
-                                                                                  initial_state_bw=initial_state)
-                        # outputs = tf.concat(outputs, 2)
-                        # print('output', outputs.get_shape())
+                        (outputs, final_state) = tf.nn.bidirectional_dynamic_rnn(cell, cell, embeddings,
+                                                                                 initial_state_fw=initial_state,
+                                                                                 initial_state_bw=initial_state)
                         output_f = outputs[0]
                         output_b = outputs[1]
-                        print('output', output_f.get_shape())
-
                         output_f = tf.reshape(output_f, [-1, hidden_size])
                         output_b = tf.reshape(output_b, [-1, hidden_size])
                         weights_f = tf.get_variable("weights_f", [hidden_size, nclasses], dtype=tf.float32)
                         weights_b = tf.get_variable("weights_b", [hidden_size, nclasses], dtype=tf.float32)
                         biases_f = tf.get_variable("biases_f", [nclasses], dtype=tf.float32)
                         biases_b = tf.get_variable("biases_b", [nclasses], dtype=tf.float32)
-                        # logits = tf.concat([logits_f, logits_b], 2)
+
                         logits = tf.add(tf.add(tf.matmul(output_f, weights_f), biases_f),
                                         tf.add(tf.matmul(output_b, weights_b), biases_b), name="logits")
                         logits = tf.reshape(logits, [FLAGS.batch_size, -1, nclasses])
+
                     else:
                         (outputs, final_state) = tf.nn.dynamic_rnn(cell, embeddings, initial_state=initial_state)
                         output = tf.reshape(outputs, [-1, hidden_size])
@@ -240,19 +213,12 @@ if __name__ == '__main__':
                     cross_entropy = tf.nn.softmax_cross_entropy_with_logits(logits=logits, labels=labels)
                     cost = tf.reduce_mean(cross_entropy, name='cost')
                     tf.summary.scalar('cost', cost)
-                    optimizer = tf.train.RMSPropOptimizer(learning_rate=0.001).minimize(cost, name='train_op')
+                    optimizer = tf.train.RMSPropOptimizer(learning_rate=FLAGS.lr).minimize(cost, name='train_op')
 
-        # with tf.name_scope('Test'):
-        #     with tf.variable_scope('Model', reuse=None):
-        #         _rnn_model(is_training=True, embeddings=train_embeddings, labels=train_labels, lengths=train_lengths)
-
-        # Initialize all variables in the model
-        # print(z.get_shape)
-        # print(final_state.get_shape)
         # for n in tf.get_default_graph().get_operations():
         #     try:
         #         tmp_tensor = sess.graph.get_tensor_by_name(n.name + ':0')
-        #         #print (tmp_tensor.get_shape)
+        #         print (tmp_tensor.get_shape)
         #     except KeyError:
         #         continue
         # word_embedding_tensor = sess.graph.get_tensor_by_name('Train/Model/embedding:0')
@@ -268,48 +234,42 @@ if __name__ == '__main__':
         # targets_in_tensor = sess.graph.get_tensor_by_name('Train/Model/targets_in')
         # targets_weights_in_tensor = sess.graph.get_tensor_by_name('Train/Model/target_weights_in')
 
-        # init
-        # sess.run('save/restore_all', {'save/Const:0': ckpt_file})
-        # sess.run(lm_init_op)
-        init_op = tf.group(tf.global_variables_initializer(), tf.local_variables_initializer())
+        init_op = tf.global_variables_initializer()
         sess.run(init_op)
-        coord = tf.train.Coordinator()
-        threads = tf.train.start_queue_runners(coord=coord)
 
-        # train with early stopping on validation set
+        # train with early stopping on training set
         best_f1 = -np.inf
-        for e in range(s['nepochs']):
+        for e in range(FLAGS.nepochs):
             # shuffle
-            shuffle([train_lex, train_ne, train_y, train_lm], s['seed'])
-            # print(nsentences, '@')
-            # print(len(words_train), '@')
-            # LM_embedding = SentenceEmbedding(words_train)
-            s['ce'] = e
+            shuffle([train_x, train_ne, train_y, train_lm], FLAGS.seed)
+            record['current epoch'] = e
             tic = time.time()
-            for i in range(nsentences):
-                X = np.asarray([train_lex[i]])
+
+            # training
+            for i in range(FLAGS.nsentences):
+                X = np.asarray([train_x[i]])
                 Y = to_categorical(np.asarray(train_y[i])[:, np.newaxis], nclasses)[np.newaxis, :, :]
 
                 if FLAGS.with_lm:
+                    # don't use the lm_embedding for the start token <S>
                     [_] = sess.run([train_op], feed_dict={inputs: X, labels: Y, lm_embedding: [train_lm[i][1:]]})
                 else:
-                    [_] = sess.run([train_op], feed_dict={inputs: X, labels: Y})  # TODO print loss
+                    [_] = sess.run([train_op], feed_dict={inputs: X, labels: Y})
 
-                if s['verbose']:
-                    print('[learning] epoch %i >> %2.2f%%' % (e, (i + 1) * 100. / nsentences),
+                if FLAGS.verbose:
+                    print('[learning] epoch %i >> %2.2f%%' % (e, (i + 1) * 100. / FLAGS.nsentences),
                           'completed in %.2f (sec) <<\r' % (time.time() - tic))
                     sys.stdout.flush()
 
             # evaluation
-            words_valid = [map(lambda x: idx2word[x], w) for w in valid_lex]
+            words_valid = [map(lambda x: idx2word[x], w) for w in valid_x]
             groundtruth_valid = [map(lambda x: idx2label[x], y) for y in valid_y]
             predictions_valid = []
-            for i in range(len(valid_lex)):
-                X = np.asarray([valid_lex[i]])
+            for i in range(len(valid_x)):
+                X = np.asarray([valid_x[i]])
                 zero_labels = np.zeros([1, X.shape[1], nclasses], dtype=np.int32)
 
                 if FLAGS.with_lm:
-                    # LM_embedding = SentenceEmbedding(words_valid[i])
                     [predict_y] = sess.run([prediction_tensor], feed_dict={inputs: X,
                                                                            labels: zero_labels,
                                                                            lm_embedding: [valid_lm[i][1:]]})
@@ -320,11 +280,11 @@ if __name__ == '__main__':
                 predictions_valid.append(predict_labels)
 
             # test
-            words_test = [map(lambda x: idx2word[x], w) for w in test_lex]
+            words_test = [map(lambda x: idx2word[x], w) for w in test_x]
             groundtruth_test = [map(lambda x: idx2label[x], y) for y in test_y]
             predictions_test = []
-            for i in range(len(test_lex)):
-                X = np.asarray([test_lex[i]])
+            for i in range(len(test_x)):
+                X = np.asarray([test_x[i]])
                 zero_labels = np.zeros([1, X.shape[1], nclasses], dtype=np.int32)
 
                 if FLAGS.with_lm:
@@ -337,28 +297,24 @@ if __name__ == '__main__':
                 predict_labels = map(lambda x: idx2label[x], predict_y.argmax(2)[0])
                 predictions_test.append(predict_labels)
 
-            # print('?', list(predictions_test[0]))
-            # print('?', list(groundtruth_test[0]))
-            # print('?', list(words_test[0]))
-
             # evaluation // compute the accuracy using conlleval.pl
             res_test = conlleval(predictions_test, groundtruth_test, words_test, folder + '/current.test.txt')
             res_valid = conlleval(predictions_valid, groundtruth_valid, words_valid, folder + '/current.valid.txt')
             print(res_test)
             print('epoch', e, 'valid F1', res_valid['f1'], 'test F1', res_test['f1'], ' ' * 20)
 
-            if res_valid['f1'] > best_f1:  # TODO best valid-f1?
+            if res_valid['f1'] > best_f1:  # TODO early stop?
                 # os.makedirs('weights/', exist_ok=True)
-                # model.save_weights('weights/best_model.h5', overwrite=True) TODO
+                # model.save_weights('weights/best_model.h5', overwrite=True)
                 best_f1 = res_valid['f1']
-                # if s['verbose']:
                 print('NEW BEST: epoch', e, 'best valid F1', res_valid['f1'], 'test F1', res_test['f1'], ' ' * 20)
-                s['vf1'], s['vp'], s['vr'] = res_valid['f1'], res_valid['p'], res_valid['r']
-                s['tf1'], s['tp'], s['tr'] = res_test['f1'], res_test['p'], res_test['r']
-                s['be'] = e
+                record['vf1'], record['vp'], record['vr'] = res_valid['f1'], res_valid['p'], res_valid['r']
+                record['tf1'], record['tp'], record['tr'] = res_test['f1'], res_test['p'], res_test['r']
+                record['best epoch'] = e
                 subprocess.call(['mv', folder + '/current.test.txt', folder + '/best.test.txt'])
                 subprocess.call(['mv', folder + '/current.valid.txt', folder + '/best.valid.txt'])
             else:
                 print('')
 
-    print('BEST RESULT: epoch', s['be'], 'best valid F1', s['vf1'], 'test F1', s['tf1'], 'with the model', folder)
+    print('BEST RESULT: epoch', record['best epoch'], 'best valid F1', record['vf1'], 'test F1', record['tf1'],
+          'with the model', folder)

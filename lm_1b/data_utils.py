@@ -22,7 +22,11 @@ import tensorflow as tf
 
 
 class Vocabulary(object):
-    """Class that holds a vocabulary for the dataset."""
+    """
+    Class that holds a vocabulary for the dataset.
+    Id is the line number of the respective word in vocabulary txt file.
+    Provide methods to convert words to ids and reversely.
+    """
 
     def __init__(self, filename):
         """Initialize vocabulary.
@@ -40,7 +44,7 @@ class Vocabulary(object):
         with tf.gfile.Open(filename) as f:
             idx = 0
             for line in f:
-                word_name = line.strip()
+                word_name = line.strip()  # strip space
                 if word_name == '<S>':
                     self._bos = idx
                 elif word_name == '</S>':
@@ -101,9 +105,9 @@ class CharsVocabulary(Vocabulary):
         for word in self._id_to_word:
             chars_set |= set(word)  # get all the characters in the vocabulary
 
-        free_ids = []
+        free_ids = []  # chars in ASCII but not in the CharsVocabulary
         for i in range(256):
-            if chr(i) in chars_set:
+            if chr(i) in chars_set:  # chr(): ASCII
                 continue
             free_ids.append(chr(i))
 
@@ -122,9 +126,9 @@ class CharsVocabulary(Vocabulary):
         self._char_set = chars_set
         num_words = len(self._id_to_word)
 
-        self._word_char_ids = np.zeros([num_words, max_word_length], dtype=np.int32)
+        self._word_char_ids = np.zeros([num_words, max_word_length], dtype=np.int32)  # a look up table
 
-        self.bos_chars = self._convert_word_to_char_ids(self.bos_char)  # TODO self._bos?
+        self.bos_chars = self._convert_word_to_char_ids(self.bos_char)
         self.eos_chars = self._convert_word_to_char_ids(self.eos_char)
 
         for i, word in enumerate(self._id_to_word):
@@ -140,7 +144,7 @@ class CharsVocabulary(Vocabulary):
 
     def _convert_word_to_char_ids(self, word):
         code = np.zeros([self.max_word_length], dtype=np.int32)
-        code[:] = ord(self.pad_char)
+        code[:] = ord(self.pad_char)  # inverse of chr()
 
         if len(word) > self.max_word_length - 2:
             word = word[:self.max_word_length - 2]
