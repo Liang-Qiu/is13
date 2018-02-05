@@ -30,10 +30,10 @@ cd is13
 All the required data can be found at https://drive.google.com/drive/folders/1qQH3vf3eCTac8qWGhaf5XEzwz0s_eRe0?usp=sharing.
 Or you can download the following files to data folder:
 * Download glove.6B.300d.txt from https://nlp.stanford.edu/projects/glove/
-* Download ATIS [split 0](http://lisaweb.iro.umontreal.ca/transfert/lisa/users/mesnilgr/atis/atis.fold0.pkl.gz) [split 1](http://lisaweb.iro.umontreal.ca/transfert/lisa/users/mesnilgr/atis/atis.fold1.pkl.gz) [split 2](http://lisaweb.iro.umontreal.ca/transfert/lisa/users/mesnilgr/atis/atis.fold2.pkl.gz) [split 3](http://lisaweb.iro.umontreal.ca/transfert/lisa/users/mesnilgr/atis/atis.fold3.pkl.gz) [split 4](http://lisaweb.iro.umontreal.ca/transfert/lisa/users/mesnilgr/atis/atis.fold4.pkl.gz).
+* Download ATIS [split 0](http://lisaweb.iro.umontreal.ca/transfert/lisa/users/mesnilgr/atis/atis.fold0.pkl.gz) [split 1](http://lisaweb.iro.umontreal.ca/transfert/lisa/users/mesnilgr/atis/atis.fold1.pkl.gz) [split 2](http://lisaweb.iro.umontreal.ca/transfert/lisa/users/mesnilgr/atis/atis.fold2.pkl.gz) [split 3](http://lisaweb.iro.umontreal.ca/transfert/lisa/users/mesnilgr/atis/atis.fold3.pkl.gz) [split 4](http://lisaweb.iro.umontreal.ca/transfert/lisa/users/mesnilgr/atis/atis.fold4.pkl.gz)
 * Download the language model data files:
   * Model GraphDef file:
-  [link](http://download.tensorflow.org/models/LM_LSTM_CNN/graph-2016-09-10.pbtxt).
+  [link](http://download.tensorflow.org/models/LM_LSTM_CNN/graph-2016-09-10.pbtxt)
   * Model Checkpoint sharded file:
   [1](http://download.tensorflow.org/models/LM_LSTM_CNN/all_shards-2016-09-10/ckpt-base)
   [2](http://download.tensorflow.org/models/LM_LSTM_CNN/all_shards-2016-09-10/ckpt-char-embedding)
@@ -48,7 +48,7 @@ Or you can download the following files to data folder:
   [11](http://download.tensorflow.org/models/LM_LSTM_CNN/all_shards-2016-09-10/ckpt-softmax7)
   [12](http://download.tensorflow.org/models/LM_LSTM_CNN/all_shards-2016-09-10/ckpt-softmax8)
   * Vocabulary file:
-  [link](http://download.tensorflow.org/models/LM_LSTM_CNN/vocab-2016-09-10.txt).
+  [link](http://download.tensorflow.org/models/LM_LSTM_CNN/vocab-2016-09-10.txt)
   * test dataset: link
   [link](http://download.tensorflow.org/models/LM_LSTM_CNN/test/news.en.heldout-00000-of-00050)
 
