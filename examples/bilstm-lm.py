@@ -31,14 +31,6 @@ flags.DEFINE_boolean(
     'bi_lstm', True,
     'Use bidirectional LSTM or forward LSTM.')
 
-# s = {'fold': 3,  # 5 folds 0,1,2,3,4
-#      'lr': 0.1,
-#      'verbose': 0,
-#      'nhidden': 100,  # number of hidden units
-#      'seed': 345,
-#      'emb_dimension': 100,  # dimension of word embedding
-#      'nepochs': 40}
-
 flags.DEFINE_integer(
     'fold', 3,  # TODO
     'ATIS dataset fold.')
@@ -68,7 +60,7 @@ flags.DEFINE_integer(
     'RNN hidden layer number.')
 
 flags.DEFINE_float(
-    'nepochs', 5,
+    'nepochs', 40,
     'Training epochs.')
 
 flags.DEFINE_float(
@@ -114,7 +106,6 @@ if __name__ == '__main__':
 
     # run and save the embedding matrix if it doesn't exist
     train_lm_file = 'data/train_language_embedding_' + str(FLAGS.fold) + '.npy'
-    print(train_lm_file)
     if not isfile(train_lm_file):
         SentenceEmbedding(sentences_train, train_lm_file)
 
@@ -162,7 +153,7 @@ if __name__ == '__main__':
                     embeddings = tf.nn.embedding_lookup(word_embedding, inputs, name='embeddings')
 
                 if FLAGS.with_lm:
-                    lm_embedding = tf.placeholder(tf.float32, shape=[FLAGS.batch_size, None, 1024])  # TODO
+                    lm_embedding = tf.placeholder(tf.float32, shape=[FLAGS.batch_size, None, 1024])
                     embeddings = tf.concat([embeddings, lm_embedding], axis=2)
 
                 with tf.variable_scope('RNN'):
@@ -239,6 +230,7 @@ if __name__ == '__main__':
 
         # train with early stopping on training set
         best_f1 = -np.inf
+        early_stop_count = 0
         for e in range(FLAGS.nepochs):
             # shuffle
             shuffle([train_x, train_ne, train_y, train_lm], FLAGS.seed)
@@ -300,21 +292,26 @@ if __name__ == '__main__':
             # evaluation // compute the accuracy using conlleval.pl
             res_test = conlleval(predictions_test, groundtruth_test, words_test, folder + '/current.test.txt')
             res_valid = conlleval(predictions_valid, groundtruth_valid, words_valid, folder + '/current.valid.txt')
-            print(res_test)
-            print('epoch', e, 'valid F1', res_valid['f1'], 'test F1', res_test['f1'], ' ' * 20)
+            if FLAGS.verbose:
+                print('epoch', e, 'valid F1', res_valid['f1'], 'test F1', res_test['f1'], ' ' * 20)
 
-            if res_valid['f1'] > best_f1:  # TODO early stop?
+            if res_valid['f1'] > best_f1:
                 # os.makedirs('weights/', exist_ok=True)
                 # model.save_weights('weights/best_model.h5', overwrite=True)
                 best_f1 = res_valid['f1']
-                print('NEW BEST: epoch', e, 'best valid F1', res_valid['f1'], 'test F1', res_test['f1'], ' ' * 20)
+                if FLAGS.verbose:
+                    print('NEW BEST: epoch', e, 'best valid F1', res_valid['f1'], 'test F1', res_test['f1'], ' ' * 20)
                 record['vf1'], record['vp'], record['vr'] = res_valid['f1'], res_valid['p'], res_valid['r']
                 record['tf1'], record['tp'], record['tr'] = res_test['f1'], res_test['p'], res_test['r']
                 record['best epoch'] = e
                 subprocess.call(['mv', folder + '/current.test.txt', folder + '/best.test.txt'])
                 subprocess.call(['mv', folder + '/current.valid.txt', folder + '/best.valid.txt'])
+                early_stop_count = 0
             else:
+                early_stop_count += 1
                 print('')
 
+            if early_stop_count >= 3:
+                break
     print('BEST RESULT: epoch', record['best epoch'], 'best valid F1', record['vf1'], 'test F1', record['tf1'],
           'with the model', folder)
