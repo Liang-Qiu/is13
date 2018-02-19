@@ -43,7 +43,7 @@ flags.DEFINE_integer(
     'lr', 0.001,  # TODO
     'Training learning rate.')
 
-flags.DEFINE_integer(
+flags.DEFINE_boolean(
     'verbose', False,
     'Verbose when training.')
 
@@ -66,6 +66,10 @@ flags.DEFINE_float(
 flags.DEFINE_float(
     'keep_prob', 0.8,
     'Drop out keep probability.')
+
+# flags.DEFINE_integer(
+#     'early_stop', 10,
+#     'maximum epochs not increasing valid F1')
 
 flags.DEFINE_integer(
     'seed', 345,
@@ -230,7 +234,7 @@ if __name__ == '__main__':
 
         # train with early stopping on training set
         best_f1 = -np.inf
-        early_stop_count = 0
+#        early_stop_count = 0
         for e in range(FLAGS.nepochs):
             # shuffle
             shuffle([train_x, train_ne, train_y, train_lm], FLAGS.seed)
@@ -249,8 +253,8 @@ if __name__ == '__main__':
                     [_] = sess.run([train_op], feed_dict={inputs: X, labels: Y})
 
                 if FLAGS.verbose:
-                    print('[learning] epoch %i >> %2.2f%%' % (e, (i + 1) * 100. / FLAGS.nsentences),
-                          'completed in %.2f (sec) <<\r' % (time.time() - tic))
+                    #  print('[learning] epoch %i >> %2.2f%%' % (e, (i + 1) * 100. / FLAGS.nsentences),
+                    #      'completed in %.2f (sec) <<\r' % (time.time() - tic))
                     sys.stdout.flush()
 
             # evaluation
@@ -306,12 +310,12 @@ if __name__ == '__main__':
                 record['best epoch'] = e
                 subprocess.call(['mv', folder + '/current.test.txt', folder + '/best.test.txt'])
                 subprocess.call(['mv', folder + '/current.valid.txt', folder + '/best.valid.txt'])
-                early_stop_count = 0
+#                early_stop_count = 0
             else:
-                early_stop_count += 1
+#                early_stop_count += 1
                 print('')
 
-            if early_stop_count >= 3:
-                break
+#            if early_stop_count >= FLAGS.early_stop:
+#                break
     print('BEST RESULT: epoch', record['best epoch'], 'best valid F1', record['vf1'], 'test F1', record['tf1'],
           'with the model', folder)

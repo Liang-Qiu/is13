@@ -1,0 +1,2003 @@
+2018-02-06 12:00:43.694221: I tensorflow/core/platform/cpu_feature_guard.cc:137] Your CPU supports instructions that this TensorFlow binary was not compiled to use: SSE4.1 SSE4.2 AVX AVX2 FMA
+2018-02-06 12:00:43.944805: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1030] Found device 0 with properties: 
+name: GeForce GTX 1080 Ti major: 6 minor: 1 memoryClockRate(GHz): 1.683
+pciBusID: 0000:05:00.0
+totalMemory: 10.91GiB freeMemory: 10.29GiB
+2018-02-06 12:00:44.134963: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1030] Found device 1 with properties: 
+name: GeForce GTX 1080 Ti major: 6 minor: 1 memoryClockRate(GHz): 1.683
+pciBusID: 0000:06:00.0
+totalMemory: 10.91GiB freeMemory: 10.75GiB
+2018-02-06 12:00:44.135631: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1045] Device peer to peer matrix
+2018-02-06 12:00:44.135657: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1051] DMA: 0 1 
+2018-02-06 12:00:44.135664: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1061] 0:   Y Y 
+2018-02-06 12:00:44.135668: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1061] 1:   Y Y 
+2018-02-06 12:00:44.135674: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1120] Creating TensorFlow device (/device:GPU:0) -> (device: 0, name: GeForce GTX 1080 Ti, pci bus id: 0000:05:00.0, compute capability: 6.1)
+2018-02-06 12:00:44.135679: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1120] Creating TensorFlow device (/device:GPU:1) -> (device: 1, name: GeForce GTX 1080 Ti, pci bus id: 0000:06:00.0, compute capability: 6.1)
+ATIS fold: 3
+with language model: False
+with GloVe: False
+with bi-LSTM: False
+Training epochs: 40
+Training data size: 200
+epoch 0 valid F1 0.0 test F1 0.0                     
+NEW BEST: epoch 0 best valid F1 0.0 test F1 0.0                     
+epoch 1 valid F1 44.79 test F1 39.68                     
+NEW BEST: epoch 1 best valid F1 44.79 test F1 39.68                     
+epoch 2 valid F1 53.9 test F1 49.25                     
+NEW BEST: epoch 2 best valid F1 53.9 test F1 49.25                     
+epoch 3 valid F1 53.06 test F1 48.26                     
+
+epoch 4 valid F1 57.15 test F1 49.61                     
+NEW BEST: epoch 4 best valid F1 57.15 test F1 49.61                     
+epoch 5 valid F1 55.27 test F1 45.94                     
+
+epoch 6 valid F1 56.92 test F1 48.97                     
+
+epoch 7 valid F1 58.44 test F1 49.15                     
+NEW BEST: epoch 7 best valid F1 58.44 test F1 49.15                     
+epoch 8 valid F1 60.28 test F1 52.6                     
+NEW BEST: epoch 8 best valid F1 60.28 test F1 52.6                     
+epoch 9 valid F1 60.45 test F1 54.32                     
+NEW BEST: epoch 9 best valid F1 60.45 test F1 54.32                     
+epoch 10 valid F1 62.84 test F1 55.44                     
+NEW BEST: epoch 10 best valid F1 62.84 test F1 55.44                     
+epoch 11 valid F1 63.57 test F1 57.16                     
+NEW BEST: epoch 11 best valid F1 63.57 test F1 57.16                     
+epoch 12 valid F1 65.34 test F1 53.64                     
+NEW BEST: epoch 12 best valid F1 65.34 test F1 53.64                     
+epoch 13 valid F1 68.18 test F1 60.75                     
+NEW BEST: epoch 13 best valid F1 68.18 test F1 60.75                     
+epoch 14 valid F1 69.91 test F1 64.86                     
+NEW BEST: epoch 14 best valid F1 69.91 test F1 64.86                     
+epoch 15 valid F1 72.37 test F1 67.94                     
+NEW BEST: epoch 15 best valid F1 72.37 test F1 67.94                     
+epoch 16 valid F1 72.37 test F1 66.64                     
+
+epoch 17 valid F1 73.14 test F1 69.21                     
+NEW BEST: epoch 17 best valid F1 73.14 test F1 69.21                     
+epoch 18 valid F1 77.28 test F1 70.25                     
+NEW BEST: epoch 18 best valid F1 77.28 test F1 70.25                     
+epoch 19 valid F1 79.26 test F1 76.11                     
+NEW BEST: epoch 19 best valid F1 79.26 test F1 76.11                     
+epoch 20 valid F1 78.32 test F1 73.2                     
+
+epoch 21 valid F1 80.56 test F1 76.17                     
+NEW BEST: epoch 21 best valid F1 80.56 test F1 76.17                     
+epoch 22 valid F1 80.28 test F1 74.92                     
+
+epoch 23 valid F1 80.53 test F1 75.81                     
+
+epoch 24 valid F1 81.8 test F1 77.66                     
+NEW BEST: epoch 24 best valid F1 81.8 test F1 77.66                     
+epoch 25 valid F1 83.19 test F1 79.17                     
+NEW BEST: epoch 25 best valid F1 83.19 test F1 79.17                     
+epoch 26 valid F1 83.0 test F1 77.96                     
+
+epoch 27 valid F1 84.73 test F1 81.2                     
+NEW BEST: epoch 27 best valid F1 84.73 test F1 81.2                     
+epoch 28 valid F1 83.5 test F1 79.67                     
+
+epoch 29 valid F1 84.61 test F1 80.6                     
+
+epoch 30 valid F1 85.25 test F1 81.39                     
+NEW BEST: epoch 30 best valid F1 85.25 test F1 81.39                     
+epoch 31 valid F1 85.98 test F1 81.55                     
+NEW BEST: epoch 31 best valid F1 85.98 test F1 81.55                     
+epoch 32 valid F1 85.8 test F1 81.8                     
+
+epoch 33 valid F1 87.02 test F1 81.64                     
+NEW BEST: epoch 33 best valid F1 87.02 test F1 81.64                     
+epoch 34 valid F1 85.94 test F1 81.66                     
+
+epoch 35 valid F1 87.39 test F1 83.28                     
+NEW BEST: epoch 35 best valid F1 87.39 test F1 83.28                     
+epoch 36 valid F1 88.26 test F1 83.01                     
+NEW BEST: epoch 36 best valid F1 88.26 test F1 83.01                     
+epoch 37 valid F1 87.02 test F1 82.73                     
+
+epoch 38 valid F1 87.83 test F1 83.09                     
+
+Using TensorFlow backend.
+epoch 39 valid F1 88.41 test F1 83.97                     
+NEW BEST: epoch 39 best valid F1 88.41 test F1 83.97                     
+BEST RESULT: epoch 39 best valid F1 88.41 test F1 83.97 with the model out/bilstm-lm
+2018-02-06 12:10:24.149044: I tensorflow/core/platform/cpu_feature_guard.cc:137] Your CPU supports instructions that this TensorFlow binary was not compiled to use: SSE4.1 SSE4.2 AVX AVX2 FMA
+2018-02-06 12:10:24.416981: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1030] Found device 0 with properties: 
+name: GeForce GTX 1080 Ti major: 6 minor: 1 memoryClockRate(GHz): 1.683
+pciBusID: 0000:05:00.0
+totalMemory: 10.91GiB freeMemory: 10.29GiB
+2018-02-06 12:10:24.601910: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1030] Found device 1 with properties: 
+name: GeForce GTX 1080 Ti major: 6 minor: 1 memoryClockRate(GHz): 1.683
+pciBusID: 0000:06:00.0
+totalMemory: 10.91GiB freeMemory: 10.75GiB
+2018-02-06 12:10:24.602576: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1045] Device peer to peer matrix
+2018-02-06 12:10:24.602602: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1051] DMA: 0 1 
+2018-02-06 12:10:24.602608: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1061] 0:   Y Y 
+2018-02-06 12:10:24.602612: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1061] 1:   Y Y 
+2018-02-06 12:10:24.602619: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1120] Creating TensorFlow device (/device:GPU:0) -> (device: 0, name: GeForce GTX 1080 Ti, pci bus id: 0000:05:00.0, compute capability: 6.1)
+2018-02-06 12:10:24.602623: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1120] Creating TensorFlow device (/device:GPU:1) -> (device: 1, name: GeForce GTX 1080 Ti, pci bus id: 0000:06:00.0, compute capability: 6.1)
+ATIS fold: 3
+with language model: True
+with GloVe: False
+with bi-LSTM: False
+Training epochs: 40
+Training data size: 200
+epoch 0 valid F1 44.47 test F1 38.66                     
+NEW BEST: epoch 0 best valid F1 44.47 test F1 38.66                     
+epoch 1 valid F1 58.16 test F1 54.66                     
+NEW BEST: epoch 1 best valid F1 58.16 test F1 54.66                     
+epoch 2 valid F1 67.95 test F1 62.95                     
+NEW BEST: epoch 2 best valid F1 67.95 test F1 62.95                     
+epoch 3 valid F1 69.95 test F1 64.37                     
+NEW BEST: epoch 3 best valid F1 69.95 test F1 64.37                     
+epoch 4 valid F1 73.45 test F1 72.44                     
+NEW BEST: epoch 4 best valid F1 73.45 test F1 72.44                     
+epoch 5 valid F1 77.72 test F1 74.8                     
+NEW BEST: epoch 5 best valid F1 77.72 test F1 74.8                     
+epoch 6 valid F1 76.59 test F1 72.27                     
+
+epoch 7 valid F1 80.31 test F1 75.92                     
+NEW BEST: epoch 7 best valid F1 80.31 test F1 75.92                     
+epoch 8 valid F1 79.3 test F1 75.46                     
+
+epoch 9 valid F1 83.69 test F1 79.33                     
+NEW BEST: epoch 9 best valid F1 83.69 test F1 79.33                     
+epoch 10 valid F1 83.86 test F1 78.66                     
+NEW BEST: epoch 10 best valid F1 83.86 test F1 78.66                     
+epoch 11 valid F1 83.68 test F1 80.65                     
+
+epoch 12 valid F1 83.05 test F1 77.58                     
+
+epoch 13 valid F1 86.52 test F1 81.53                     
+NEW BEST: epoch 13 best valid F1 86.52 test F1 81.53                     
+epoch 14 valid F1 86.34 test F1 81.41                     
+
+epoch 15 valid F1 87.48 test F1 83.46                     
+NEW BEST: epoch 15 best valid F1 87.48 test F1 83.46                     
+epoch 16 valid F1 86.86 test F1 83.16                     
+
+epoch 17 valid F1 89.17 test F1 85.7                     
+NEW BEST: epoch 17 best valid F1 89.17 test F1 85.7                     
+epoch 18 valid F1 89.26 test F1 83.24                     
+NEW BEST: epoch 18 best valid F1 89.26 test F1 83.24                     
+epoch 19 valid F1 88.37 test F1 84.06                     
+
+epoch 20 valid F1 87.19 test F1 80.87                     
+
+epoch 21 valid F1 90.22 test F1 84.2                     
+NEW BEST: epoch 21 best valid F1 90.22 test F1 84.2                     
+epoch 22 valid F1 88.19 test F1 82.07                     
+
+epoch 23 valid F1 88.27 test F1 82.1                     
+
+epoch 24 valid F1 90.15 test F1 84.82                     
+
+epoch 25 valid F1 91.86 test F1 86.3                     
+NEW BEST: epoch 25 best valid F1 91.86 test F1 86.3                     
+epoch 26 valid F1 91.96 test F1 85.55                     
+NEW BEST: epoch 26 best valid F1 91.96 test F1 85.55                     
+epoch 27 valid F1 91.42 test F1 85.36                     
+
+epoch 28 valid F1 89.76 test F1 84.29                     
+
+epoch 29 valid F1 91.99 test F1 85.81                     
+NEW BEST: epoch 29 best valid F1 91.99 test F1 85.81                     
+epoch 30 valid F1 92.12 test F1 87.69                     
+NEW BEST: epoch 30 best valid F1 92.12 test F1 87.69                     
+epoch 31 valid F1 92.72 test F1 86.38                     
+NEW BEST: epoch 31 best valid F1 92.72 test F1 86.38                     
+epoch 32 valid F1 92.29 test F1 85.69                     
+
+epoch 33 valid F1 92.47 test F1 86.32                     
+
+epoch 34 valid F1 93.6 test F1 87.19                     
+NEW BEST: epoch 34 best valid F1 93.6 test F1 87.19                     
+epoch 35 valid F1 92.9 test F1 87.14                     
+
+epoch 36 valid F1 93.48 test F1 88.09                     
+
+epoch 37 valid F1 90.88 test F1 85.52                     
+
+epoch 38 valid F1 93.26 test F1 88.15                     
+
+Using TensorFlow backend.
+epoch 39 valid F1 92.26 test F1 86.28                     
+
+BEST RESULT: epoch 34 best valid F1 93.6 test F1 87.19 with the model out/bilstm-lm
+2018-02-06 12:23:05.545851: I tensorflow/core/platform/cpu_feature_guard.cc:137] Your CPU supports instructions that this TensorFlow binary was not compiled to use: SSE4.1 SSE4.2 AVX AVX2 FMA
+2018-02-06 12:23:05.832786: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1030] Found device 0 with properties: 
+name: GeForce GTX 1080 Ti major: 6 minor: 1 memoryClockRate(GHz): 1.683
+pciBusID: 0000:05:00.0
+totalMemory: 10.91GiB freeMemory: 10.29GiB
+2018-02-06 12:23:06.051373: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1030] Found device 1 with properties: 
+name: GeForce GTX 1080 Ti major: 6 minor: 1 memoryClockRate(GHz): 1.683
+pciBusID: 0000:06:00.0
+totalMemory: 10.91GiB freeMemory: 10.75GiB
+2018-02-06 12:23:06.052046: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1045] Device peer to peer matrix
+2018-02-06 12:23:06.052072: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1051] DMA: 0 1 
+2018-02-06 12:23:06.052079: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1061] 0:   Y Y 
+2018-02-06 12:23:06.052083: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1061] 1:   Y Y 
+2018-02-06 12:23:06.052091: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1120] Creating TensorFlow device (/device:GPU:0) -> (device: 0, name: GeForce GTX 1080 Ti, pci bus id: 0000:05:00.0, compute capability: 6.1)
+2018-02-06 12:23:06.052096: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1120] Creating TensorFlow device (/device:GPU:1) -> (device: 1, name: GeForce GTX 1080 Ti, pci bus id: 0000:06:00.0, compute capability: 6.1)
+ATIS fold: 3
+with language model: True
+with GloVe: False
+with bi-LSTM: True
+Training epochs: 40
+Training data size: 200
+epoch 0 valid F1 49.03 test F1 42.04                     
+NEW BEST: epoch 0 best valid F1 49.03 test F1 42.04                     
+epoch 1 valid F1 60.08 test F1 59.58                     
+NEW BEST: epoch 1 best valid F1 60.08 test F1 59.58                     
+epoch 2 valid F1 68.6 test F1 63.15                     
+NEW BEST: epoch 2 best valid F1 68.6 test F1 63.15                     
+epoch 3 valid F1 70.66 test F1 63.9                     
+NEW BEST: epoch 3 best valid F1 70.66 test F1 63.9                     
+epoch 4 valid F1 76.53 test F1 73.58                     
+NEW BEST: epoch 4 best valid F1 76.53 test F1 73.58                     
+epoch 5 valid F1 80.65 test F1 74.91                     
+NEW BEST: epoch 5 best valid F1 80.65 test F1 74.91                     
+epoch 6 valid F1 80.64 test F1 75.42                     
+
+epoch 7 valid F1 81.61 test F1 77.37                     
+NEW BEST: epoch 7 best valid F1 81.61 test F1 77.37                     
+epoch 8 valid F1 77.44 test F1 74.02                     
+
+epoch 9 valid F1 85.08 test F1 80.49                     
+NEW BEST: epoch 9 best valid F1 85.08 test F1 80.49                     
+epoch 10 valid F1 85.08 test F1 80.08                     
+
+epoch 11 valid F1 85.83 test F1 81.25                     
+NEW BEST: epoch 11 best valid F1 85.83 test F1 81.25                     
+epoch 12 valid F1 87.23 test F1 81.48                     
+NEW BEST: epoch 12 best valid F1 87.23 test F1 81.48                     
+epoch 13 valid F1 87.28 test F1 83.08                     
+NEW BEST: epoch 13 best valid F1 87.28 test F1 83.08                     
+epoch 14 valid F1 88.62 test F1 83.33                     
+NEW BEST: epoch 14 best valid F1 88.62 test F1 83.33                     
+epoch 15 valid F1 88.94 test F1 83.84                     
+NEW BEST: epoch 15 best valid F1 88.94 test F1 83.84                     
+epoch 16 valid F1 89.25 test F1 84.29                     
+NEW BEST: epoch 16 best valid F1 89.25 test F1 84.29                     
+epoch 17 valid F1 91.21 test F1 86.31                     
+NEW BEST: epoch 17 best valid F1 91.21 test F1 86.31                     
+epoch 18 valid F1 90.34 test F1 84.64                     
+
+epoch 19 valid F1 89.87 test F1 86.07                     
+
+epoch 20 valid F1 83.44 test F1 75.7                     
+
+epoch 21 valid F1 90.66 test F1 85.3                     
+
+epoch 22 valid F1 90.57 test F1 85.42                     
+
+epoch 23 valid F1 92.22 test F1 86.13                     
+NEW BEST: epoch 23 best valid F1 92.22 test F1 86.13                     
+epoch 24 valid F1 91.77 test F1 88.23                     
+
+epoch 25 valid F1 93.07 test F1 88.0                     
+NEW BEST: epoch 25 best valid F1 93.07 test F1 88.0                     
+epoch 26 valid F1 92.22 test F1 86.32                     
+
+epoch 27 valid F1 90.97 test F1 86.33                     
+
+epoch 28 valid F1 91.59 test F1 86.61                     
+
+epoch 29 valid F1 91.89 test F1 86.1                     
+
+epoch 30 valid F1 91.65 test F1 86.5                     
+
+epoch 31 valid F1 92.87 test F1 86.36                     
+
+epoch 32 valid F1 92.61 test F1 87.44                     
+
+epoch 33 valid F1 91.99 test F1 88.3                     
+
+epoch 34 valid F1 92.45 test F1 87.29                     
+
+epoch 35 valid F1 93.21 test F1 90.04                     
+NEW BEST: epoch 35 best valid F1 93.21 test F1 90.04                     
+epoch 36 valid F1 93.19 test F1 88.86                     
+
+epoch 37 valid F1 93.07 test F1 88.66                     
+
+epoch 38 valid F1 93.78 test F1 89.64                     
+NEW BEST: epoch 38 best valid F1 93.78 test F1 89.64                     
+Using TensorFlow backend.
+epoch 39 valid F1 94.53 test F1 89.83                     
+NEW BEST: epoch 39 best valid F1 94.53 test F1 89.83                     
+BEST RESULT: epoch 39 best valid F1 94.53 test F1 89.83 with the model out/bilstm-lm
+2018-02-06 12:44:38.755942: I tensorflow/core/platform/cpu_feature_guard.cc:137] Your CPU supports instructions that this TensorFlow binary was not compiled to use: SSE4.1 SSE4.2 AVX AVX2 FMA
+2018-02-06 12:44:38.964187: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1030] Found device 0 with properties: 
+name: GeForce GTX 1080 Ti major: 6 minor: 1 memoryClockRate(GHz): 1.683
+pciBusID: 0000:05:00.0
+totalMemory: 10.91GiB freeMemory: 10.29GiB
+2018-02-06 12:44:39.136626: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1030] Found device 1 with properties: 
+name: GeForce GTX 1080 Ti major: 6 minor: 1 memoryClockRate(GHz): 1.683
+pciBusID: 0000:06:00.0
+totalMemory: 10.91GiB freeMemory: 10.75GiB
+2018-02-06 12:44:39.137299: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1045] Device peer to peer matrix
+2018-02-06 12:44:39.137327: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1051] DMA: 0 1 
+2018-02-06 12:44:39.137334: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1061] 0:   Y Y 
+2018-02-06 12:44:39.137338: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1061] 1:   Y Y 
+2018-02-06 12:44:39.137345: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1120] Creating TensorFlow device (/device:GPU:0) -> (device: 0, name: GeForce GTX 1080 Ti, pci bus id: 0000:05:00.0, compute capability: 6.1)
+2018-02-06 12:44:39.137350: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1120] Creating TensorFlow device (/device:GPU:1) -> (device: 1, name: GeForce GTX 1080 Ti, pci bus id: 0000:06:00.0, compute capability: 6.1)
+ATIS fold: 3
+with language model: True
+with GloVe: True
+with bi-LSTM: True
+Training epochs: 40
+Training data size: 200
+epoch 0 valid F1 50.98 test F1 44.75                     
+NEW BEST: epoch 0 best valid F1 50.98 test F1 44.75                     
+epoch 1 valid F1 65.52 test F1 63.62                     
+NEW BEST: epoch 1 best valid F1 65.52 test F1 63.62                     
+epoch 2 valid F1 69.58 test F1 62.7                     
+NEW BEST: epoch 2 best valid F1 69.58 test F1 62.7                     
+epoch 3 valid F1 75.46 test F1 70.96                     
+NEW BEST: epoch 3 best valid F1 75.46 test F1 70.96                     
+epoch 4 valid F1 79.13 test F1 78.92                     
+NEW BEST: epoch 4 best valid F1 79.13 test F1 78.92                     
+epoch 5 valid F1 84.63 test F1 80.2                     
+NEW BEST: epoch 5 best valid F1 84.63 test F1 80.2                     
+epoch 6 valid F1 84.51 test F1 81.7                     
+
+epoch 7 valid F1 82.28 test F1 77.24                     
+
+epoch 8 valid F1 85.64 test F1 82.06                     
+NEW BEST: epoch 8 best valid F1 85.64 test F1 82.06                     
+epoch 9 valid F1 88.65 test F1 84.98                     
+NEW BEST: epoch 9 best valid F1 88.65 test F1 84.98                     
+epoch 10 valid F1 90.22 test F1 86.35                     
+NEW BEST: epoch 10 best valid F1 90.22 test F1 86.35                     
+epoch 11 valid F1 88.11 test F1 83.83                     
+
+epoch 12 valid F1 91.03 test F1 86.8                     
+NEW BEST: epoch 12 best valid F1 91.03 test F1 86.8                     
+epoch 13 valid F1 90.43 test F1 86.86                     
+
+epoch 14 valid F1 90.17 test F1 85.04                     
+
+epoch 15 valid F1 91.83 test F1 87.96                     
+NEW BEST: epoch 15 best valid F1 91.83 test F1 87.96                     
+epoch 16 valid F1 92.75 test F1 88.68                     
+NEW BEST: epoch 16 best valid F1 92.75 test F1 88.68                     
+epoch 17 valid F1 92.47 test F1 89.14                     
+
+epoch 18 valid F1 91.42 test F1 86.85                     
+
+epoch 19 valid F1 92.25 test F1 87.79                     
+
+epoch 20 valid F1 92.62 test F1 87.55                     
+
+epoch 21 valid F1 92.55 test F1 87.19                     
+
+epoch 22 valid F1 93.28 test F1 88.36                     
+NEW BEST: epoch 22 best valid F1 93.28 test F1 88.36                     
+epoch 23 valid F1 90.48 test F1 85.4                     
+
+epoch 24 valid F1 93.91 test F1 90.51                     
+NEW BEST: epoch 24 best valid F1 93.91 test F1 90.51                     
+epoch 25 valid F1 95.41 test F1 91.64                     
+NEW BEST: epoch 25 best valid F1 95.41 test F1 91.64                     
+epoch 26 valid F1 94.52 test F1 90.26                     
+
+epoch 27 valid F1 92.96 test F1 87.87                     
+
+epoch 28 valid F1 93.17 test F1 90.21                     
+
+epoch 29 valid F1 94.11 test F1 89.71                     
+
+epoch 30 valid F1 94.2 test F1 90.47                     
+
+epoch 31 valid F1 95.11 test F1 91.14                     
+
+epoch 32 valid F1 94.04 test F1 90.5                     
+
+epoch 33 valid F1 95.16 test F1 92.32                     
+
+epoch 34 valid F1 94.11 test F1 90.61                     
+
+epoch 35 valid F1 95.57 test F1 93.33                     
+NEW BEST: epoch 35 best valid F1 95.57 test F1 93.33                     
+epoch 36 valid F1 94.02 test F1 90.94                     
+
+epoch 37 valid F1 94.94 test F1 91.1                     
+
+epoch 38 valid F1 95.76 test F1 92.35                     
+NEW BEST: epoch 38 best valid F1 95.76 test F1 92.35                     
+Using TensorFlow backend.
+epoch 39 valid F1 94.21 test F1 90.68                     
+
+BEST RESULT: epoch 38 best valid F1 95.76 test F1 92.35 with the model out/bilstm-lm
+2018-02-06 13:05:51.962654: I tensorflow/core/platform/cpu_feature_guard.cc:137] Your CPU supports instructions that this TensorFlow binary was not compiled to use: SSE4.1 SSE4.2 AVX AVX2 FMA
+2018-02-06 13:05:52.255439: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1030] Found device 0 with properties: 
+name: GeForce GTX 1080 Ti major: 6 minor: 1 memoryClockRate(GHz): 1.683
+pciBusID: 0000:05:00.0
+totalMemory: 10.91GiB freeMemory: 10.31GiB
+2018-02-06 13:05:52.438377: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1030] Found device 1 with properties: 
+name: GeForce GTX 1080 Ti major: 6 minor: 1 memoryClockRate(GHz): 1.683
+pciBusID: 0000:06:00.0
+totalMemory: 10.91GiB freeMemory: 10.75GiB
+2018-02-06 13:05:52.439047: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1045] Device peer to peer matrix
+2018-02-06 13:05:52.439073: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1051] DMA: 0 1 
+2018-02-06 13:05:52.439079: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1061] 0:   Y Y 
+2018-02-06 13:05:52.439083: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1061] 1:   Y Y 
+2018-02-06 13:05:52.439090: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1120] Creating TensorFlow device (/device:GPU:0) -> (device: 0, name: GeForce GTX 1080 Ti, pci bus id: 0000:05:00.0, compute capability: 6.1)
+2018-02-06 13:05:52.439094: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1120] Creating TensorFlow device (/device:GPU:1) -> (device: 1, name: GeForce GTX 1080 Ti, pci bus id: 0000:06:00.0, compute capability: 6.1)
+ATIS fold: 3
+with language model: False
+with GloVe: False
+with bi-LSTM: False
+Training epochs: 40
+Training data size: 400
+epoch 0 valid F1 45.26 test F1 39.95                     
+NEW BEST: epoch 0 best valid F1 45.26 test F1 39.95                     
+epoch 1 valid F1 54.91 test F1 49.53                     
+NEW BEST: epoch 1 best valid F1 54.91 test F1 49.53                     
+epoch 2 valid F1 57.68 test F1 50.24                     
+NEW BEST: epoch 2 best valid F1 57.68 test F1 50.24                     
+epoch 3 valid F1 58.18 test F1 50.81                     
+NEW BEST: epoch 3 best valid F1 58.18 test F1 50.81                     
+epoch 4 valid F1 61.6 test F1 53.3                     
+NEW BEST: epoch 4 best valid F1 61.6 test F1 53.3                     
+epoch 5 valid F1 64.85 test F1 59.42                     
+NEW BEST: epoch 5 best valid F1 64.85 test F1 59.42                     
+epoch 6 valid F1 69.59 test F1 61.71                     
+NEW BEST: epoch 6 best valid F1 69.59 test F1 61.71                     
+epoch 7 valid F1 73.47 test F1 68.69                     
+NEW BEST: epoch 7 best valid F1 73.47 test F1 68.69                     
+epoch 8 valid F1 76.67 test F1 69.89                     
+NEW BEST: epoch 8 best valid F1 76.67 test F1 69.89                     
+epoch 9 valid F1 78.49 test F1 73.53                     
+NEW BEST: epoch 9 best valid F1 78.49 test F1 73.53                     
+epoch 10 valid F1 81.05 test F1 74.96                     
+NEW BEST: epoch 10 best valid F1 81.05 test F1 74.96                     
+epoch 11 valid F1 82.12 test F1 75.89                     
+NEW BEST: epoch 11 best valid F1 82.12 test F1 75.89                     
+epoch 12 valid F1 83.55 test F1 78.61                     
+NEW BEST: epoch 12 best valid F1 83.55 test F1 78.61                     
+epoch 13 valid F1 84.84 test F1 79.62                     
+NEW BEST: epoch 13 best valid F1 84.84 test F1 79.62                     
+epoch 14 valid F1 85.87 test F1 81.56                     
+NEW BEST: epoch 14 best valid F1 85.87 test F1 81.56                     
+epoch 15 valid F1 86.91 test F1 81.84                     
+NEW BEST: epoch 15 best valid F1 86.91 test F1 81.84                     
+epoch 16 valid F1 87.81 test F1 82.48                     
+NEW BEST: epoch 16 best valid F1 87.81 test F1 82.48                     
+epoch 17 valid F1 87.82 test F1 82.89                     
+NEW BEST: epoch 17 best valid F1 87.82 test F1 82.89                     
+epoch 18 valid F1 88.9 test F1 84.41                     
+NEW BEST: epoch 18 best valid F1 88.9 test F1 84.41                     
+epoch 19 valid F1 88.03 test F1 84.28                     
+
+epoch 20 valid F1 88.43 test F1 84.1                     
+
+epoch 21 valid F1 90.24 test F1 84.3                     
+NEW BEST: epoch 21 best valid F1 90.24 test F1 84.3                     
+epoch 22 valid F1 90.95 test F1 85.29                     
+NEW BEST: epoch 22 best valid F1 90.95 test F1 85.29                     
+epoch 23 valid F1 89.37 test F1 83.78                     
+
+epoch 24 valid F1 90.73 test F1 84.89                     
+
+epoch 25 valid F1 89.75 test F1 85.13                     
+
+epoch 26 valid F1 90.09 test F1 85.25                     
+
+epoch 27 valid F1 91.24 test F1 85.65                     
+NEW BEST: epoch 27 best valid F1 91.24 test F1 85.65                     
+epoch 28 valid F1 91.23 test F1 87.27                     
+
+epoch 29 valid F1 91.59 test F1 86.18                     
+NEW BEST: epoch 29 best valid F1 91.59 test F1 86.18                     
+epoch 30 valid F1 92.24 test F1 88.17                     
+NEW BEST: epoch 30 best valid F1 92.24 test F1 88.17                     
+epoch 31 valid F1 92.48 test F1 88.03                     
+NEW BEST: epoch 31 best valid F1 92.48 test F1 88.03                     
+epoch 32 valid F1 92.49 test F1 88.11                     
+NEW BEST: epoch 32 best valid F1 92.49 test F1 88.11                     
+epoch 33 valid F1 92.54 test F1 87.59                     
+NEW BEST: epoch 33 best valid F1 92.54 test F1 87.59                     
+epoch 34 valid F1 93.22 test F1 88.19                     
+NEW BEST: epoch 34 best valid F1 93.22 test F1 88.19                     
+epoch 35 valid F1 91.55 test F1 87.45                     
+
+epoch 36 valid F1 92.84 test F1 88.6                     
+
+epoch 37 valid F1 92.95 test F1 88.77                     
+
+epoch 38 valid F1 93.06 test F1 88.45                     
+
+Using TensorFlow backend.
+epoch 39 valid F1 92.78 test F1 87.69                     
+
+BEST RESULT: epoch 34 best valid F1 93.22 test F1 88.19 with the model out/bilstm-lm
+2018-02-06 13:17:30.079770: I tensorflow/core/platform/cpu_feature_guard.cc:137] Your CPU supports instructions that this TensorFlow binary was not compiled to use: SSE4.1 SSE4.2 AVX AVX2 FMA
+2018-02-06 13:17:30.346794: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1030] Found device 0 with properties: 
+name: GeForce GTX 1080 Ti major: 6 minor: 1 memoryClockRate(GHz): 1.683
+pciBusID: 0000:05:00.0
+totalMemory: 10.91GiB freeMemory: 10.31GiB
+2018-02-06 13:17:30.526066: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1030] Found device 1 with properties: 
+name: GeForce GTX 1080 Ti major: 6 minor: 1 memoryClockRate(GHz): 1.683
+pciBusID: 0000:06:00.0
+totalMemory: 10.91GiB freeMemory: 10.75GiB
+2018-02-06 13:17:30.526761: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1045] Device peer to peer matrix
+2018-02-06 13:17:30.526789: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1051] DMA: 0 1 
+2018-02-06 13:17:30.526796: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1061] 0:   Y Y 
+2018-02-06 13:17:30.526800: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1061] 1:   Y Y 
+2018-02-06 13:17:30.526806: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1120] Creating TensorFlow device (/device:GPU:0) -> (device: 0, name: GeForce GTX 1080 Ti, pci bus id: 0000:05:00.0, compute capability: 6.1)
+2018-02-06 13:17:30.526811: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1120] Creating TensorFlow device (/device:GPU:1) -> (device: 1, name: GeForce GTX 1080 Ti, pci bus id: 0000:06:00.0, compute capability: 6.1)
+ATIS fold: 3
+with language model: True
+with GloVe: False
+with bi-LSTM: False
+Training epochs: 40
+Training data size: 400
+epoch 0 valid F1 58.72 test F1 53.97                     
+NEW BEST: epoch 0 best valid F1 58.72 test F1 53.97                     
+epoch 1 valid F1 72.86 test F1 68.04                     
+NEW BEST: epoch 1 best valid F1 72.86 test F1 68.04                     
+epoch 2 valid F1 77.25 test F1 72.9                     
+NEW BEST: epoch 2 best valid F1 77.25 test F1 72.9                     
+epoch 3 valid F1 81.46 test F1 79.31                     
+NEW BEST: epoch 3 best valid F1 81.46 test F1 79.31                     
+epoch 4 valid F1 83.41 test F1 78.76                     
+NEW BEST: epoch 4 best valid F1 83.41 test F1 78.76                     
+epoch 5 valid F1 86.38 test F1 82.85                     
+NEW BEST: epoch 5 best valid F1 86.38 test F1 82.85                     
+epoch 6 valid F1 86.01 test F1 81.26                     
+
+epoch 7 valid F1 89.87 test F1 85.64                     
+NEW BEST: epoch 7 best valid F1 89.87 test F1 85.64                     
+epoch 8 valid F1 88.36 test F1 84.38                     
+
+epoch 9 valid F1 87.66 test F1 81.65                     
+
+epoch 10 valid F1 89.34 test F1 83.03                     
+
+epoch 11 valid F1 91.28 test F1 86.68                     
+NEW BEST: epoch 11 best valid F1 91.28 test F1 86.68                     
+epoch 12 valid F1 91.27 test F1 86.76                     
+
+epoch 13 valid F1 91.42 test F1 86.54                     
+NEW BEST: epoch 13 best valid F1 91.42 test F1 86.54                     
+epoch 14 valid F1 92.53 test F1 87.04                     
+NEW BEST: epoch 14 best valid F1 92.53 test F1 87.04                     
+epoch 15 valid F1 93.1 test F1 88.35                     
+NEW BEST: epoch 15 best valid F1 93.1 test F1 88.35                     
+epoch 16 valid F1 92.07 test F1 87.02                     
+
+epoch 17 valid F1 92.05 test F1 86.89                     
+
+epoch 18 valid F1 93.09 test F1 88.04                     
+
+epoch 19 valid F1 93.63 test F1 88.62                     
+NEW BEST: epoch 19 best valid F1 93.63 test F1 88.62                     
+epoch 20 valid F1 94.26 test F1 89.54                     
+NEW BEST: epoch 20 best valid F1 94.26 test F1 89.54                     
+epoch 21 valid F1 93.06 test F1 87.82                     
+
+epoch 22 valid F1 93.81 test F1 87.73                     
+
+epoch 23 valid F1 94.0 test F1 89.0                     
+
+epoch 24 valid F1 93.62 test F1 89.29                     
+
+epoch 25 valid F1 94.13 test F1 89.77                     
+
+epoch 26 valid F1 93.63 test F1 89.08                     
+
+epoch 27 valid F1 94.03 test F1 87.17                     
+
+epoch 28 valid F1 94.68 test F1 89.41                     
+NEW BEST: epoch 28 best valid F1 94.68 test F1 89.41                     
+epoch 29 valid F1 94.15 test F1 90.1                     
+
+epoch 30 valid F1 94.08 test F1 90.01                     
+
+epoch 31 valid F1 94.82 test F1 90.09                     
+NEW BEST: epoch 31 best valid F1 94.82 test F1 90.09                     
+epoch 32 valid F1 94.08 test F1 89.56                     
+
+epoch 33 valid F1 94.31 test F1 89.67                     
+
+epoch 34 valid F1 94.7 test F1 90.42                     
+
+epoch 35 valid F1 94.55 test F1 90.27                     
+
+epoch 36 valid F1 94.53 test F1 89.95                     
+
+epoch 37 valid F1 94.87 test F1 89.78                     
+NEW BEST: epoch 37 best valid F1 94.87 test F1 89.78                     
+epoch 38 valid F1 94.51 test F1 88.89                     
+
+Using TensorFlow backend.
+epoch 39 valid F1 93.97 test F1 90.42                     
+
+BEST RESULT: epoch 37 best valid F1 94.87 test F1 89.78 with the model out/bilstm-lm
+2018-02-06 13:34:09.134437: I tensorflow/core/platform/cpu_feature_guard.cc:137] Your CPU supports instructions that this TensorFlow binary was not compiled to use: SSE4.1 SSE4.2 AVX AVX2 FMA
+2018-02-06 13:34:09.396352: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1030] Found device 0 with properties: 
+name: GeForce GTX 1080 Ti major: 6 minor: 1 memoryClockRate(GHz): 1.683
+pciBusID: 0000:05:00.0
+totalMemory: 10.91GiB freeMemory: 10.31GiB
+2018-02-06 13:34:09.581064: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1030] Found device 1 with properties: 
+name: GeForce GTX 1080 Ti major: 6 minor: 1 memoryClockRate(GHz): 1.683
+pciBusID: 0000:06:00.0
+totalMemory: 10.91GiB freeMemory: 10.75GiB
+2018-02-06 13:34:09.581744: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1045] Device peer to peer matrix
+2018-02-06 13:34:09.581772: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1051] DMA: 0 1 
+2018-02-06 13:34:09.581778: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1061] 0:   Y Y 
+2018-02-06 13:34:09.581782: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1061] 1:   Y Y 
+2018-02-06 13:34:09.581791: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1120] Creating TensorFlow device (/device:GPU:0) -> (device: 0, name: GeForce GTX 1080 Ti, pci bus id: 0000:05:00.0, compute capability: 6.1)
+2018-02-06 13:34:09.581796: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1120] Creating TensorFlow device (/device:GPU:1) -> (device: 1, name: GeForce GTX 1080 Ti, pci bus id: 0000:06:00.0, compute capability: 6.1)
+ATIS fold: 3
+with language model: True
+with GloVe: False
+with bi-LSTM: True
+Training epochs: 40
+Training data size: 400
+epoch 0 valid F1 67.78 test F1 62.82                     
+NEW BEST: epoch 0 best valid F1 67.78 test F1 62.82                     
+epoch 1 valid F1 76.55 test F1 72.1                     
+NEW BEST: epoch 1 best valid F1 76.55 test F1 72.1                     
+epoch 2 valid F1 81.12 test F1 75.88                     
+NEW BEST: epoch 2 best valid F1 81.12 test F1 75.88                     
+epoch 3 valid F1 81.4 test F1 78.28                     
+NEW BEST: epoch 3 best valid F1 81.4 test F1 78.28                     
+epoch 4 valid F1 84.41 test F1 80.3                     
+NEW BEST: epoch 4 best valid F1 84.41 test F1 80.3                     
+epoch 5 valid F1 86.85 test F1 83.08                     
+NEW BEST: epoch 5 best valid F1 86.85 test F1 83.08                     
+epoch 6 valid F1 89.06 test F1 84.54                     
+NEW BEST: epoch 6 best valid F1 89.06 test F1 84.54                     
+epoch 7 valid F1 89.95 test F1 86.81                     
+NEW BEST: epoch 7 best valid F1 89.95 test F1 86.81                     
+epoch 8 valid F1 89.3 test F1 83.71                     
+
+epoch 9 valid F1 86.24 test F1 81.99                     
+
+epoch 10 valid F1 87.8 test F1 81.03                     
+
+epoch 11 valid F1 91.17 test F1 86.76                     
+NEW BEST: epoch 11 best valid F1 91.17 test F1 86.76                     
+epoch 12 valid F1 91.69 test F1 87.43                     
+NEW BEST: epoch 12 best valid F1 91.69 test F1 87.43                     
+epoch 13 valid F1 91.27 test F1 87.81                     
+
+epoch 14 valid F1 93.62 test F1 88.92                     
+NEW BEST: epoch 14 best valid F1 93.62 test F1 88.92                     
+epoch 15 valid F1 93.2 test F1 89.18                     
+
+epoch 16 valid F1 92.63 test F1 88.06                     
+
+epoch 17 valid F1 91.89 test F1 87.53                     
+
+epoch 18 valid F1 94.09 test F1 89.53                     
+NEW BEST: epoch 18 best valid F1 94.09 test F1 89.53                     
+epoch 19 valid F1 94.55 test F1 89.87                     
+NEW BEST: epoch 19 best valid F1 94.55 test F1 89.87                     
+epoch 20 valid F1 93.72 test F1 89.24                     
+
+epoch 21 valid F1 94.17 test F1 89.83                     
+
+epoch 22 valid F1 93.88 test F1 88.23                     
+
+epoch 23 valid F1 94.34 test F1 90.3                     
+
+epoch 24 valid F1 94.49 test F1 90.07                     
+
+epoch 25 valid F1 94.5 test F1 90.36                     
+
+epoch 26 valid F1 94.9 test F1 90.41                     
+NEW BEST: epoch 26 best valid F1 94.9 test F1 90.41                     
+epoch 27 valid F1 94.76 test F1 89.79                     
+
+epoch 28 valid F1 95.51 test F1 91.19                     
+NEW BEST: epoch 28 best valid F1 95.51 test F1 91.19                     
+epoch 29 valid F1 94.82 test F1 90.65                     
+
+epoch 30 valid F1 95.35 test F1 91.47                     
+
+epoch 31 valid F1 95.24 test F1 90.28                     
+
+epoch 32 valid F1 95.48 test F1 90.69                     
+
+epoch 33 valid F1 95.58 test F1 90.07                     
+NEW BEST: epoch 33 best valid F1 95.58 test F1 90.07                     
+epoch 34 valid F1 95.2 test F1 90.95                     
+
+epoch 35 valid F1 95.58 test F1 91.66                     
+
+epoch 36 valid F1 95.35 test F1 91.31                     
+
+epoch 37 valid F1 95.47 test F1 91.25                     
+
+epoch 38 valid F1 94.77 test F1 91.03                     
+
+Using TensorFlow backend.
+epoch 39 valid F1 95.19 test F1 90.76                     
+
+BEST RESULT: epoch 33 best valid F1 95.58 test F1 90.07 with the model out/bilstm-lm
+2018-02-06 14:03:06.475548: I tensorflow/core/platform/cpu_feature_guard.cc:137] Your CPU supports instructions that this TensorFlow binary was not compiled to use: SSE4.1 SSE4.2 AVX AVX2 FMA
+2018-02-06 14:03:06.710958: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1030] Found device 0 with properties: 
+name: GeForce GTX 1080 Ti major: 6 minor: 1 memoryClockRate(GHz): 1.683
+pciBusID: 0000:05:00.0
+totalMemory: 10.91GiB freeMemory: 10.25GiB
+2018-02-06 14:03:06.899362: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1030] Found device 1 with properties: 
+name: GeForce GTX 1080 Ti major: 6 minor: 1 memoryClockRate(GHz): 1.683
+pciBusID: 0000:06:00.0
+totalMemory: 10.91GiB freeMemory: 10.75GiB
+2018-02-06 14:03:06.900099: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1045] Device peer to peer matrix
+2018-02-06 14:03:06.900129: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1051] DMA: 0 1 
+2018-02-06 14:03:06.900137: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1061] 0:   Y Y 
+2018-02-06 14:03:06.900141: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1061] 1:   Y Y 
+2018-02-06 14:03:06.900149: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1120] Creating TensorFlow device (/device:GPU:0) -> (device: 0, name: GeForce GTX 1080 Ti, pci bus id: 0000:05:00.0, compute capability: 6.1)
+2018-02-06 14:03:06.900155: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1120] Creating TensorFlow device (/device:GPU:1) -> (device: 1, name: GeForce GTX 1080 Ti, pci bus id: 0000:06:00.0, compute capability: 6.1)
+ATIS fold: 3
+with language model: True
+with GloVe: True
+with bi-LSTM: True
+Training epochs: 40
+Training data size: 400
+epoch 0 valid F1 70.23 test F1 66.14                     
+NEW BEST: epoch 0 best valid F1 70.23 test F1 66.14                     
+epoch 1 valid F1 77.19 test F1 72.48                     
+NEW BEST: epoch 1 best valid F1 77.19 test F1 72.48                     
+epoch 2 valid F1 83.64 test F1 78.92                     
+NEW BEST: epoch 2 best valid F1 83.64 test F1 78.92                     
+epoch 3 valid F1 85.96 test F1 82.93                     
+NEW BEST: epoch 3 best valid F1 85.96 test F1 82.93                     
+epoch 4 valid F1 88.64 test F1 86.12                     
+NEW BEST: epoch 4 best valid F1 88.64 test F1 86.12                     
+epoch 5 valid F1 91.8 test F1 88.67                     
+NEW BEST: epoch 5 best valid F1 91.8 test F1 88.67                     
+epoch 6 valid F1 89.46 test F1 86.83                     
+
+epoch 7 valid F1 91.74 test F1 89.15                     
+
+epoch 8 valid F1 92.53 test F1 88.17                     
+NEW BEST: epoch 8 best valid F1 92.53 test F1 88.17                     
+epoch 9 valid F1 86.58 test F1 83.96                     
+
+epoch 10 valid F1 92.65 test F1 90.39                     
+NEW BEST: epoch 10 best valid F1 92.65 test F1 90.39                     
+epoch 11 valid F1 93.41 test F1 90.58                     
+NEW BEST: epoch 11 best valid F1 93.41 test F1 90.58                     
+epoch 12 valid F1 94.34 test F1 89.81                     
+NEW BEST: epoch 12 best valid F1 94.34 test F1 89.81                     
+epoch 13 valid F1 94.6 test F1 91.41                     
+NEW BEST: epoch 13 best valid F1 94.6 test F1 91.41                     
+epoch 14 valid F1 95.46 test F1 92.34                     
+NEW BEST: epoch 14 best valid F1 95.46 test F1 92.34                     
+epoch 15 valid F1 94.97 test F1 91.43                     
+
+epoch 16 valid F1 94.92 test F1 92.47                     
+
+epoch 17 valid F1 94.72 test F1 90.46                     
+
+epoch 18 valid F1 95.3 test F1 92.51                     
+
+epoch 19 valid F1 94.89 test F1 91.81                     
+
+epoch 20 valid F1 95.57 test F1 91.87                     
+NEW BEST: epoch 20 best valid F1 95.57 test F1 91.87                     
+epoch 21 valid F1 95.62 test F1 92.43                     
+NEW BEST: epoch 21 best valid F1 95.62 test F1 92.43                     
+epoch 22 valid F1 95.41 test F1 92.29                     
+
+epoch 23 valid F1 96.33 test F1 93.55                     
+NEW BEST: epoch 23 best valid F1 96.33 test F1 93.55                     
+epoch 24 valid F1 96.06 test F1 92.55                     
+
+epoch 25 valid F1 96.22 test F1 92.95                     
+
+epoch 26 valid F1 95.91 test F1 92.44                     
+
+epoch 27 valid F1 96.44 test F1 92.19                     
+NEW BEST: epoch 27 best valid F1 96.44 test F1 92.19                     
+epoch 28 valid F1 95.47 test F1 92.09                     
+
+epoch 29 valid F1 96.23 test F1 93.13                     
+
+epoch 30 valid F1 96.82 test F1 93.77                     
+NEW BEST: epoch 30 best valid F1 96.82 test F1 93.77                     
+epoch 31 valid F1 96.61 test F1 93.13                     
+
+epoch 32 valid F1 96.2 test F1 92.68                     
+
+epoch 33 valid F1 96.63 test F1 93.38                     
+
+epoch 34 valid F1 96.83 test F1 92.82                     
+NEW BEST: epoch 34 best valid F1 96.83 test F1 92.82                     
+epoch 35 valid F1 96.35 test F1 92.36                     
+
+epoch 36 valid F1 96.51 test F1 93.29                     
+
+epoch 37 valid F1 96.79 test F1 93.47                     
+
+epoch 38 valid F1 96.18 test F1 93.78                     
+
+Using TensorFlow backend.
+epoch 39 valid F1 96.61 test F1 93.4                     
+
+BEST RESULT: epoch 34 best valid F1 96.83 test F1 92.82 with the model out/bilstm-lm
+2018-02-06 14:31:34.677243: I tensorflow/core/platform/cpu_feature_guard.cc:137] Your CPU supports instructions that this TensorFlow binary was not compiled to use: SSE4.1 SSE4.2 AVX AVX2 FMA
+2018-02-06 14:31:34.965751: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1030] Found device 0 with properties: 
+name: GeForce GTX 1080 Ti major: 6 minor: 1 memoryClockRate(GHz): 1.683
+pciBusID: 0000:05:00.0
+totalMemory: 10.91GiB freeMemory: 10.25GiB
+2018-02-06 14:31:35.143270: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1030] Found device 1 with properties: 
+name: GeForce GTX 1080 Ti major: 6 minor: 1 memoryClockRate(GHz): 1.683
+pciBusID: 0000:06:00.0
+totalMemory: 10.91GiB freeMemory: 10.75GiB
+2018-02-06 14:31:35.143936: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1045] Device peer to peer matrix
+2018-02-06 14:31:35.143963: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1051] DMA: 0 1 
+2018-02-06 14:31:35.143970: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1061] 0:   Y Y 
+2018-02-06 14:31:35.143973: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1061] 1:   Y Y 
+2018-02-06 14:31:35.143980: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1120] Creating TensorFlow device (/device:GPU:0) -> (device: 0, name: GeForce GTX 1080 Ti, pci bus id: 0000:05:00.0, compute capability: 6.1)
+2018-02-06 14:31:35.143985: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1120] Creating TensorFlow device (/device:GPU:1) -> (device: 1, name: GeForce GTX 1080 Ti, pci bus id: 0000:06:00.0, compute capability: 6.1)
+ATIS fold: 3
+with language model: False
+with GloVe: False
+with bi-LSTM: False
+Training epochs: 40
+Training data size: 600
+epoch 0 valid F1 53.55 test F1 46.33                     
+NEW BEST: epoch 0 best valid F1 53.55 test F1 46.33                     
+epoch 1 valid F1 56.07 test F1 50.18                     
+NEW BEST: epoch 1 best valid F1 56.07 test F1 50.18                     
+epoch 2 valid F1 59.84 test F1 53.0                     
+NEW BEST: epoch 2 best valid F1 59.84 test F1 53.0                     
+epoch 3 valid F1 65.65 test F1 60.62                     
+NEW BEST: epoch 3 best valid F1 65.65 test F1 60.62                     
+epoch 4 valid F1 68.67 test F1 63.19                     
+NEW BEST: epoch 4 best valid F1 68.67 test F1 63.19                     
+epoch 5 valid F1 75.46 test F1 70.82                     
+NEW BEST: epoch 5 best valid F1 75.46 test F1 70.82                     
+epoch 6 valid F1 79.39 test F1 74.69                     
+NEW BEST: epoch 6 best valid F1 79.39 test F1 74.69                     
+epoch 7 valid F1 82.35 test F1 77.89                     
+NEW BEST: epoch 7 best valid F1 82.35 test F1 77.89                     
+epoch 8 valid F1 83.84 test F1 80.99                     
+NEW BEST: epoch 8 best valid F1 83.84 test F1 80.99                     
+epoch 9 valid F1 86.23 test F1 80.84                     
+NEW BEST: epoch 9 best valid F1 86.23 test F1 80.84                     
+epoch 10 valid F1 87.25 test F1 82.9                     
+NEW BEST: epoch 10 best valid F1 87.25 test F1 82.9                     
+epoch 11 valid F1 87.84 test F1 83.44                     
+NEW BEST: epoch 11 best valid F1 87.84 test F1 83.44                     
+epoch 12 valid F1 87.54 test F1 84.26                     
+
+epoch 13 valid F1 88.33 test F1 84.11                     
+NEW BEST: epoch 13 best valid F1 88.33 test F1 84.11                     
+epoch 14 valid F1 88.8 test F1 85.27                     
+NEW BEST: epoch 14 best valid F1 88.8 test F1 85.27                     
+epoch 15 valid F1 89.11 test F1 83.15                     
+NEW BEST: epoch 15 best valid F1 89.11 test F1 83.15                     
+epoch 16 valid F1 90.32 test F1 84.8                     
+NEW BEST: epoch 16 best valid F1 90.32 test F1 84.8                     
+epoch 17 valid F1 90.47 test F1 86.22                     
+NEW BEST: epoch 17 best valid F1 90.47 test F1 86.22                     
+epoch 18 valid F1 91.21 test F1 86.45                     
+NEW BEST: epoch 18 best valid F1 91.21 test F1 86.45                     
+epoch 19 valid F1 91.67 test F1 87.51                     
+NEW BEST: epoch 19 best valid F1 91.67 test F1 87.51                     
+epoch 20 valid F1 91.63 test F1 86.78                     
+
+epoch 21 valid F1 92.47 test F1 88.03                     
+NEW BEST: epoch 21 best valid F1 92.47 test F1 88.03                     
+epoch 22 valid F1 92.05 test F1 87.34                     
+
+epoch 23 valid F1 93.19 test F1 87.93                     
+NEW BEST: epoch 23 best valid F1 93.19 test F1 87.93                     
+epoch 24 valid F1 92.75 test F1 88.39                     
+
+epoch 25 valid F1 92.44 test F1 87.56                     
+
+epoch 26 valid F1 93.04 test F1 89.39                     
+
+epoch 27 valid F1 92.87 test F1 89.22                     
+
+epoch 28 valid F1 93.48 test F1 88.54                     
+NEW BEST: epoch 28 best valid F1 93.48 test F1 88.54                     
+epoch 29 valid F1 93.27 test F1 88.8                     
+
+epoch 30 valid F1 94.0 test F1 89.15                     
+NEW BEST: epoch 30 best valid F1 94.0 test F1 89.15                     
+epoch 31 valid F1 93.84 test F1 89.02                     
+
+epoch 32 valid F1 93.31 test F1 88.69                     
+
+epoch 33 valid F1 93.83 test F1 89.21                     
+
+epoch 34 valid F1 93.67 test F1 89.08                     
+
+epoch 35 valid F1 94.22 test F1 90.14                     
+NEW BEST: epoch 35 best valid F1 94.22 test F1 90.14                     
+epoch 36 valid F1 94.31 test F1 89.64                     
+NEW BEST: epoch 36 best valid F1 94.31 test F1 89.64                     
+epoch 37 valid F1 94.38 test F1 89.93                     
+NEW BEST: epoch 37 best valid F1 94.38 test F1 89.93                     
+epoch 38 valid F1 94.26 test F1 90.6                     
+
+Using TensorFlow backend.
+epoch 39 valid F1 94.82 test F1 90.28                     
+NEW BEST: epoch 39 best valid F1 94.82 test F1 90.28                     
+BEST RESULT: epoch 39 best valid F1 94.82 test F1 90.28 with the model out/bilstm-lm
+2018-02-06 14:44:43.110655: I tensorflow/core/platform/cpu_feature_guard.cc:137] Your CPU supports instructions that this TensorFlow binary was not compiled to use: SSE4.1 SSE4.2 AVX AVX2 FMA
+2018-02-06 14:44:43.379291: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1030] Found device 0 with properties: 
+name: GeForce GTX 1080 Ti major: 6 minor: 1 memoryClockRate(GHz): 1.683
+pciBusID: 0000:05:00.0
+totalMemory: 10.91GiB freeMemory: 10.25GiB
+2018-02-06 14:44:43.559681: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1030] Found device 1 with properties: 
+name: GeForce GTX 1080 Ti major: 6 minor: 1 memoryClockRate(GHz): 1.683
+pciBusID: 0000:06:00.0
+totalMemory: 10.91GiB freeMemory: 10.75GiB
+2018-02-06 14:44:43.560346: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1045] Device peer to peer matrix
+2018-02-06 14:44:43.560372: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1051] DMA: 0 1 
+2018-02-06 14:44:43.560379: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1061] 0:   Y Y 
+2018-02-06 14:44:43.560383: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1061] 1:   Y Y 
+2018-02-06 14:44:43.560390: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1120] Creating TensorFlow device (/device:GPU:0) -> (device: 0, name: GeForce GTX 1080 Ti, pci bus id: 0000:05:00.0, compute capability: 6.1)
+2018-02-06 14:44:43.560394: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1120] Creating TensorFlow device (/device:GPU:1) -> (device: 1, name: GeForce GTX 1080 Ti, pci bus id: 0000:06:00.0, compute capability: 6.1)
+ATIS fold: 3
+with language model: True
+with GloVe: False
+with bi-LSTM: False
+Training epochs: 40
+Training data size: 600
+epoch 0 valid F1 67.21 test F1 63.69                     
+NEW BEST: epoch 0 best valid F1 67.21 test F1 63.69                     
+epoch 1 valid F1 77.01 test F1 72.75                     
+NEW BEST: epoch 1 best valid F1 77.01 test F1 72.75                     
+epoch 2 valid F1 76.65 test F1 75.0                     
+
+epoch 3 valid F1 86.76 test F1 82.35                     
+NEW BEST: epoch 3 best valid F1 86.76 test F1 82.35                     
+epoch 4 valid F1 86.38 test F1 82.62                     
+
+epoch 5 valid F1 88.41 test F1 83.82                     
+NEW BEST: epoch 5 best valid F1 88.41 test F1 83.82                     
+epoch 6 valid F1 88.81 test F1 83.61                     
+NEW BEST: epoch 6 best valid F1 88.81 test F1 83.61                     
+epoch 7 valid F1 89.89 test F1 85.57                     
+NEW BEST: epoch 7 best valid F1 89.89 test F1 85.57                     
+epoch 8 valid F1 90.03 test F1 86.09                     
+NEW BEST: epoch 8 best valid F1 90.03 test F1 86.09                     
+epoch 9 valid F1 91.55 test F1 86.62                     
+NEW BEST: epoch 9 best valid F1 91.55 test F1 86.62                     
+epoch 10 valid F1 93.32 test F1 87.11                     
+NEW BEST: epoch 10 best valid F1 93.32 test F1 87.11                     
+epoch 11 valid F1 92.24 test F1 88.34                     
+
+epoch 12 valid F1 89.45 test F1 85.22                     
+
+epoch 13 valid F1 93.52 test F1 88.0                     
+NEW BEST: epoch 13 best valid F1 93.52 test F1 88.0                     
+epoch 14 valid F1 92.81 test F1 87.52                     
+
+epoch 15 valid F1 90.75 test F1 86.48                     
+
+epoch 16 valid F1 93.41 test F1 89.17                     
+
+epoch 17 valid F1 91.63 test F1 85.27                     
+
+epoch 18 valid F1 94.48 test F1 89.14                     
+NEW BEST: epoch 18 best valid F1 94.48 test F1 89.14                     
+epoch 19 valid F1 95.17 test F1 90.17                     
+NEW BEST: epoch 19 best valid F1 95.17 test F1 90.17                     
+epoch 20 valid F1 93.94 test F1 88.05                     
+
+epoch 21 valid F1 95.33 test F1 90.4                     
+NEW BEST: epoch 21 best valid F1 95.33 test F1 90.4                     
+epoch 22 valid F1 93.62 test F1 87.71                     
+
+epoch 23 valid F1 94.69 test F1 90.42                     
+
+epoch 24 valid F1 94.88 test F1 90.34                     
+
+epoch 25 valid F1 93.88 test F1 89.82                     
+
+epoch 26 valid F1 94.26 test F1 88.1                     
+
+epoch 27 valid F1 95.14 test F1 90.53                     
+
+epoch 28 valid F1 95.76 test F1 89.77                     
+NEW BEST: epoch 28 best valid F1 95.76 test F1 89.77                     
+epoch 29 valid F1 94.32 test F1 89.02                     
+
+epoch 30 valid F1 95.89 test F1 89.03                     
+NEW BEST: epoch 30 best valid F1 95.89 test F1 89.03                     
+epoch 31 valid F1 94.84 test F1 89.88                     
+
+epoch 32 valid F1 95.32 test F1 88.95                     
+
+epoch 33 valid F1 94.53 test F1 89.91                     
+
+epoch 34 valid F1 95.0 test F1 90.56                     
+
+epoch 35 valid F1 95.11 test F1 90.04                     
+
+epoch 36 valid F1 95.28 test F1 89.75                     
+
+epoch 37 valid F1 95.29 test F1 90.08                     
+
+epoch 38 valid F1 95.25 test F1 89.83                     
+
+Using TensorFlow backend.
+epoch 39 valid F1 95.46 test F1 89.82                     
+
+BEST RESULT: epoch 30 best valid F1 95.89 test F1 89.03 with the model out/bilstm-lm
+2018-02-06 15:05:22.900567: I tensorflow/core/platform/cpu_feature_guard.cc:137] Your CPU supports instructions that this TensorFlow binary was not compiled to use: SSE4.1 SSE4.2 AVX AVX2 FMA
+2018-02-06 15:05:23.180327: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1030] Found device 0 with properties: 
+name: GeForce GTX 1080 Ti major: 6 minor: 1 memoryClockRate(GHz): 1.683
+pciBusID: 0000:05:00.0
+totalMemory: 10.91GiB freeMemory: 10.25GiB
+2018-02-06 15:05:23.376104: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1030] Found device 1 with properties: 
+name: GeForce GTX 1080 Ti major: 6 minor: 1 memoryClockRate(GHz): 1.683
+pciBusID: 0000:06:00.0
+totalMemory: 10.91GiB freeMemory: 10.75GiB
+2018-02-06 15:05:23.376773: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1045] Device peer to peer matrix
+2018-02-06 15:05:23.376800: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1051] DMA: 0 1 
+2018-02-06 15:05:23.376806: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1061] 0:   Y Y 
+2018-02-06 15:05:23.376810: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1061] 1:   Y Y 
+2018-02-06 15:05:23.376827: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1120] Creating TensorFlow device (/device:GPU:0) -> (device: 0, name: GeForce GTX 1080 Ti, pci bus id: 0000:05:00.0, compute capability: 6.1)
+2018-02-06 15:05:23.376832: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1120] Creating TensorFlow device (/device:GPU:1) -> (device: 1, name: GeForce GTX 1080 Ti, pci bus id: 0000:06:00.0, compute capability: 6.1)
+ATIS fold: 3
+with language model: True
+with GloVe: False
+with bi-LSTM: True
+Training epochs: 40
+Training data size: 600
+epoch 0 valid F1 69.19 test F1 65.2                     
+NEW BEST: epoch 0 best valid F1 69.19 test F1 65.2                     
+epoch 1 valid F1 80.78 test F1 76.19                     
+NEW BEST: epoch 1 best valid F1 80.78 test F1 76.19                     
+epoch 2 valid F1 80.62 test F1 75.71                     
+
+epoch 3 valid F1 87.95 test F1 83.99                     
+NEW BEST: epoch 3 best valid F1 87.95 test F1 83.99                     
+epoch 4 valid F1 88.91 test F1 85.74                     
+NEW BEST: epoch 4 best valid F1 88.91 test F1 85.74                     
+epoch 5 valid F1 90.14 test F1 85.46                     
+NEW BEST: epoch 5 best valid F1 90.14 test F1 85.46                     
+epoch 6 valid F1 91.27 test F1 87.37                     
+NEW BEST: epoch 6 best valid F1 91.27 test F1 87.37                     
+epoch 7 valid F1 92.67 test F1 89.36                     
+NEW BEST: epoch 7 best valid F1 92.67 test F1 89.36                     
+epoch 8 valid F1 92.16 test F1 88.1                     
+
+epoch 9 valid F1 92.57 test F1 89.1                     
+
+epoch 10 valid F1 94.38 test F1 89.11                     
+NEW BEST: epoch 10 best valid F1 94.38 test F1 89.11                     
+epoch 11 valid F1 94.76 test F1 89.92                     
+NEW BEST: epoch 11 best valid F1 94.76 test F1 89.92                     
+epoch 12 valid F1 93.39 test F1 90.05                     
+
+epoch 13 valid F1 94.53 test F1 89.47                     
+
+epoch 14 valid F1 94.33 test F1 88.38                     
+
+epoch 15 valid F1 92.19 test F1 87.88                     
+
+epoch 16 valid F1 93.61 test F1 90.35                     
+
+epoch 17 valid F1 94.08 test F1 89.66                     
+
+epoch 18 valid F1 95.11 test F1 91.28                     
+NEW BEST: epoch 18 best valid F1 95.11 test F1 91.28                     
+epoch 19 valid F1 95.23 test F1 90.82                     
+NEW BEST: epoch 19 best valid F1 95.23 test F1 90.82                     
+epoch 20 valid F1 95.16 test F1 91.11                     
+
+epoch 21 valid F1 95.56 test F1 90.91                     
+NEW BEST: epoch 21 best valid F1 95.56 test F1 90.91                     
+epoch 22 valid F1 95.2 test F1 89.89                     
+
+epoch 23 valid F1 95.67 test F1 91.33                     
+NEW BEST: epoch 23 best valid F1 95.67 test F1 91.33                     
+epoch 24 valid F1 95.72 test F1 91.61                     
+NEW BEST: epoch 24 best valid F1 95.72 test F1 91.61                     
+epoch 25 valid F1 95.97 test F1 91.77                     
+NEW BEST: epoch 25 best valid F1 95.97 test F1 91.77                     
+epoch 26 valid F1 95.66 test F1 90.83                     
+
+epoch 27 valid F1 95.34 test F1 91.24                     
+
+epoch 28 valid F1 96.53 test F1 91.63                     
+NEW BEST: epoch 28 best valid F1 96.53 test F1 91.63                     
+epoch 29 valid F1 95.98 test F1 91.51                     
+
+epoch 30 valid F1 95.74 test F1 91.91                     
+
+epoch 31 valid F1 95.81 test F1 91.96                     
+
+epoch 32 valid F1 96.15 test F1 92.38                     
+
+epoch 33 valid F1 96.43 test F1 92.29                     
+
+epoch 34 valid F1 95.58 test F1 91.7                     
+
+epoch 35 valid F1 95.97 test F1 92.28                     
+
+epoch 36 valid F1 95.96 test F1 91.87                     
+
+epoch 37 valid F1 96.92 test F1 92.57                     
+NEW BEST: epoch 37 best valid F1 96.92 test F1 92.57                     
+epoch 38 valid F1 96.25 test F1 91.9                     
+
+Using TensorFlow backend.
+epoch 39 valid F1 96.39 test F1 92.57                     
+
+BEST RESULT: epoch 37 best valid F1 96.92 test F1 92.57 with the model out/bilstm-lm
+2018-02-06 15:41:43.392709: I tensorflow/core/platform/cpu_feature_guard.cc:137] Your CPU supports instructions that this TensorFlow binary was not compiled to use: SSE4.1 SSE4.2 AVX AVX2 FMA
+2018-02-06 15:41:43.644241: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1030] Found device 0 with properties: 
+name: GeForce GTX 1080 Ti major: 6 minor: 1 memoryClockRate(GHz): 1.683
+pciBusID: 0000:05:00.0
+totalMemory: 10.91GiB freeMemory: 10.25GiB
+2018-02-06 15:41:43.819795: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1030] Found device 1 with properties: 
+name: GeForce GTX 1080 Ti major: 6 minor: 1 memoryClockRate(GHz): 1.683
+pciBusID: 0000:06:00.0
+totalMemory: 10.91GiB freeMemory: 10.75GiB
+2018-02-06 15:41:43.820466: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1045] Device peer to peer matrix
+2018-02-06 15:41:43.820492: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1051] DMA: 0 1 
+2018-02-06 15:41:43.820499: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1061] 0:   Y Y 
+2018-02-06 15:41:43.820503: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1061] 1:   Y Y 
+2018-02-06 15:41:43.820512: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1120] Creating TensorFlow device (/device:GPU:0) -> (device: 0, name: GeForce GTX 1080 Ti, pci bus id: 0000:05:00.0, compute capability: 6.1)
+2018-02-06 15:41:43.820516: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1120] Creating TensorFlow device (/device:GPU:1) -> (device: 1, name: GeForce GTX 1080 Ti, pci bus id: 0000:06:00.0, compute capability: 6.1)
+ATIS fold: 3
+with language model: True
+with GloVe: True
+with bi-LSTM: True
+Training epochs: 40
+Training data size: 600
+epoch 0 valid F1 73.91 test F1 70.92                     
+NEW BEST: epoch 0 best valid F1 73.91 test F1 70.92                     
+epoch 1 valid F1 84.13 test F1 81.84                     
+NEW BEST: epoch 1 best valid F1 84.13 test F1 81.84                     
+epoch 2 valid F1 83.28 test F1 79.33                     
+
+epoch 3 valid F1 89.42 test F1 85.68                     
+NEW BEST: epoch 3 best valid F1 89.42 test F1 85.68                     
+epoch 4 valid F1 91.07 test F1 89.11                     
+NEW BEST: epoch 4 best valid F1 91.07 test F1 89.11                     
+epoch 5 valid F1 92.86 test F1 89.03                     
+NEW BEST: epoch 5 best valid F1 92.86 test F1 89.03                     
+epoch 6 valid F1 92.42 test F1 89.91                     
+
+epoch 7 valid F1 95.13 test F1 91.33                     
+NEW BEST: epoch 7 best valid F1 95.13 test F1 91.33                     
+epoch 8 valid F1 94.2 test F1 91.16                     
+
+epoch 9 valid F1 94.06 test F1 90.82                     
+
+epoch 10 valid F1 95.21 test F1 92.09                     
+NEW BEST: epoch 10 best valid F1 95.21 test F1 92.09                     
+epoch 11 valid F1 95.41 test F1 92.53                     
+NEW BEST: epoch 11 best valid F1 95.41 test F1 92.53                     
+epoch 12 valid F1 94.11 test F1 90.79                     
+
+epoch 13 valid F1 95.74 test F1 92.23                     
+NEW BEST: epoch 13 best valid F1 95.74 test F1 92.23                     
+epoch 14 valid F1 95.35 test F1 91.84                     
+
+epoch 15 valid F1 94.61 test F1 91.33                     
+
+epoch 16 valid F1 96.54 test F1 93.06                     
+NEW BEST: epoch 16 best valid F1 96.54 test F1 93.06                     
+epoch 17 valid F1 96.04 test F1 93.49                     
+
+epoch 18 valid F1 95.82 test F1 92.67                     
+
+epoch 19 valid F1 95.87 test F1 92.46                     
+
+epoch 20 valid F1 96.27 test F1 92.65                     
+
+epoch 21 valid F1 96.21 test F1 93.07                     
+
+epoch 22 valid F1 95.61 test F1 92.46                     
+
+epoch 23 valid F1 96.61 test F1 92.9                     
+NEW BEST: epoch 23 best valid F1 96.61 test F1 92.9                     
+epoch 24 valid F1 96.8 test F1 92.85                     
+NEW BEST: epoch 24 best valid F1 96.8 test F1 92.85                     
+epoch 25 valid F1 95.86 test F1 93.06                     
+
+epoch 26 valid F1 96.54 test F1 92.81                     
+
+epoch 27 valid F1 96.15 test F1 92.19                     
+
+epoch 28 valid F1 97.08 test F1 92.75                     
+NEW BEST: epoch 28 best valid F1 97.08 test F1 92.75                     
+epoch 29 valid F1 96.99 test F1 93.3                     
+
+epoch 30 valid F1 97.09 test F1 92.8                     
+NEW BEST: epoch 30 best valid F1 97.09 test F1 92.8                     
+epoch 31 valid F1 96.72 test F1 93.19                     
+
+epoch 32 valid F1 96.67 test F1 93.11                     
+
+epoch 33 valid F1 96.93 test F1 93.74                     
+
+epoch 34 valid F1 96.7 test F1 93.17                     
+
+epoch 35 valid F1 97.19 test F1 93.95                     
+NEW BEST: epoch 35 best valid F1 97.19 test F1 93.95                     
+epoch 36 valid F1 96.54 test F1 93.28                     
+
+epoch 37 valid F1 96.93 test F1 93.66                     
+
+epoch 38 valid F1 96.7 test F1 94.09                     
+
+Using TensorFlow backend.
+epoch 39 valid F1 97.13 test F1 93.2                     
+
+BEST RESULT: epoch 35 best valid F1 97.19 test F1 93.95 with the model out/bilstm-lm
+2018-02-06 16:17:21.193553: I tensorflow/core/platform/cpu_feature_guard.cc:137] Your CPU supports instructions that this TensorFlow binary was not compiled to use: SSE4.1 SSE4.2 AVX AVX2 FMA
+2018-02-06 16:17:21.453558: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1030] Found device 0 with properties: 
+name: GeForce GTX 1080 Ti major: 6 minor: 1 memoryClockRate(GHz): 1.683
+pciBusID: 0000:05:00.0
+totalMemory: 10.91GiB freeMemory: 10.25GiB
+2018-02-06 16:17:21.647169: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1030] Found device 1 with properties: 
+name: GeForce GTX 1080 Ti major: 6 minor: 1 memoryClockRate(GHz): 1.683
+pciBusID: 0000:06:00.0
+totalMemory: 10.91GiB freeMemory: 10.75GiB
+2018-02-06 16:17:21.647896: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1045] Device peer to peer matrix
+2018-02-06 16:17:21.647925: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1051] DMA: 0 1 
+2018-02-06 16:17:21.647932: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1061] 0:   Y Y 
+2018-02-06 16:17:21.647936: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1061] 1:   Y Y 
+2018-02-06 16:17:21.647944: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1120] Creating TensorFlow device (/device:GPU:0) -> (device: 0, name: GeForce GTX 1080 Ti, pci bus id: 0000:05:00.0, compute capability: 6.1)
+2018-02-06 16:17:21.647950: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1120] Creating TensorFlow device (/device:GPU:1) -> (device: 1, name: GeForce GTX 1080 Ti, pci bus id: 0000:06:00.0, compute capability: 6.1)
+ATIS fold: 3
+with language model: False
+with GloVe: False
+with bi-LSTM: False
+Training epochs: 40
+Training data size: 800
+epoch 0 valid F1 56.01 test F1 49.92                     
+NEW BEST: epoch 0 best valid F1 56.01 test F1 49.92                     
+epoch 1 valid F1 58.39 test F1 52.2                     
+NEW BEST: epoch 1 best valid F1 58.39 test F1 52.2                     
+epoch 2 valid F1 63.18 test F1 57.1                     
+NEW BEST: epoch 2 best valid F1 63.18 test F1 57.1                     
+epoch 3 valid F1 70.17 test F1 65.02                     
+NEW BEST: epoch 3 best valid F1 70.17 test F1 65.02                     
+epoch 4 valid F1 77.86 test F1 73.26                     
+NEW BEST: epoch 4 best valid F1 77.86 test F1 73.26                     
+epoch 5 valid F1 79.02 test F1 76.57                     
+NEW BEST: epoch 5 best valid F1 79.02 test F1 76.57                     
+epoch 6 valid F1 82.22 test F1 77.57                     
+NEW BEST: epoch 6 best valid F1 82.22 test F1 77.57                     
+epoch 7 valid F1 83.86 test F1 77.91                     
+NEW BEST: epoch 7 best valid F1 83.86 test F1 77.91                     
+epoch 8 valid F1 85.54 test F1 80.97                     
+NEW BEST: epoch 8 best valid F1 85.54 test F1 80.97                     
+epoch 9 valid F1 85.8 test F1 80.95                     
+NEW BEST: epoch 9 best valid F1 85.8 test F1 80.95                     
+epoch 10 valid F1 85.76 test F1 80.65                     
+
+epoch 11 valid F1 88.3 test F1 84.28                     
+NEW BEST: epoch 11 best valid F1 88.3 test F1 84.28                     
+epoch 12 valid F1 89.88 test F1 85.29                     
+NEW BEST: epoch 12 best valid F1 89.88 test F1 85.29                     
+epoch 13 valid F1 90.32 test F1 85.5                     
+NEW BEST: epoch 13 best valid F1 90.32 test F1 85.5                     
+epoch 14 valid F1 90.72 test F1 86.1                     
+NEW BEST: epoch 14 best valid F1 90.72 test F1 86.1                     
+epoch 15 valid F1 91.85 test F1 88.2                     
+NEW BEST: epoch 15 best valid F1 91.85 test F1 88.2                     
+epoch 16 valid F1 92.27 test F1 87.9                     
+NEW BEST: epoch 16 best valid F1 92.27 test F1 87.9                     
+epoch 17 valid F1 92.67 test F1 88.44                     
+NEW BEST: epoch 17 best valid F1 92.67 test F1 88.44                     
+epoch 18 valid F1 92.27 test F1 87.51                     
+
+epoch 19 valid F1 93.43 test F1 88.81                     
+NEW BEST: epoch 19 best valid F1 93.43 test F1 88.81                     
+epoch 20 valid F1 93.04 test F1 87.88                     
+
+epoch 21 valid F1 92.99 test F1 89.27                     
+
+epoch 22 valid F1 93.15 test F1 88.87                     
+
+epoch 23 valid F1 93.95 test F1 89.12                     
+NEW BEST: epoch 23 best valid F1 93.95 test F1 89.12                     
+epoch 24 valid F1 94.01 test F1 89.09                     
+NEW BEST: epoch 24 best valid F1 94.01 test F1 89.09                     
+epoch 25 valid F1 93.53 test F1 88.73                     
+
+epoch 26 valid F1 93.61 test F1 89.43                     
+
+epoch 27 valid F1 93.64 test F1 89.06                     
+
+epoch 28 valid F1 93.39 test F1 89.55                     
+
+epoch 29 valid F1 94.08 test F1 89.85                     
+NEW BEST: epoch 29 best valid F1 94.08 test F1 89.85                     
+epoch 30 valid F1 93.88 test F1 89.66                     
+
+epoch 31 valid F1 94.23 test F1 89.7                     
+NEW BEST: epoch 31 best valid F1 94.23 test F1 89.7                     
+epoch 32 valid F1 94.23 test F1 89.91                     
+
+epoch 33 valid F1 93.16 test F1 89.4                     
+
+epoch 34 valid F1 94.45 test F1 90.41                     
+NEW BEST: epoch 34 best valid F1 94.45 test F1 90.41                     
+epoch 35 valid F1 94.26 test F1 90.47                     
+
+epoch 36 valid F1 94.33 test F1 90.22                     
+
+epoch 37 valid F1 94.09 test F1 90.36                     
+
+epoch 38 valid F1 94.35 test F1 90.41                     
+
+Using TensorFlow backend.
+epoch 39 valid F1 94.99 test F1 91.26                     
+NEW BEST: epoch 39 best valid F1 94.99 test F1 91.26                     
+BEST RESULT: epoch 39 best valid F1 94.99 test F1 91.26 with the model out/bilstm-lm
+2018-02-06 16:32:37.251862: I tensorflow/core/platform/cpu_feature_guard.cc:137] Your CPU supports instructions that this TensorFlow binary was not compiled to use: SSE4.1 SSE4.2 AVX AVX2 FMA
+2018-02-06 16:32:37.516865: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1030] Found device 0 with properties: 
+name: GeForce GTX 1080 Ti major: 6 minor: 1 memoryClockRate(GHz): 1.683
+pciBusID: 0000:05:00.0
+totalMemory: 10.91GiB freeMemory: 10.25GiB
+2018-02-06 16:32:37.710182: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1030] Found device 1 with properties: 
+name: GeForce GTX 1080 Ti major: 6 minor: 1 memoryClockRate(GHz): 1.683
+pciBusID: 0000:06:00.0
+totalMemory: 10.91GiB freeMemory: 10.75GiB
+2018-02-06 16:32:37.710855: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1045] Device peer to peer matrix
+2018-02-06 16:32:37.710882: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1051] DMA: 0 1 
+2018-02-06 16:32:37.710889: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1061] 0:   Y Y 
+2018-02-06 16:32:37.710901: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1061] 1:   Y Y 
+2018-02-06 16:32:37.710908: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1120] Creating TensorFlow device (/device:GPU:0) -> (device: 0, name: GeForce GTX 1080 Ti, pci bus id: 0000:05:00.0, compute capability: 6.1)
+2018-02-06 16:32:37.710912: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1120] Creating TensorFlow device (/device:GPU:1) -> (device: 1, name: GeForce GTX 1080 Ti, pci bus id: 0000:06:00.0, compute capability: 6.1)
+ATIS fold: 3
+with language model: True
+with GloVe: False
+with bi-LSTM: False
+Training epochs: 40
+Training data size: 800
+epoch 0 valid F1 72.73 test F1 68.11                     
+NEW BEST: epoch 0 best valid F1 72.73 test F1 68.11                     
+epoch 1 valid F1 81.27 test F1 75.83                     
+NEW BEST: epoch 1 best valid F1 81.27 test F1 75.83                     
+epoch 2 valid F1 83.33 test F1 78.46                     
+NEW BEST: epoch 2 best valid F1 83.33 test F1 78.46                     
+epoch 3 valid F1 87.29 test F1 82.13                     
+NEW BEST: epoch 3 best valid F1 87.29 test F1 82.13                     
+epoch 4 valid F1 90.62 test F1 86.09                     
+NEW BEST: epoch 4 best valid F1 90.62 test F1 86.09                     
+epoch 5 valid F1 89.52 test F1 84.9                     
+
+epoch 6 valid F1 92.05 test F1 87.81                     
+NEW BEST: epoch 6 best valid F1 92.05 test F1 87.81                     
+epoch 7 valid F1 91.74 test F1 87.23                     
+
+epoch 8 valid F1 92.1 test F1 87.34                     
+NEW BEST: epoch 8 best valid F1 92.1 test F1 87.34                     
+epoch 9 valid F1 93.55 test F1 88.4                     
+NEW BEST: epoch 9 best valid F1 93.55 test F1 88.4                     
+epoch 10 valid F1 91.4 test F1 86.61                     
+
+epoch 11 valid F1 92.91 test F1 88.54                     
+
+epoch 12 valid F1 92.43 test F1 87.98                     
+
+epoch 13 valid F1 93.2 test F1 88.93                     
+
+epoch 14 valid F1 93.98 test F1 89.58                     
+NEW BEST: epoch 14 best valid F1 93.98 test F1 89.58                     
+epoch 15 valid F1 94.15 test F1 89.35                     
+NEW BEST: epoch 15 best valid F1 94.15 test F1 89.35                     
+epoch 16 valid F1 94.04 test F1 89.56                     
+
+epoch 17 valid F1 94.03 test F1 89.25                     
+
+epoch 18 valid F1 94.73 test F1 89.06                     
+NEW BEST: epoch 18 best valid F1 94.73 test F1 89.06                     
+epoch 19 valid F1 95.36 test F1 90.26                     
+NEW BEST: epoch 19 best valid F1 95.36 test F1 90.26                     
+epoch 20 valid F1 94.74 test F1 90.07                     
+
+epoch 21 valid F1 94.94 test F1 89.31                     
+
+epoch 22 valid F1 94.64 test F1 89.43                     
+
+epoch 23 valid F1 94.94 test F1 90.29                     
+
+epoch 24 valid F1 95.11 test F1 90.42                     
+
+epoch 25 valid F1 94.74 test F1 90.47                     
+
+epoch 26 valid F1 95.08 test F1 90.42                     
+
+epoch 27 valid F1 95.27 test F1 90.79                     
+
+epoch 28 valid F1 94.51 test F1 89.65                     
+
+Using TensorFlow backend.
+epoch 29 valid F1 94.38 test F1 89.08                     
+
+BEST RESULT: epoch 19 best valid F1 95.36 test F1 90.26 with the model out/bilstm-lm
+2018-02-06 16:51:25.152299: I tensorflow/core/platform/cpu_feature_guard.cc:137] Your CPU supports instructions that this TensorFlow binary was not compiled to use: SSE4.1 SSE4.2 AVX AVX2 FMA
+2018-02-06 16:51:25.429341: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1030] Found device 0 with properties: 
+name: GeForce GTX 1080 Ti major: 6 minor: 1 memoryClockRate(GHz): 1.683
+pciBusID: 0000:05:00.0
+totalMemory: 10.91GiB freeMemory: 10.25GiB
+2018-02-06 16:51:25.636979: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1030] Found device 1 with properties: 
+name: GeForce GTX 1080 Ti major: 6 minor: 1 memoryClockRate(GHz): 1.683
+pciBusID: 0000:06:00.0
+totalMemory: 10.91GiB freeMemory: 10.75GiB
+2018-02-06 16:51:25.637736: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1045] Device peer to peer matrix
+2018-02-06 16:51:25.637767: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1051] DMA: 0 1 
+2018-02-06 16:51:25.637774: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1061] 0:   Y Y 
+2018-02-06 16:51:25.637778: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1061] 1:   Y Y 
+2018-02-06 16:51:25.637785: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1120] Creating TensorFlow device (/device:GPU:0) -> (device: 0, name: GeForce GTX 1080 Ti, pci bus id: 0000:05:00.0, compute capability: 6.1)
+2018-02-06 16:51:25.637790: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1120] Creating TensorFlow device (/device:GPU:1) -> (device: 1, name: GeForce GTX 1080 Ti, pci bus id: 0000:06:00.0, compute capability: 6.1)
+ATIS fold: 3
+with language model: True
+with GloVe: False
+with bi-LSTM: True
+Training epochs: 40
+Training data size: 800
+epoch 0 valid F1 76.2 test F1 71.43                     
+NEW BEST: epoch 0 best valid F1 76.2 test F1 71.43                     
+epoch 1 valid F1 80.98 test F1 77.59                     
+NEW BEST: epoch 1 best valid F1 80.98 test F1 77.59                     
+epoch 2 valid F1 83.15 test F1 79.92                     
+NEW BEST: epoch 2 best valid F1 83.15 test F1 79.92                     
+epoch 3 valid F1 89.22 test F1 85.24                     
+NEW BEST: epoch 3 best valid F1 89.22 test F1 85.24                     
+epoch 4 valid F1 90.31 test F1 86.27                     
+NEW BEST: epoch 4 best valid F1 90.31 test F1 86.27                     
+epoch 5 valid F1 88.34 test F1 82.86                     
+
+epoch 6 valid F1 92.15 test F1 88.29                     
+NEW BEST: epoch 6 best valid F1 92.15 test F1 88.29                     
+epoch 7 valid F1 92.93 test F1 89.66                     
+NEW BEST: epoch 7 best valid F1 92.93 test F1 89.66                     
+epoch 8 valid F1 92.31 test F1 88.7                     
+
+epoch 9 valid F1 93.98 test F1 90.01                     
+NEW BEST: epoch 9 best valid F1 93.98 test F1 90.01                     
+epoch 10 valid F1 94.1 test F1 89.21                     
+NEW BEST: epoch 10 best valid F1 94.1 test F1 89.21                     
+epoch 11 valid F1 94.47 test F1 90.19                     
+NEW BEST: epoch 11 best valid F1 94.47 test F1 90.19                     
+epoch 12 valid F1 94.5 test F1 89.82                     
+NEW BEST: epoch 12 best valid F1 94.5 test F1 89.82                     
+epoch 13 valid F1 94.04 test F1 90.29                     
+
+epoch 14 valid F1 94.83 test F1 89.48                     
+NEW BEST: epoch 14 best valid F1 94.83 test F1 89.48                     
+epoch 15 valid F1 95.58 test F1 90.74                     
+NEW BEST: epoch 15 best valid F1 95.58 test F1 90.74                     
+epoch 16 valid F1 95.71 test F1 91.83                     
+NEW BEST: epoch 16 best valid F1 95.71 test F1 91.83                     
+epoch 17 valid F1 95.25 test F1 91.21                     
+
+epoch 18 valid F1 95.42 test F1 90.79                     
+
+epoch 19 valid F1 96.0 test F1 91.61                     
+NEW BEST: epoch 19 best valid F1 96.0 test F1 91.61                     
+epoch 20 valid F1 95.59 test F1 91.39                     
+
+epoch 21 valid F1 95.21 test F1 90.54                     
+
+epoch 22 valid F1 95.53 test F1 90.83                     
+
+epoch 23 valid F1 95.73 test F1 90.06                     
+
+epoch 24 valid F1 96.27 test F1 91.3                     
+NEW BEST: epoch 24 best valid F1 96.27 test F1 91.3                     
+epoch 25 valid F1 96.15 test F1 91.2                     
+
+epoch 26 valid F1 96.45 test F1 91.81                     
+NEW BEST: epoch 26 best valid F1 96.45 test F1 91.81                     
+epoch 27 valid F1 96.99 test F1 92.66                     
+NEW BEST: epoch 27 best valid F1 96.99 test F1 92.66                     
+epoch 28 valid F1 96.49 test F1 92.05                     
+
+epoch 29 valid F1 96.36 test F1 91.29                     
+
+epoch 30 valid F1 96.7 test F1 91.5                     
+
+epoch 31 valid F1 96.24 test F1 91.56                     
+
+epoch 32 valid F1 96.82 test F1 92.96                     
+
+epoch 33 valid F1 96.55 test F1 92.49                     
+
+epoch 34 valid F1 96.28 test F1 91.24                     
+
+epoch 35 valid F1 96.79 test F1 92.02                     
+
+epoch 36 valid F1 96.39 test F1 91.59                     
+
+Using TensorFlow backend.
+epoch 37 valid F1 96.49 test F1 92.46                     
+
+BEST RESULT: epoch 27 best valid F1 96.99 test F1 92.66 with the model out/bilstm-lm
+2018-02-06 17:33:03.496222: I tensorflow/core/platform/cpu_feature_guard.cc:137] Your CPU supports instructions that this TensorFlow binary was not compiled to use: SSE4.1 SSE4.2 AVX AVX2 FMA
+2018-02-06 17:33:03.769901: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1030] Found device 0 with properties: 
+name: GeForce GTX 1080 Ti major: 6 minor: 1 memoryClockRate(GHz): 1.683
+pciBusID: 0000:05:00.0
+totalMemory: 10.91GiB freeMemory: 10.25GiB
+2018-02-06 17:33:03.966189: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1030] Found device 1 with properties: 
+name: GeForce GTX 1080 Ti major: 6 minor: 1 memoryClockRate(GHz): 1.683
+pciBusID: 0000:06:00.0
+totalMemory: 10.91GiB freeMemory: 10.75GiB
+2018-02-06 17:33:03.966854: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1045] Device peer to peer matrix
+2018-02-06 17:33:03.966881: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1051] DMA: 0 1 
+2018-02-06 17:33:03.966888: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1061] 0:   Y Y 
+2018-02-06 17:33:03.966891: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1061] 1:   Y Y 
+2018-02-06 17:33:03.966899: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1120] Creating TensorFlow device (/device:GPU:0) -> (device: 0, name: GeForce GTX 1080 Ti, pci bus id: 0000:05:00.0, compute capability: 6.1)
+2018-02-06 17:33:03.966903: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1120] Creating TensorFlow device (/device:GPU:1) -> (device: 1, name: GeForce GTX 1080 Ti, pci bus id: 0000:06:00.0, compute capability: 6.1)
+ATIS fold: 3
+with language model: True
+with GloVe: True
+with bi-LSTM: True
+Training epochs: 40
+Training data size: 800
+epoch 0 valid F1 76.0 test F1 71.85                     
+NEW BEST: epoch 0 best valid F1 76.0 test F1 71.85                     
+epoch 1 valid F1 84.34 test F1 81.03                     
+NEW BEST: epoch 1 best valid F1 84.34 test F1 81.03                     
+epoch 2 valid F1 87.39 test F1 84.14                     
+NEW BEST: epoch 2 best valid F1 87.39 test F1 84.14                     
+epoch 3 valid F1 91.31 test F1 88.85                     
+NEW BEST: epoch 3 best valid F1 91.31 test F1 88.85                     
+epoch 4 valid F1 92.37 test F1 87.48                     
+NEW BEST: epoch 4 best valid F1 92.37 test F1 87.48                     
+epoch 5 valid F1 94.11 test F1 91.17                     
+NEW BEST: epoch 5 best valid F1 94.11 test F1 91.17                     
+epoch 6 valid F1 94.42 test F1 91.63                     
+NEW BEST: epoch 6 best valid F1 94.42 test F1 91.63                     
+epoch 7 valid F1 94.32 test F1 90.29                     
+
+epoch 8 valid F1 94.26 test F1 91.54                     
+
+epoch 9 valid F1 94.56 test F1 90.4                     
+NEW BEST: epoch 9 best valid F1 94.56 test F1 90.4                     
+epoch 10 valid F1 96.01 test F1 91.96                     
+NEW BEST: epoch 10 best valid F1 96.01 test F1 91.96                     
+epoch 11 valid F1 96.38 test F1 92.84                     
+NEW BEST: epoch 11 best valid F1 96.38 test F1 92.84                     
+epoch 12 valid F1 96.15 test F1 92.83                     
+
+epoch 13 valid F1 95.53 test F1 92.6                     
+
+epoch 14 valid F1 96.45 test F1 93.05                     
+NEW BEST: epoch 14 best valid F1 96.45 test F1 93.05                     
+epoch 15 valid F1 96.96 test F1 92.95                     
+NEW BEST: epoch 15 best valid F1 96.96 test F1 92.95                     
+epoch 16 valid F1 96.65 test F1 93.04                     
+
+epoch 17 valid F1 95.93 test F1 93.15                     
+
+epoch 18 valid F1 96.96 test F1 93.82                     
+
+epoch 19 valid F1 96.62 test F1 93.55                     
+
+epoch 20 valid F1 97.01 test F1 93.88                     
+NEW BEST: epoch 20 best valid F1 97.01 test F1 93.88                     
+epoch 21 valid F1 96.37 test F1 92.87                     
+
+epoch 22 valid F1 96.69 test F1 93.16                     
+
+epoch 23 valid F1 96.81 test F1 93.38                     
+
+epoch 24 valid F1 97.04 test F1 93.38                     
+NEW BEST: epoch 24 best valid F1 97.04 test F1 93.38                     
+epoch 25 valid F1 96.89 test F1 93.7                     
+
+epoch 26 valid F1 96.84 test F1 94.0                     
+
+epoch 27 valid F1 97.43 test F1 93.86                     
+NEW BEST: epoch 27 best valid F1 97.43 test F1 93.86                     
+epoch 28 valid F1 96.94 test F1 93.77                     
+
+epoch 29 valid F1 97.21 test F1 93.3                     
+
+epoch 30 valid F1 97.04 test F1 93.52                     
+
+epoch 31 valid F1 96.99 test F1 93.8                     
+
+epoch 32 valid F1 96.8 test F1 92.91                     
+
+epoch 33 valid F1 96.9 test F1 93.74                     
+
+epoch 34 valid F1 97.35 test F1 94.05                     
+
+epoch 35 valid F1 97.04 test F1 93.8                     
+
+epoch 36 valid F1 97.24 test F1 93.44                     
+
+epoch 37 valid F1 97.45 test F1 93.4                     
+NEW BEST: epoch 37 best valid F1 97.45 test F1 93.4                     
+epoch 38 valid F1 97.27 test F1 93.78                     
+
+Using TensorFlow backend.
+epoch 39 valid F1 97.4 test F1 93.69                     
+
+BEST RESULT: epoch 37 best valid F1 97.45 test F1 93.4 with the model out/bilstm-lm
+2018-02-06 18:16:08.297562: I tensorflow/core/platform/cpu_feature_guard.cc:137] Your CPU supports instructions that this TensorFlow binary was not compiled to use: SSE4.1 SSE4.2 AVX AVX2 FMA
+2018-02-06 18:16:08.582675: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1030] Found device 0 with properties: 
+name: GeForce GTX 1080 Ti major: 6 minor: 1 memoryClockRate(GHz): 1.683
+pciBusID: 0000:05:00.0
+totalMemory: 10.91GiB freeMemory: 10.25GiB
+2018-02-06 18:16:08.789078: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1030] Found device 1 with properties: 
+name: GeForce GTX 1080 Ti major: 6 minor: 1 memoryClockRate(GHz): 1.683
+pciBusID: 0000:06:00.0
+totalMemory: 10.91GiB freeMemory: 10.75GiB
+2018-02-06 18:16:08.789814: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1045] Device peer to peer matrix
+2018-02-06 18:16:08.789844: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1051] DMA: 0 1 
+2018-02-06 18:16:08.789851: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1061] 0:   Y Y 
+2018-02-06 18:16:08.789856: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1061] 1:   Y Y 
+2018-02-06 18:16:08.789864: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1120] Creating TensorFlow device (/device:GPU:0) -> (device: 0, name: GeForce GTX 1080 Ti, pci bus id: 0000:05:00.0, compute capability: 6.1)
+2018-02-06 18:16:08.789869: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1120] Creating TensorFlow device (/device:GPU:1) -> (device: 1, name: GeForce GTX 1080 Ti, pci bus id: 0000:06:00.0, compute capability: 6.1)
+ATIS fold: 3
+with language model: False
+with GloVe: False
+with bi-LSTM: False
+Training epochs: 40
+Training data size: 1000
+epoch 0 valid F1 55.49 test F1 49.19                     
+NEW BEST: epoch 0 best valid F1 55.49 test F1 49.19                     
+epoch 1 valid F1 60.59 test F1 52.05                     
+NEW BEST: epoch 1 best valid F1 60.59 test F1 52.05                     
+epoch 2 valid F1 67.71 test F1 63.43                     
+NEW BEST: epoch 2 best valid F1 67.71 test F1 63.43                     
+epoch 3 valid F1 79.85 test F1 73.37                     
+NEW BEST: epoch 3 best valid F1 79.85 test F1 73.37                     
+epoch 4 valid F1 82.41 test F1 76.29                     
+NEW BEST: epoch 4 best valid F1 82.41 test F1 76.29                     
+epoch 5 valid F1 85.24 test F1 80.67                     
+NEW BEST: epoch 5 best valid F1 85.24 test F1 80.67                     
+epoch 6 valid F1 88.44 test F1 84.38                     
+NEW BEST: epoch 6 best valid F1 88.44 test F1 84.38                     
+epoch 7 valid F1 88.86 test F1 84.27                     
+NEW BEST: epoch 7 best valid F1 88.86 test F1 84.27                     
+epoch 8 valid F1 90.43 test F1 85.83                     
+NEW BEST: epoch 8 best valid F1 90.43 test F1 85.83                     
+epoch 9 valid F1 91.18 test F1 87.69                     
+NEW BEST: epoch 9 best valid F1 91.18 test F1 87.69                     
+epoch 10 valid F1 91.49 test F1 87.21                     
+NEW BEST: epoch 10 best valid F1 91.49 test F1 87.21                     
+epoch 11 valid F1 91.38 test F1 87.13                     
+
+epoch 12 valid F1 91.76 test F1 87.32                     
+NEW BEST: epoch 12 best valid F1 91.76 test F1 87.32                     
+epoch 13 valid F1 92.77 test F1 88.28                     
+NEW BEST: epoch 13 best valid F1 92.77 test F1 88.28                     
+epoch 14 valid F1 92.64 test F1 88.29                     
+
+epoch 15 valid F1 93.21 test F1 88.08                     
+NEW BEST: epoch 15 best valid F1 93.21 test F1 88.08                     
+epoch 16 valid F1 93.55 test F1 88.62                     
+NEW BEST: epoch 16 best valid F1 93.55 test F1 88.62                     
+epoch 17 valid F1 94.17 test F1 89.27                     
+NEW BEST: epoch 17 best valid F1 94.17 test F1 89.27                     
+epoch 18 valid F1 94.25 test F1 89.71                     
+NEW BEST: epoch 18 best valid F1 94.25 test F1 89.71                     
+epoch 19 valid F1 94.13 test F1 89.89                     
+
+epoch 20 valid F1 94.52 test F1 89.72                     
+NEW BEST: epoch 20 best valid F1 94.52 test F1 89.72                     
+epoch 21 valid F1 94.66 test F1 90.04                     
+NEW BEST: epoch 21 best valid F1 94.66 test F1 90.04                     
+epoch 22 valid F1 94.62 test F1 89.76                     
+
+epoch 23 valid F1 94.2 test F1 89.79                     
+
+epoch 24 valid F1 94.58 test F1 89.77                     
+
+epoch 25 valid F1 94.38 test F1 89.87                     
+
+epoch 26 valid F1 94.56 test F1 90.03                     
+
+epoch 27 valid F1 94.21 test F1 90.27                     
+
+epoch 28 valid F1 94.88 test F1 90.31                     
+NEW BEST: epoch 28 best valid F1 94.88 test F1 90.31                     
+epoch 29 valid F1 94.95 test F1 90.52                     
+NEW BEST: epoch 29 best valid F1 94.95 test F1 90.52                     
+epoch 30 valid F1 95.09 test F1 90.35                     
+NEW BEST: epoch 30 best valid F1 95.09 test F1 90.35                     
+epoch 31 valid F1 94.88 test F1 90.91                     
+
+epoch 32 valid F1 94.88 test F1 91.46                     
+
+epoch 33 valid F1 95.05 test F1 91.3                     
+
+epoch 34 valid F1 95.33 test F1 90.82                     
+NEW BEST: epoch 34 best valid F1 95.33 test F1 90.82                     
+epoch 35 valid F1 94.99 test F1 91.23                     
+
+epoch 36 valid F1 95.18 test F1 91.27                     
+
+epoch 37 valid F1 95.28 test F1 91.67                     
+
+epoch 38 valid F1 95.25 test F1 91.4                     
+
+Using TensorFlow backend.
+epoch 39 valid F1 94.84 test F1 91.12                     
+
+BEST RESULT: epoch 34 best valid F1 95.33 test F1 90.82 with the model out/bilstm-lm
+2018-02-06 18:32:53.993507: I tensorflow/core/platform/cpu_feature_guard.cc:137] Your CPU supports instructions that this TensorFlow binary was not compiled to use: SSE4.1 SSE4.2 AVX AVX2 FMA
+2018-02-06 18:32:54.265768: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1030] Found device 0 with properties: 
+name: GeForce GTX 1080 Ti major: 6 minor: 1 memoryClockRate(GHz): 1.683
+pciBusID: 0000:05:00.0
+totalMemory: 10.91GiB freeMemory: 10.25GiB
+2018-02-06 18:32:54.457682: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1030] Found device 1 with properties: 
+name: GeForce GTX 1080 Ti major: 6 minor: 1 memoryClockRate(GHz): 1.683
+pciBusID: 0000:06:00.0
+totalMemory: 10.91GiB freeMemory: 10.75GiB
+2018-02-06 18:32:54.458356: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1045] Device peer to peer matrix
+2018-02-06 18:32:54.458383: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1051] DMA: 0 1 
+2018-02-06 18:32:54.458390: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1061] 0:   Y Y 
+2018-02-06 18:32:54.458394: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1061] 1:   Y Y 
+2018-02-06 18:32:54.458403: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1120] Creating TensorFlow device (/device:GPU:0) -> (device: 0, name: GeForce GTX 1080 Ti, pci bus id: 0000:05:00.0, compute capability: 6.1)
+2018-02-06 18:32:54.458408: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1120] Creating TensorFlow device (/device:GPU:1) -> (device: 1, name: GeForce GTX 1080 Ti, pci bus id: 0000:06:00.0, compute capability: 6.1)
+ATIS fold: 3
+with language model: True
+with GloVe: False
+with bi-LSTM: False
+Training epochs: 40
+Training data size: 1000
+epoch 0 valid F1 73.02 test F1 68.62                     
+NEW BEST: epoch 0 best valid F1 73.02 test F1 68.62                     
+epoch 1 valid F1 83.16 test F1 78.87                     
+NEW BEST: epoch 1 best valid F1 83.16 test F1 78.87                     
+epoch 2 valid F1 88.23 test F1 83.1                     
+NEW BEST: epoch 2 best valid F1 88.23 test F1 83.1                     
+epoch 3 valid F1 89.06 test F1 85.53                     
+NEW BEST: epoch 3 best valid F1 89.06 test F1 85.53                     
+epoch 4 valid F1 91.64 test F1 85.95                     
+NEW BEST: epoch 4 best valid F1 91.64 test F1 85.95                     
+epoch 5 valid F1 90.87 test F1 86.65                     
+
+epoch 6 valid F1 91.55 test F1 88.28                     
+
+epoch 7 valid F1 92.52 test F1 85.97                     
+NEW BEST: epoch 7 best valid F1 92.52 test F1 85.97                     
+epoch 8 valid F1 93.41 test F1 89.42                     
+NEW BEST: epoch 8 best valid F1 93.41 test F1 89.42                     
+epoch 9 valid F1 94.33 test F1 89.12                     
+NEW BEST: epoch 9 best valid F1 94.33 test F1 89.12                     
+epoch 10 valid F1 92.56 test F1 88.42                     
+
+epoch 11 valid F1 93.91 test F1 88.33                     
+
+epoch 12 valid F1 94.57 test F1 88.85                     
+NEW BEST: epoch 12 best valid F1 94.57 test F1 88.85                     
+epoch 13 valid F1 93.81 test F1 89.59                     
+
+epoch 14 valid F1 94.22 test F1 89.06                     
+
+epoch 15 valid F1 94.46 test F1 88.75                     
+
+epoch 16 valid F1 95.07 test F1 89.29                     
+NEW BEST: epoch 16 best valid F1 95.07 test F1 89.29                     
+epoch 17 valid F1 94.53 test F1 88.15                     
+
+epoch 18 valid F1 95.47 test F1 90.18                     
+NEW BEST: epoch 18 best valid F1 95.47 test F1 90.18                     
+epoch 19 valid F1 95.23 test F1 89.56                     
+
+epoch 20 valid F1 94.84 test F1 89.62                     
+
+epoch 21 valid F1 95.61 test F1 89.68                     
+NEW BEST: epoch 21 best valid F1 95.61 test F1 89.68                     
+epoch 22 valid F1 95.12 test F1 89.24                     
+
+epoch 23 valid F1 95.51 test F1 90.13                     
+
+epoch 24 valid F1 95.08 test F1 90.19                     
+
+epoch 25 valid F1 95.17 test F1 89.41                     
+
+epoch 26 valid F1 94.49 test F1 88.97                     
+
+epoch 27 valid F1 95.19 test F1 90.36                     
+
+epoch 28 valid F1 95.44 test F1 90.11                     
+
+epoch 29 valid F1 95.53 test F1 91.25                     
+
+epoch 30 valid F1 95.38 test F1 90.63                     
+
+Using TensorFlow backend.
+epoch 31 valid F1 95.46 test F1 90.76                     
+
+BEST RESULT: epoch 21 best valid F1 95.61 test F1 89.68 with the model out/bilstm-lm
+2018-02-06 18:56:17.253986: I tensorflow/core/platform/cpu_feature_guard.cc:137] Your CPU supports instructions that this TensorFlow binary was not compiled to use: SSE4.1 SSE4.2 AVX AVX2 FMA
+2018-02-06 18:56:17.509603: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1030] Found device 0 with properties: 
+name: GeForce GTX 1080 Ti major: 6 minor: 1 memoryClockRate(GHz): 1.683
+pciBusID: 0000:05:00.0
+totalMemory: 10.91GiB freeMemory: 10.25GiB
+2018-02-06 18:56:17.687448: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1030] Found device 1 with properties: 
+name: GeForce GTX 1080 Ti major: 6 minor: 1 memoryClockRate(GHz): 1.683
+pciBusID: 0000:06:00.0
+totalMemory: 10.91GiB freeMemory: 10.75GiB
+2018-02-06 18:56:17.688114: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1045] Device peer to peer matrix
+2018-02-06 18:56:17.688142: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1051] DMA: 0 1 
+2018-02-06 18:56:17.688148: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1061] 0:   Y Y 
+2018-02-06 18:56:17.688152: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1061] 1:   Y Y 
+2018-02-06 18:56:17.688159: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1120] Creating TensorFlow device (/device:GPU:0) -> (device: 0, name: GeForce GTX 1080 Ti, pci bus id: 0000:05:00.0, compute capability: 6.1)
+2018-02-06 18:56:17.688163: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1120] Creating TensorFlow device (/device:GPU:1) -> (device: 1, name: GeForce GTX 1080 Ti, pci bus id: 0000:06:00.0, compute capability: 6.1)
+ATIS fold: 3
+with language model: True
+with GloVe: False
+with bi-LSTM: True
+Training epochs: 40
+Training data size: 1000
+epoch 0 valid F1 76.41 test F1 71.5                     
+NEW BEST: epoch 0 best valid F1 76.41 test F1 71.5                     
+epoch 1 valid F1 86.18 test F1 79.25                     
+NEW BEST: epoch 1 best valid F1 86.18 test F1 79.25                     
+epoch 2 valid F1 89.52 test F1 84.65                     
+NEW BEST: epoch 2 best valid F1 89.52 test F1 84.65                     
+epoch 3 valid F1 91.48 test F1 87.23                     
+NEW BEST: epoch 3 best valid F1 91.48 test F1 87.23                     
+epoch 4 valid F1 91.51 test F1 87.15                     
+NEW BEST: epoch 4 best valid F1 91.51 test F1 87.15                     
+epoch 5 valid F1 91.96 test F1 87.33                     
+NEW BEST: epoch 5 best valid F1 91.96 test F1 87.33                     
+epoch 6 valid F1 92.58 test F1 89.01                     
+NEW BEST: epoch 6 best valid F1 92.58 test F1 89.01                     
+epoch 7 valid F1 93.72 test F1 88.88                     
+NEW BEST: epoch 7 best valid F1 93.72 test F1 88.88                     
+epoch 8 valid F1 94.59 test F1 90.32                     
+NEW BEST: epoch 8 best valid F1 94.59 test F1 90.32                     
+epoch 9 valid F1 95.29 test F1 90.74                     
+NEW BEST: epoch 9 best valid F1 95.29 test F1 90.74                     
+epoch 10 valid F1 94.51 test F1 89.12                     
+
+epoch 11 valid F1 95.23 test F1 90.15                     
+
+epoch 12 valid F1 94.78 test F1 89.27                     
+
+epoch 13 valid F1 96.21 test F1 91.46                     
+NEW BEST: epoch 13 best valid F1 96.21 test F1 91.46                     
+epoch 14 valid F1 95.28 test F1 90.05                     
+
+epoch 15 valid F1 95.37 test F1 90.51                     
+
+epoch 16 valid F1 95.55 test F1 89.71                     
+
+epoch 17 valid F1 96.39 test F1 90.77                     
+NEW BEST: epoch 17 best valid F1 96.39 test F1 90.77                     
+epoch 18 valid F1 96.48 test F1 91.7                     
+NEW BEST: epoch 18 best valid F1 96.48 test F1 91.7                     
+epoch 19 valid F1 96.15 test F1 91.52                     
+
+epoch 20 valid F1 96.04 test F1 91.07                     
+
+epoch 21 valid F1 96.58 test F1 91.5                     
+NEW BEST: epoch 21 best valid F1 96.58 test F1 91.5                     
+epoch 22 valid F1 96.25 test F1 91.52                     
+
+epoch 23 valid F1 96.42 test F1 91.88                     
+
+epoch 24 valid F1 95.85 test F1 91.72                     
+
+epoch 25 valid F1 95.78 test F1 90.69                     
+
+epoch 26 valid F1 95.96 test F1 91.2                     
+
+epoch 27 valid F1 96.48 test F1 91.75                     
+
+epoch 28 valid F1 96.5 test F1 92.04                     
+
+epoch 29 valid F1 95.84 test F1 91.71                     
+
+epoch 30 valid F1 96.59 test F1 92.79                     
+NEW BEST: epoch 30 best valid F1 96.59 test F1 92.79                     
+epoch 31 valid F1 96.66 test F1 92.9                     
+NEW BEST: epoch 31 best valid F1 96.66 test F1 92.9                     
+epoch 32 valid F1 97.02 test F1 92.0                     
+NEW BEST: epoch 32 best valid F1 97.02 test F1 92.0                     
+epoch 33 valid F1 96.79 test F1 92.4                     
+
+epoch 34 valid F1 96.69 test F1 92.43                     
+
+epoch 35 valid F1 96.39 test F1 92.62                     
+
+epoch 36 valid F1 96.51 test F1 91.3                     
+
+epoch 37 valid F1 96.95 test F1 92.41                     
+
+epoch 38 valid F1 96.6 test F1 92.64                     
+
+Using TensorFlow backend.
+epoch 39 valid F1 96.83 test F1 92.82                     
+
+BEST RESULT: epoch 32 best valid F1 97.02 test F1 92.0 with the model out/bilstm-lm
+2018-02-06 19:47:40.360161: I tensorflow/core/platform/cpu_feature_guard.cc:137] Your CPU supports instructions that this TensorFlow binary was not compiled to use: SSE4.1 SSE4.2 AVX AVX2 FMA
+2018-02-06 19:47:40.631171: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1030] Found device 0 with properties: 
+name: GeForce GTX 1080 Ti major: 6 minor: 1 memoryClockRate(GHz): 1.683
+pciBusID: 0000:05:00.0
+totalMemory: 10.91GiB freeMemory: 10.25GiB
+2018-02-06 19:47:40.816246: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1030] Found device 1 with properties: 
+name: GeForce GTX 1080 Ti major: 6 minor: 1 memoryClockRate(GHz): 1.683
+pciBusID: 0000:06:00.0
+totalMemory: 10.91GiB freeMemory: 10.75GiB
+2018-02-06 19:47:40.816937: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1045] Device peer to peer matrix
+2018-02-06 19:47:40.816964: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1051] DMA: 0 1 
+2018-02-06 19:47:40.816971: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1061] 0:   Y Y 
+2018-02-06 19:47:40.816975: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1061] 1:   Y Y 
+2018-02-06 19:47:40.816982: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1120] Creating TensorFlow device (/device:GPU:0) -> (device: 0, name: GeForce GTX 1080 Ti, pci bus id: 0000:05:00.0, compute capability: 6.1)
+2018-02-06 19:47:40.816987: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1120] Creating TensorFlow device (/device:GPU:1) -> (device: 1, name: GeForce GTX 1080 Ti, pci bus id: 0000:06:00.0, compute capability: 6.1)
+ATIS fold: 3
+with language model: True
+with GloVe: True
+with bi-LSTM: True
+Training epochs: 40
+Training data size: 1000
+epoch 0 valid F1 82.37 test F1 78.9                     
+NEW BEST: epoch 0 best valid F1 82.37 test F1 78.9                     
+epoch 1 valid F1 89.22 test F1 85.98                     
+NEW BEST: epoch 1 best valid F1 89.22 test F1 85.98                     
+epoch 2 valid F1 89.51 test F1 85.89                     
+NEW BEST: epoch 2 best valid F1 89.51 test F1 85.89                     
+epoch 3 valid F1 93.22 test F1 89.91                     
+NEW BEST: epoch 3 best valid F1 93.22 test F1 89.91                     
+epoch 4 valid F1 94.24 test F1 90.94                     
+NEW BEST: epoch 4 best valid F1 94.24 test F1 90.94                     
+epoch 5 valid F1 92.04 test F1 89.75                     
+
+epoch 6 valid F1 94.89 test F1 92.15                     
+NEW BEST: epoch 6 best valid F1 94.89 test F1 92.15                     
+epoch 7 valid F1 96.59 test F1 92.61                     
+NEW BEST: epoch 7 best valid F1 96.59 test F1 92.61                     
+epoch 8 valid F1 94.89 test F1 91.47                     
+
+epoch 9 valid F1 96.13 test F1 93.0                     
+
+epoch 10 valid F1 96.17 test F1 92.2                     
+
+epoch 11 valid F1 95.92 test F1 92.65                     
+
+epoch 12 valid F1 95.62 test F1 92.07                     
+
+epoch 13 valid F1 97.11 test F1 93.53                     
+NEW BEST: epoch 13 best valid F1 97.11 test F1 93.53                     
+epoch 14 valid F1 96.35 test F1 92.27                     
+
+epoch 15 valid F1 96.43 test F1 92.21                     
+
+epoch 16 valid F1 97.1 test F1 93.1                     
+
+epoch 17 valid F1 97.13 test F1 94.01                     
+NEW BEST: epoch 17 best valid F1 97.13 test F1 94.01                     
+epoch 18 valid F1 97.06 test F1 93.47                     
+
+epoch 19 valid F1 97.01 test F1 93.2                     
+
+epoch 20 valid F1 97.55 test F1 93.41                     
+NEW BEST: epoch 20 best valid F1 97.55 test F1 93.41                     
+epoch 21 valid F1 97.13 test F1 93.95                     
+
+epoch 22 valid F1 96.98 test F1 93.37                     
+
+epoch 23 valid F1 97.06 test F1 93.36                     
+
+epoch 24 valid F1 97.35 test F1 93.69                     
+
+epoch 25 valid F1 97.21 test F1 92.64                     
+
+epoch 26 valid F1 97.52 test F1 94.11                     
+
+epoch 27 valid F1 97.43 test F1 93.26                     
+
+epoch 28 valid F1 97.1 test F1 93.15                     
+
+epoch 29 valid F1 97.36 test F1 94.15                     
+
+Using TensorFlow backend.
+epoch 30 valid F1 97.38 test F1 93.1                     
+
+BEST RESULT: epoch 20 best valid F1 97.55 test F1 93.41 with the model out/bilstm-lm
+All done
