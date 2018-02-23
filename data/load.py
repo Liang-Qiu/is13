@@ -34,7 +34,7 @@ if __name__ == '__main__':
     # visualize a few sentences
     import pdb
 
-    train, _, test, dic = atisfold(0)
+    train, _, test, dic = atisfold(3)
     word2idx, ne2idx, label2idx = dic['words2idx'], dic['tables2idx'], dic['labels2idx']
 
     idx2word = dict((v, k) for k, v in word2idx.items())
@@ -50,8 +50,8 @@ if __name__ == '__main__':
         for sw, se, sl in zip(eval(e + '_x'), eval(e + '_ne'), eval(e + '_label')):  # one sentence
             nsentence += 1
             print('Number of sentences:', nsentence)
-            print('WORD'.rjust(wlength), 'LABEL'.rjust(wlength))  # text is aligned along the right margin
+            print('WORD'.rjust(wlength), 'LABEL'.rjust(wlength), 'NE'.rjust(wlength))  # text is aligned along the right margin
             for wx, la in zip(sw, sl):  # one word and its corresponding BIO label
-                print(idx2word[wx].rjust(wlength), idx2label[la].rjust(wlength))
+                print(idx2word[wx].rjust(wlength), idx2label[la].rjust(wlength), idx2ne[la].rjust(wlength))
             print('\n' + '**' * 30 + '\n')
             pdb.set_trace()  # python debugger (enter c to continue)
